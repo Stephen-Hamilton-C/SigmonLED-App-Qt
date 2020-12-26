@@ -53,6 +53,8 @@ private slots:
 
 	void on_applyButton_clicked();
 
+	void on_palatteButton_clicked();
+
 private:
 	Ui::MainWindow *ui;
 

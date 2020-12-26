@@ -37,7 +37,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::write(const QString data)
 {
-	svc->writeCharacteristic(cmd, QByteArray::fromStdString(data.toStdString()), QLowEnergyService::WriteMode::WriteSigned);
+	svc->writeCharacteristic(cmd, QByteArray::fromStdString(data.toStdString()), QLowEnergyService::WriteMode::WriteWithoutResponse);
 }
 
 QString MainWindow::convertToWriteable(int num, bool thousand = false)
@@ -97,6 +97,7 @@ void MainWindow::foundDetail(QLowEnergyService::ServiceState newState){
 	ui->onButton->setEnabled(true);
 	ui->offButton->setEnabled(true);
 	ui->colorButton->setEnabled(true);
+	ui->palatteButton->setEnabled(true);
 }
 
 void MainWindow::foundSvc(const QBluetoothUuid uuid)
@@ -207,4 +208,9 @@ void MainWindow::on_applyButton_clicked()
 	write("r"+convertToWriteable(red));
 	write("g"+convertToWriteable(green));
 	write("b"+convertToWriteable(blue));
+}
+
+void MainWindow::on_palatteButton_clicked()
+{
+	ui->stackedWidget->setCurrentIndex(2);
 }
