@@ -144,7 +144,6 @@ void MainWindow::on_backButton_clicked()
 
 void MainWindow::updateColorPreview()
 {
-	qDebug() << "background-color: rgb("+QString::number(red)+","+QString::number(green)+","+QString::number(blue)+")";
 	ui->colorPreview->setStyleSheet("background-color: rgb("+QString::number(red)+","+QString::number(green)+","+QString::number(blue)+")");
 }
 
@@ -204,6 +203,7 @@ void MainWindow::on_brightnessEdit_textEdited(const QString &arg1)
 
 void MainWindow::on_applyButton_clicked()
 {
+	write("x");
 	write("B"+convertToWriteable(bright));
 	write("r"+convertToWriteable(red));
 	write("g"+convertToWriteable(green));
