@@ -460,7 +460,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="mainPage">
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -1028,6 +1028,17 @@
              </colorrole>
             </disabled>
            </palette>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">.QSlider::groove:vertical {
+    width: 6px;
+    margin: 64px 32px;
+}
+
+.QSlider::handle:vertical {
+    margin: -64px -32px;
+    height: -60px;
+}</string>
           </property>
           <property name="maximum">
            <number>255</number>
