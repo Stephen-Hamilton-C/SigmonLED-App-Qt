@@ -1031,13 +1031,13 @@
           </property>
           <property name="styleSheet">
            <string notr="true">.QSlider::groove:vertical {
-    width: 6px;
-    margin: 64px 32px;
+    width: 32px;
+    margin: 128px 64px;
 }
 
 .QSlider::handle:vertical {
-    margin: -64px -32px;
-    height: -60px;
+    margin: -128px -64px;
+    height: -96px;
 }</string>
           </property>
           <property name="maximum">
