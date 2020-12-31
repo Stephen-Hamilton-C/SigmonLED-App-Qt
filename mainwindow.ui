@@ -580,8 +580,192 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page_2">
+      <widget class="QWidget" name="colorPage">
        <layout class="QGridLayout" name="gridLayout">
+        <item row="3" column="1">
+         <widget class="QLabel" name="greenLabel">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: #00FF00</string>
+          </property>
+          <property name="text">
+           <string>Green</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="buddy">
+           <cstring>greenSlider</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="9" column="2">
+         <widget class="QLineEdit" name="brightnessEdit">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>255</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="0" colspan="3">
+         <widget class="QLabel" name="colorPreview">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>64</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color:white</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="2">
+         <widget class="QSlider" name="blueSlider">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="palette">
+           <palette>
+            <active>
+             <colorrole role="Highlight">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>0</red>
+                <green>0</green>
+                <blue>255</blue>
+               </color>
+              </brush>
+             </colorrole>
+            </active>
+            <inactive>
+             <colorrole role="Highlight">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>0</red>
+                <green>0</green>
+                <blue>255</blue>
+               </color>
+              </brush>
+             </colorrole>
+            </inactive>
+            <disabled>
+             <colorrole role="Highlight">
+              <brush brushstyle="SolidPattern">
+               <color alpha="255">
+                <red>0</red>
+                <green>120</green>
+                <blue>215</blue>
+               </color>
+              </brush>
+             </colorrole>
+            </disabled>
+           </palette>
+          </property>
+          <property name="maximum">
+           <number>255</number>
+          </property>
+          <property name="value">
+           <number>255</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2">
+         <widget class="QLabel" name="blueLabel">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: #007FFF</string>
+          </property>
+          <property name="text">
+           <string>Blue</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="buddy">
+           <cstring>blueSlider</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLineEdit" name="redEdit">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>100</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="inputMask">
+           <string/>
+          </property>
+          <property name="text">
+           <string>255</string>
+          </property>
+          <property name="maxLength">
+           <number>3</number>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
         <item row="9" column="0" colspan="2">
          <widget class="QLabel" name="brightnessLabel">
           <property name="font">
@@ -672,200 +856,6 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="redLabel">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="font">
-           <font>
-            <family>Arial</family>
-            <pointsize>14</pointsize>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">color:red</string>
-          </property>
-          <property name="text">
-           <string>Red</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-          <property name="buddy">
-           <cstring>redSlider</cstring>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QLabel" name="greenLabel">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="font">
-           <font>
-            <family>Arial</family>
-            <pointsize>14</pointsize>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">color: #00FF00</string>
-          </property>
-          <property name="text">
-           <string>Green</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-          <property name="buddy">
-           <cstring>greenSlider</cstring>
-          </property>
-         </widget>
-        </item>
-        <item row="11" column="0" colspan="3">
-         <widget class="QPushButton" name="applyButton">
-          <property name="font">
-           <font>
-            <family>Arial</family>
-            <pointsize>14</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Apply</string>
-          </property>
-         </widget>
-        </item>
-        <item row="9" column="2">
-         <widget class="QLineEdit" name="brightnessEdit">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>255</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0" colspan="3">
-         <widget class="QPushButton" name="backButton">
-          <property name="font">
-           <font>
-            <family>Arial</family>
-            <pointsize>14</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>Return</string>
-          </property>
-         </widget>
-        </item>
-        <item row="10" column="0" colspan="3">
-         <widget class="QSlider" name="brightnessSlider">
-          <property name="palette">
-           <palette>
-            <active>
-             <colorrole role="Highlight">
-              <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>255</red>
-                <green>255</green>
-                <blue>255</blue>
-               </color>
-              </brush>
-             </colorrole>
-            </active>
-            <inactive>
-             <colorrole role="Highlight">
-              <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>255</red>
-                <green>255</green>
-                <blue>255</blue>
-               </color>
-              </brush>
-             </colorrole>
-            </inactive>
-            <disabled>
-             <colorrole role="Highlight">
-              <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>0</red>
-                <green>120</green>
-                <blue>215</blue>
-               </color>
-              </brush>
-             </colorrole>
-            </disabled>
-           </palette>
-          </property>
-          <property name="maximum">
-           <number>255</number>
-          </property>
-          <property name="value">
-           <number>255</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="7" column="0" colspan="3">
-         <widget class="QLabel" name="colorPreview">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>64</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color:white</string>
-          </property>
-          <property name="frameShape">
-           <enum>QFrame::NoFrame</enum>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="2">
-         <widget class="QLabel" name="blueLabel">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="font">
-           <font>
-            <family>Arial</family>
-            <pointsize>14</pointsize>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">color: #007FFF</string>
-          </property>
-          <property name="text">
-           <string>Blue</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-          <property name="buddy">
-           <cstring>blueSlider</cstring>
-          </property>
-         </widget>
-        </item>
         <item row="6" column="1">
          <widget class="QSlider" name="greenSlider">
           <property name="sizePolicy">
@@ -922,22 +912,16 @@
           </property>
          </widget>
         </item>
-        <item row="6" column="2">
-         <widget class="QSlider" name="blueSlider">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
+        <item row="10" column="0" colspan="3">
+         <widget class="QSlider" name="brightnessSlider">
           <property name="palette">
            <palette>
             <active>
              <colorrole role="Highlight">
               <brush brushstyle="SolidPattern">
                <color alpha="255">
-                <red>0</red>
-                <green>0</green>
+                <red>255</red>
+                <green>255</green>
                 <blue>255</blue>
                </color>
               </brush>
@@ -947,8 +931,8 @@
              <colorrole role="Highlight">
               <brush brushstyle="SolidPattern">
                <color alpha="255">
-                <red>0</red>
-                <green>0</green>
+                <red>255</red>
+                <green>255</green>
                 <blue>255</blue>
                </color>
               </brush>
@@ -974,22 +958,50 @@
            <number>255</number>
           </property>
           <property name="orientation">
-           <enum>Qt::Vertical</enum>
+           <enum>Qt::Horizontal</enum>
           </property>
          </widget>
         </item>
-        <item row="4" column="2">
-         <widget class="QLineEdit" name="blueEdit">
+        <item row="3" column="0">
+         <widget class="QLabel" name="redLabel">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <property name="maximumSize">
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color:red</string>
+          </property>
+          <property name="text">
+           <string>Red</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="buddy">
+           <cstring>redSlider</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0" colspan="3">
+         <widget class="QPushButton" name="backButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
            <size>
-            <width>100</width>
-            <height>16777215</height>
+            <width>0</width>
+            <height>64</height>
            </size>
           </property>
           <property name="font">
@@ -999,13 +1011,28 @@
            </font>
           </property>
           <property name="text">
-           <string>255</string>
+           <string>Return</string>
           </property>
-          <property name="maxLength">
-           <number>3</number>
+         </widget>
+        </item>
+        <item row="11" column="0" colspan="3">
+         <widget class="QPushButton" name="applyButton">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>64</height>
+           </size>
           </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>14</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Apply</string>
           </property>
          </widget>
         </item>
@@ -1040,8 +1067,8 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="0">
-         <widget class="QLineEdit" name="redEdit">
+        <item row="4" column="2">
+         <widget class="QLineEdit" name="blueEdit">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -1060,9 +1087,6 @@
             <pointsize>14</pointsize>
            </font>
           </property>
-          <property name="inputMask">
-           <string/>
-          </property>
           <property name="text">
            <string>255</string>
           </property>
@@ -1071,6 +1095,177 @@
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="palettePage">
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QPushButton" name="backButton_2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Return</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="paletteBox">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>32</width>
+            <height>32</height>
+           </size>
+          </property>
+          <item>
+           <property name="text">
+            <string>Rainbow</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Rainbow Stripe</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Cloud</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Party</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Ocean</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Lava</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Forest</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="blendBox">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="currentIndex">
+           <number>0</number>
+          </property>
+          <property name="maxVisibleItems">
+           <number>2</number>
+          </property>
+          <property name="maxCount">
+           <number>2</number>
+          </property>
+          <property name="insertPolicy">
+           <enum>QComboBox::NoInsert</enum>
+          </property>
+          <property name="sizeAdjustPolicy">
+           <enum>QComboBox::AdjustToContents</enum>
+          </property>
+          <item>
+           <property name="text">
+            <string>Linear Blending</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>No Blending</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="delayLabel">
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Delay (in ms):</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="delayEdit">
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>10</string>
+          </property>
+          <property name="maxLength">
+           <number>4</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="paletteApplyButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>14</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Apply</string>
           </property>
          </widget>
         </item>

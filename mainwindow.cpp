@@ -3,6 +3,7 @@
 
 #include <QIntValidator>
 #include <QtMath>
+#include <QTimer>
 
 MainWindow::MainWindow(QWidget *parent)
 	: QMainWindow(parent)
@@ -20,6 +21,11 @@ MainWindow::MainWindow(QWidget *parent)
 	ui->greenEdit->setValidator(new QIntValidator(0, 255, this));
 	ui->blueEdit->setValidator(new QIntValidator(0, 255, this));
 	ui->brightnessEdit->setValidator(new QIntValidator(0, 255, this));
+	ui->delayEdit->setValidator(new QIntValidator(0, 9999, this));
+
+	QTimer* timer = new QTimer(this);
+	connect(timer, &QTimer::timeout, this, &MainWindow::write);
+	timer->start(35);
 }
 
 void MainWindow::foundDevice(const QBluetoothDeviceInfo &info){
@@ -35,16 +41,23 @@ MainWindow::~MainWindow()
 	delete ui;
 }
 
-void MainWindow::write(const QString data)
+void MainWindow::sendToWriteBuffer(const QString data)
 {
-	svc->writeCharacteristic(cmd, QByteArray::fromStdString(data.toStdString()), QLowEnergyService::WriteMode::WriteWithoutResponse);
+	writeBuffer += data;
+}
+
+void MainWindow::write(){
+	if(writeBuffer.length() > 0){
+		qDebug() << "Before Buffer:" << writeBuffer;
+		svc->writeCharacteristic(cmd, QByteArray::fromStdString(QString(writeBuffer.at(0)).toStdString()), QLowEnergyService::WriteMode::WriteWithoutResponse);
+		writeBuffer.remove(0, 1);
+		qDebug() << "After Buffer:" << writeBuffer;
+	}
 }
 
 QString MainWindow::convertToWriteable(int num, bool thousand = false)
 {
 	QString val;
-
-	qDebug() << "num:" << num << "val:" << val;
 
 	if(num >= 1000){
 		val += QString::number(qFloor(num/1000));
@@ -53,16 +66,12 @@ QString MainWindow::convertToWriteable(int num, bool thousand = false)
 		val += "0";
 	}
 
-	qDebug() << "num:" << num << "val:" << val;
-
 	if(num >= 100){
 		val += QString::number(qFloor(num/100));
 		num -= qFloor(num/100)*100;
 	} else {
 		val += "0";
 	}
-
-	qDebug() << "num:" << num << "val:" << val;
 
 	if(num >= 10){
 		val += QString::number(qFloor(num/10));
@@ -71,23 +80,19 @@ QString MainWindow::convertToWriteable(int num, bool thousand = false)
 		val += "0";
 	}
 
-	qDebug() << "num:" << num << "val:" << val;
-
 	val += QString::number(num);
-
-	qDebug() << "num:" << num << "val:" << val;
 
 	return val;
 }
 
 void MainWindow::on_onButton_clicked()
 {
-	write("W");
+	sendToWriteBuffer("W");
 }
 
 void MainWindow::on_offButton_clicked()
 {
-	write("S");
+	sendToWriteBuffer("S");
 }
 
 void MainWindow::foundDetail(QLowEnergyService::ServiceState newState){
@@ -203,14 +208,31 @@ void MainWindow::on_brightnessEdit_textEdited(const QString &arg1)
 
 void MainWindow::on_applyButton_clicked()
 {
-	write("x");
-	write("B"+convertToWriteable(bright));
-	write("r"+convertToWriteable(red));
-	write("g"+convertToWriteable(green));
-	write("b"+convertToWriteable(blue));
+	sendToWriteBuffer("x");
+	sendToWriteBuffer("B"+convertToWriteable(bright));
+	sendToWriteBuffer("r"+convertToWriteable(red));
+	sendToWriteBuffer("g"+convertToWriteable(green));
+	sendToWriteBuffer("b"+convertToWriteable(blue));
 }
 
 void MainWindow::on_palatteButton_clicked()
 {
 	ui->stackedWidget->setCurrentIndex(2);
+}
+
+void MainWindow::on_backButton_2_clicked()
+{
+	on_backButton_clicked();
+}
+
+void MainWindow::on_paletteApplyButton_clicked()
+{
+	QString w = "p"+sigmonPalette[ui->paletteBox->currentText()]+sigmonPaletteBlend[ui->blendBox->currentText()];
+	sendToWriteBuffer(w);
+	sendToWriteBuffer("d"+convertToWriteable(delay, true));
+}
+
+void MainWindow::on_delayEdit_textChanged(const QString &arg1)
+{
+	delay = arg1.toInt();
 }

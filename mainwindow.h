@@ -19,6 +19,8 @@ public:
 
 private slots:
 
+	void write();
+
 	void foundDevice(const QBluetoothDeviceInfo &info);
 
 	void on_onButton_clicked();
@@ -55,14 +57,22 @@ private slots:
 
 	void on_palatteButton_clicked();
 
+	void on_backButton_2_clicked();
+
+	void on_paletteApplyButton_clicked();
+
+	void on_delayEdit_textChanged(const QString &arg1);
+
 private:
 	Ui::MainWindow *ui;
 
 	QBluetoothDeviceDiscoveryAgent* agent;
 	QBluetoothDeviceInfo device;
-	QLowEnergyController* cont;
+	QLowEnergyController* cont;	
 	QLowEnergyService* svc;
 	QLowEnergyCharacteristic cmd;
+
+	QString writeBuffer;
 
 	const QString deviceAddress = "64:69:4E:89:FE:54";
 	const QString serviceUUID = "0000ffe0-0000-1000-8000-00805f9b34fb";
@@ -72,13 +82,29 @@ private:
 	int green = 255;
 	int blue = 255;
 	int bright = 255;
+	int delay = 10;
 
 	void connectToDevice();
 
 	void updateColorPreview();
 
-	void write(const QString data);
+	void sendToWriteBuffer(const QString data);
 	QString convertToWriteable(int num, bool thousand);
+
+	const QMap<QString, QString> sigmonPalette {
+		{"Rainbow", "r"},
+		{"Rainbow Stripe", "R"},
+		{"Cloud", "c"},
+		{"Party", "p"},
+		{"Ocean", "o"},
+		{"Lava", "l"},
+		{"Forest", "f"}
+	};
+
+	const QMap<QString, QString> sigmonPaletteBlend {
+		{"Linear Blending", "l"},
+		{"No Blending", "n"}
+	};
 
 };
 #endif // MAINWINDOW_H
