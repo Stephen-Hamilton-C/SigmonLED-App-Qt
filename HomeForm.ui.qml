@@ -90,7 +90,7 @@ Page {
             PropertyChanges {
                 target: connectButton
                 x: 175
-                y: 200
+                y: 350
                 text: qsTr("Disconnect")
             }
         },
