@@ -1,4 +1,4 @@
-QT += quick
+QT += quick bluetooth
 
 CONFIG += c++11
 
