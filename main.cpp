@@ -21,6 +21,54 @@ int main(int argc, char *argv[])
 	return app.exec();
 }
 
+//===================================================|
+//mainwindow.h                                       |
+//===================================================|
+/*
+    QBluetoothDeviceDiscoveryAgent* agent;
+    QBluetoothDeviceInfo device;
+    QLowEnergyController* cont;
+    QLowEnergyService* svc;
+    QLowEnergyCharacteristic cmd;
+
+    QString writeBuffer;
+
+    const QString deviceAddress = "64:69:4E:89:FE:54";
+    const QString serviceUUID = "0000ffe0-0000-1000-8000-00805f9b34fb";
+    const QString charUUID = "0000ffe1-0000-1000-8000-00805f9b34fb";
+
+    int red = 255;
+    int green = 255;
+    int blue = 255;
+    int bright = 255;
+    int delay = 10;
+
+    void connectToDevice();
+
+    void updateColorPreview();
+
+    void sendToWriteBuffer(const QString data);
+    QString convertToWriteable(int num, bool thousand);
+
+    const QMap<QString, QString> sigmonPalette {
+        {"Rainbow", "r"},
+        {"Rainbow Stripe", "R"},
+        {"Cloud", "c"},
+        {"Party", "p"},
+        {"Ocean", "o"},
+        {"Lava", "l"},
+        {"Forest", "f"}
+    };
+
+    const QMap<QString, QString> sigmonPaletteBlend {
+        {"Linear Blending", "l"},
+        {"No Blending", "n"}
+    };
+*/
+
+//===================================================================|
+//mainwindow.cpp                                                     |
+//===================================================================|
 /*
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
