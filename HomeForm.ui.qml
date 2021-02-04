@@ -23,15 +23,14 @@ Page {
     Label {
         id: connLabel
         x: 209
-        y: 341
         color: "#ff0000"
         text: qsTr("Not connected")
-        anchors.bottom: busyIndicator.top
+        anchors.top: parent.top
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
+        anchors.topMargin: 50
         font.pointSize: 16
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottomMargin: 50
     }
 
     Button {
@@ -39,15 +38,15 @@ Page {
         x: 191
         width: 100
         text: qsTr("Connect")
-        anchors.top: busyIndicator.bottom
-        anchors.topMargin: 50
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 50
         anchors.horizontalCenter: parent.horizontalCenter
     }
 }
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.8999999761581421}D{i:3}
+    D{i:0;formeditorZoom:0.8999999761581421}D{i:2}
 }
 ##^##*/
 
