@@ -17,13 +17,6 @@ ApplicationWindow {
             font.pixelSize: Qt.application.font.pixelSize * 1.6
             onClicked: {
                 drawer.open()
-                /*
-                if (stackView.depth > 1) {
-                    stackView.pop()
-                } else {
-                    drawer.open()
-                }
-                */
             }
         }
 
