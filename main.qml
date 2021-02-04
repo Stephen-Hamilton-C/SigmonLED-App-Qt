@@ -13,14 +13,17 @@ ApplicationWindow {
 
         ToolButton {
             id: toolButton
-            text: stackView.depth > 1 ? "\u25C0" : "\u2630"
+            text: "\u2630" //stackView.depth > 1 ? "\u25C0" : "\u2630"
             font.pixelSize: Qt.application.font.pixelSize * 1.6
             onClicked: {
+                drawer.open()
+                /*
                 if (stackView.depth > 1) {
                     stackView.pop()
                 } else {
                     drawer.open()
                 }
+                */
             }
         }
 
@@ -39,18 +42,36 @@ ApplicationWindow {
             anchors.fill: parent
 
             ItemDelegate {
-                text: qsTr("Page 1")
+                text: qsTr("Devices")
                 width: parent.width
                 onClicked: {
-                    stackView.push("Page1Form.ui.qml")
+                    if(stackView.children[stackView.children.length-1].toString().split('.')[0].search("HomeForm") === -1){
+                        stackView.clear()
+                        stackView.push("HomeForm.ui.qml")
+                    }
+                    drawer.close()
+                }
+            }
+
+            ItemDelegate {
+                text: qsTr("Static Color")
+                width: parent.width
+                onClicked: {
+                    if(stackView.children[stackView.children.length-1].toString().split('.')[0].search("StaticColor") === -1){
+                        stackView.clear()
+                        stackView.push("StaticColor.ui.qml")
+                    }
                     drawer.close()
                 }
             }
             ItemDelegate {
-                text: qsTr("Page 2")
+                text: qsTr("Palette")
                 width: parent.width
                 onClicked: {
-                    stackView.push("Page2Form.ui.qml")
+                    if(stackView.children[stackView.children.length-1].toString().split('.')[0].search("Palette") === -1){
+                        stackView.clear()
+                        stackView.push("Palette.ui.qml")
+                    }
                     drawer.close()
                 }
             }
@@ -63,3 +84,9 @@ ApplicationWindow {
         anchors.fill: parent
     }
 }
+
+/*##^##
+Designer {
+    D{i:0;formeditorZoom:0.75}
+}
+##^##*/

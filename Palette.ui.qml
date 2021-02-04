@@ -5,21 +5,19 @@ Page {
     id: page
     width: 450
     height: 800
-    enabled: true
-    hoverEnabled: true
-    wheelEnabled: false
 
-    title: qsTr("Devices")
+    title: qsTr("Palette")
 
     Label {
-        id: label
-        x: 209
-        y: 392
-        text: qsTr("Devices")
+        text: qsTr("Palette Page")
         anchors.verticalCenter: parent.verticalCenter
+        anchors.left: parent.left
+        anchors.right: parent.right
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
-        anchors.horizontalCenter: parent.horizontalCenter
+        font.pointSize: 12
+        anchors.leftMargin: 0
+        anchors.rightMargin: 0
     }
 }
 
@@ -28,4 +26,3 @@ Designer {
     D{i:0;formeditorZoom:0.75}
 }
 ##^##*/
-
