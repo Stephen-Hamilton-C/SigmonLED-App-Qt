@@ -32,10 +32,10 @@ Page {
         model: ["Rainbow",
                 "Rainbow Stripe",
                 "Cloud",
-            "Party",
-            "Ocean",
-            "Lava",
-            "Forest"
+                "Party",
+                "Ocean",
+                "Lava",
+                "Forest"
         ]
     }
 
