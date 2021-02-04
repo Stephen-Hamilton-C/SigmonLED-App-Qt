@@ -1,3 +1,5 @@
+#include "devicemanager.h"
+
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
@@ -17,6 +19,8 @@ int main(int argc, char *argv[])
 			QCoreApplication::exit(-1);
 	}, Qt::QueuedConnection);
 	engine.load(url);
+
+	DeviceManager dm;
 
 	return app.exec();
 }

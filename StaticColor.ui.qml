@@ -28,10 +28,11 @@ Page {
         height: 300
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
+        to: 255
         snapMode: Slider.SnapAlways
         value: 0
         anchors.leftMargin: 75
-        stepSize: 0.01
+        stepSize: 1
         orientation: Qt.Vertical
 
         background: Rectangle {
@@ -43,7 +44,7 @@ Page {
             height: hueHorizontal ? implicitHeight : hueSlider.availableHeight
             radius: 10
             border.color: "#000000"
-            color: Qt.hsva(hueSlider.value, 1, 1, 1)
+            color: Qt.hsva(hueSlider.value/255.0, 1, 1, 1)
             scale: hueHorizontal && hueSlider.mirrored ? -1 : 1
 
             readonly property bool hueHorizontal: hueSlider.orientation === Qt.Horizontal
@@ -58,9 +59,10 @@ Page {
         anchors.verticalCenter: parent.verticalCenter
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenterOffset: -75
+        to: 255
         snapMode: Slider.SnapAlways
         value: 0
-        stepSize: 0.01
+        stepSize: 1
         orientation: Qt.Vertical
 
         background: Rectangle {
@@ -72,7 +74,7 @@ Page {
             height: satHorizontal ? implicitHeight : satSlider.availableHeight
             radius: 10
             border.color: "#000000"
-            color: Qt.hsva(hueSlider.value, satSlider.value, 1, 1)
+            color: Qt.hsva(hueSlider.value/255.0, satSlider.value/255.0, 1, 1)
             scale: satHorizontal && satSlider.mirrored ? -1 : 1
 
             readonly property bool satHorizontal: satSlider.orientation === Qt.Horizontal
@@ -88,9 +90,10 @@ Page {
         anchors.right: parent.right
         anchors.rightMargin: 75
         anchors.verticalCenterOffset: 0
+        to: 255
         snapMode: Slider.SnapAlways
         value: 0
-        stepSize: 0.01
+        stepSize: 1
         orientation: Qt.Vertical
 
         background: Rectangle {
@@ -125,7 +128,7 @@ Page {
         y: 506
         width: 50
         height: 50
-        color: Qt.hsva(hueSlider.value, satSlider.value, valSlider.value, 1)
+        color: Qt.hsva(hueSlider.value/255, satSlider.value/255, valSlider.value/255, 1)
         radius: 10
         border.width: 2
         anchors.bottom: parent.bottom
@@ -138,7 +141,7 @@ Page {
         id: hueLabel
         x: 0
         y: 0
-        text: qsTr("Hue: " + Math.round(hueSlider.value * 255))
+        text: qsTr("Hue: " + hueSlider.value)
         anchors.bottom: hueSlider.top
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
@@ -151,7 +154,7 @@ Page {
         id: satLabel
         x: 0
         y: 0
-        text: qsTr("Saturation: " + Math.round(satSlider.value * 255))
+        text: qsTr("Saturation: " + satSlider.value)
         anchors.bottom: satSlider.top
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
@@ -164,7 +167,7 @@ Page {
         id: valLabel
         x: 0
         y: 0
-        text: qsTr("Brightness: " + Math.round(valSlider.value * 255))
+        text: qsTr("Brightness: " + valSlider.value)
         anchors.bottom: valSlider.top
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
@@ -176,7 +179,7 @@ Page {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.6600000262260437}D{i:2}D{i:12}
+    D{i:0;formeditorZoom:0.6600000262260437}
 }
 ##^##*/
 
