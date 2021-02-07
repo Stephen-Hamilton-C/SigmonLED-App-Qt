@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 	}, Qt::QueuedConnection);
 	engine.load(url);
 
-	DeviceManager dm;
+	//DeviceManager dm;
 
 	return app.exec();
 }
