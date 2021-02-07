@@ -3,8 +3,8 @@
 /**
  * @brief DeviceManager::DeviceManager
  */
-DeviceManager::DeviceManager() {
-
+DeviceManager::DeviceManager(QWidget* parent) {
+	//connect(bleDiscovery, &QBluetoothDeviceDiscoveryAgent::deviceDiscovered, this, &DeviceManager::discoveredDevice);
 }
 
 //===================================================================|

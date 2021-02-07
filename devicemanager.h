@@ -21,26 +21,40 @@ public:
 	}
 };
 
-class DeviceManager {
+class DeviceManager
+{
+	//Q_OBJECT
+
 public:
-	DeviceManager();
+
+	DeviceManager(QWidget *parent = nullptr);
+	//~DeviceManager();
 
 	/**
 	 * @brief getSerial Gets a pointer to the serial write characteristic
 	 * @return A pointer to the serial write characteristic
 	 */
+	/*
 	QLowEnergyCharacteristic* getSerial() {
 		return &bleSerial;
 	};
+	*/
 
 	QBluetoothDeviceInfo currentDevice;
 
+private slots:
+
+	//void discoveredDevice(const QBluetoothDeviceInfo &info);
+
 private:
 
-	RGBColor convertHSVtoRGB(int hue, int sat, int val);
+	//void startDiscovery();
+
+	//RGBColor convertHSVtoRGB(int hue, int sat, int val);
 
 
 	QBluetoothDeviceDiscoveryAgent* bleDiscovery;
+	QList<QBluetoothDeviceInfo> discoveredDevices;
 	QLowEnergyController* bleController;
 	QLowEnergyService* bleSerialService;
 	QLowEnergyCharacteristic bleSerial;
@@ -78,6 +92,54 @@ private:
 //mainwindow.h                                       |
 //===================================================|
 /*
+private slots:
+
+	void write();
+
+	void foundDevice(const QBluetoothDeviceInfo &info);
+
+	void on_onButton_clicked();
+
+	void on_offButton_clicked();
+
+	void foundSvc(const QBluetoothUuid uuid);
+
+	void connected();
+
+	void foundDetail(QLowEnergyService::ServiceState newState);
+
+	void on_colorButton_clicked();
+
+	void on_backButton_clicked();
+
+	void on_redEdit_textEdited(const QString &arg1);
+
+	void on_greenEdit_textEdited(const QString &arg1);
+
+	void on_blueEdit_textEdited(const QString &arg1);
+
+	void on_redSlider_valueChanged(int value);
+
+	void on_greenSlider_valueChanged(int value);
+
+	void on_blueSlider_valueChanged(int value);
+
+	void on_brightnessSlider_valueChanged(int value);
+
+	void on_brightnessEdit_textEdited(const QString &arg1);
+
+	void on_applyButton_clicked();
+
+	void on_palatteButton_clicked();
+
+	void on_backButton_2_clicked();
+
+	void on_paletteApplyButton_clicked();
+
+	void on_delayEdit_textChanged(const QString &arg1);
+
+private:
+
 	QBluetoothDeviceDiscoveryAgent* agent;
 	QBluetoothDeviceInfo device;
 	QLowEnergyController* cont;
