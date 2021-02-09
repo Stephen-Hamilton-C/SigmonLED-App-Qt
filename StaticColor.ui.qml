@@ -6,6 +6,7 @@ Page {
     width: 450
     height: 800
     font.pointSize: 11
+    anchors.fill: parent
 
     title: qsTr("Static Color")
 
@@ -44,7 +45,7 @@ Page {
             height: hueHorizontal ? implicitHeight : hueSlider.availableHeight
             radius: 10
             border.color: "#000000"
-            color: Qt.hsva(hueSlider.value/255.0, 1, 1, 1)
+            color: Qt.hsva(hueSlider.value / 255.0, 1, 1, 1)
             scale: hueHorizontal && hueSlider.mirrored ? -1 : 1
 
             readonly property bool hueHorizontal: hueSlider.orientation === Qt.Horizontal
@@ -74,7 +75,8 @@ Page {
             height: satHorizontal ? implicitHeight : satSlider.availableHeight
             radius: 10
             border.color: "#000000"
-            color: Qt.hsva(hueSlider.value/255.0, satSlider.value/255.0, 1, 1)
+            color: Qt.hsva(hueSlider.value / 255.0,
+                           satSlider.value / 255.0, 1, 1)
             scale: satHorizontal && satSlider.mirrored ? -1 : 1
 
             readonly property bool satHorizontal: satSlider.orientation === Qt.Horizontal
@@ -128,7 +130,8 @@ Page {
         y: 506
         width: 50
         height: 50
-        color: Qt.hsva(hueSlider.value/255, satSlider.value/255, valSlider.value/255, 1)
+        color: Qt.hsva(hueSlider.value / 255, satSlider.value / 255,
+                       valSlider.value / 255, 1)
         radius: 10
         border.width: 2
         anchors.bottom: parent.bottom

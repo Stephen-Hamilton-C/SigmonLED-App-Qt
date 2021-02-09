@@ -5,6 +5,7 @@ Page {
     id: page
     width: 450
     height: 800
+    anchors.fill: parent
 
     title: qsTr("Palette")
 
@@ -29,14 +30,7 @@ Page {
         currentIndex: 0
         anchors.verticalCenterOffset: -25
 
-        model: ["Rainbow",
-                "Rainbow Stripe",
-                "Cloud",
-                "Party",
-                "Ocean",
-                "Lava",
-                "Forest"
-        ]
+        model: ["Rainbow", "Rainbow Stripe", "Cloud", "Party", "Ocean", "Lava", "Forest"]
     }
 
     SwitchDelegate {
@@ -78,7 +72,7 @@ Page {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.66}D{i:1}D{i:2}D{i:3}
+    D{i:0;formeditorZoom:0.66}
 }
 ##^##*/
 

@@ -8,6 +8,7 @@ Page {
     enabled: true
     hoverEnabled: true
     wheelEnabled: false
+    anchors.fill: parent
 
     title: qsTr("Devices")
 
@@ -102,7 +103,7 @@ Page {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.75}D{i:2}D{i:3}D{i:4}
+    D{i:0;formeditorZoom:0.75}
 }
 ##^##*/
 
