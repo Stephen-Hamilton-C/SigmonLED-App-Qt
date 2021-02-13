@@ -1,5 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.5
+import com.stephenhamilton.devicemanager 1.0
+import com.stephenhamilton.homeform 1.0
 
 Page {
     id: page
@@ -12,12 +14,20 @@ Page {
 
     title: qsTr("Devices")
 
+    DeviceManager {
+        id: deviceManager
+    }
+
+    HomeBackend {
+        id: backend
+    }
+
     Button {
         id: connButton
         x: 175
         y: 396
         width: 100
-        text: qsTr("Connect")
+        text: backend.connButtonText
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 50
         anchors.horizontalCenter: parent.horizontalCenter
