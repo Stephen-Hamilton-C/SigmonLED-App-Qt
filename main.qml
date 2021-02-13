@@ -8,6 +8,8 @@ ApplicationWindow {
     visible: true
     title: qsTr("Stack")
 
+    property string currentPage: "Devices"
+
     header: ToolBar {
         contentHeight: toolButton.implicitHeight
 
@@ -21,7 +23,7 @@ ApplicationWindow {
         }
 
         Label {
-            text: stackView.currentItem.title
+            text: currentPage
             anchors.centerIn: parent
         }
     }
@@ -38,10 +40,17 @@ ApplicationWindow {
                 text: qsTr("Devices")
                 width: parent.width
                 onClicked: {
+                    /*
                     if(stackView.children[stackView.children.length-1].toString().split('.')[0].search("HomeForm") === -1){
                         stackView.clear()
                         stackView.push("HomeForm.ui.qml")
                     }
+                    */
+
+                    homeForm.visible = true
+                    colorForm.visible = false
+                    paletteForm.visible = false
+                    currentPage = text
                     drawer.close()
                 }
             }
@@ -50,10 +59,17 @@ ApplicationWindow {
                 text: qsTr("Static Color")
                 width: parent.width
                 onClicked: {
+                    /*
                     if(stackView.children[stackView.children.length-1].toString().split('.')[0].search("StaticColor") === -1){
                         stackView.clear()
                         stackView.push("StaticColor.ui.qml")
                     }
+                    */
+
+                    homeForm.visible = false
+                    colorForm.visible = true
+                    paletteForm.visible = false
+                    currentPage = text
                     drawer.close()
                 }
             }
@@ -61,21 +77,48 @@ ApplicationWindow {
                 text: qsTr("Palette")
                 width: parent.width
                 onClicked: {
+                    /*
                     if(stackView.children[stackView.children.length-1].toString().split('.')[0].search("Palette") === -1){
                         stackView.clear()
                         stackView.push("Palette.ui.qml")
                     }
+                    */
+
+                    homeForm.visible = false
+                    colorForm.visible = false
+                    paletteForm.visible = true
+                    currentPage = text
                     drawer.close()
                 }
             }
         }
     }
 
-    StackView {
-        id: stackView
-        initialItem: "HomeForm.ui.qml"
+    HomeForm {
+        id: homeForm
+        visible: true
         anchors.fill: parent
     }
+
+    Palette {
+        id: paletteForm
+        visible: false
+        anchors.fill: parent
+    }
+
+    StaticColor {
+        id: colorForm
+        visible: false
+        anchors.fill: parent
+    }
+
+    /*
+    StackView {
+        id: stackView
+        initialItem: homeForm
+        anchors.fill: parent
+    }
+    */
 }
 
 /*##^##
