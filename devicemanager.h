@@ -7,51 +7,39 @@
 #include <QBluetoothDeviceDiscoveryAgent>
 #include <QLowEnergyController>
 
-struct RGBColor {
-public:
-	int r;
-	int g;
-	int b;
-
-	RGBColor(int hue, int sat, int val){
-		QColor color = QColor::fromHsv(hue, sat, val);
-		r = color.red();
-		g = color.green();
-		b = color.blue();
-	}
-};
-
-class DeviceManager
+class DeviceManager : public QObject
 {
-	//Q_OBJECT
+	Q_OBJECT
+
+	Q_PROPERTY(QStringList devices READ devices NOTIFY DevicesChanged)
 
 public:
 
-	DeviceManager(QWidget *parent = nullptr);
-	//~DeviceManager();
+	explicit DeviceManager(QObject *parent = nullptr);
+	~DeviceManager();
 
 	/**
-	 * @brief getSerial Gets a pointer to the serial write characteristic
-	 * @return A pointer to the serial write characteristic
+	 * @brief Writes a command to the currently connected device
+	 * @param cmd The command to write to the device
 	 */
-	/*
-	QLowEnergyCharacteristic* getSerial() {
-		return &bleSerial;
-	};
-	*/
+	void QueryWrite(const QString cmd);
+	QString ConvertNumToWritable(int num, const bool thousand = false);
+	void ConnectToDevice(const QBluetoothDeviceInfo &device);
 
 	QBluetoothDeviceInfo currentDevice;
 
 private slots:
 
-	//void discoveredDevice(const QBluetoothDeviceInfo &info);
+	void DiscoveredDevice(const QBluetoothDeviceInfo &info);
+	void Write();
+	void Connected();
+	void BLEServiceDiscovered(const QBluetoothUuid uuid);
+	void BLEServiceDetailDiscovered(QLowEnergyService::ServiceState newState);
 
 private:
 
-	//void startDiscovery();
-
-	//RGBColor convertHSVtoRGB(int hue, int sat, int val);
-
+	void StartDiscovery();
+	void StopDiscovery();
 
 	QBluetoothDeviceDiscoveryAgent* bleDiscovery;
 	QList<QBluetoothDeviceInfo> discoveredDevices;
@@ -59,15 +47,22 @@ private:
 	QLowEnergyService* bleSerialService;
 	QLowEnergyCharacteristic bleSerial;
 
+	QString writeBuffer;
+
 	/**
 	 * @brief serviceUUID The Serial Terminal service for HM-10 BLE modules
 	 */
-	const QString serviceUUID = "0000ffe0-0000-1000-8000-00805f9b34fb";
+	const QString serviceUUID = "{0000ffe0-0000-1000-8000-00805f9b34fb}";
 	/**
-	 * @brief charUUID The Serial Terminal write character for HM-10 BLE modules
+	 * @brief charUUID The Serial Terminal write characteristic for HM-10 BLE modules
 	 */
-	const QString charUUID = "0000ffe1-0000-1000-8000-00805f9b34fb";
+	const QString charUUID = "{0000ffe1-0000-1000-8000-00805f9b34fb}";
 
+	QStringList devices();
+
+
+	//All this should be handled in HomeForm, it does not fit the design specs for this class
+	/*
 	int hue = 0;
 	int sat = 0;
 	int val = 255;
@@ -86,6 +81,12 @@ private:
 		{"Lava", "l"},
 		{"Forest", "f"}
 	};
+	*/
+
+signals:
+
+	void DevicesChanged();
+
 };
 
 //===================================================|

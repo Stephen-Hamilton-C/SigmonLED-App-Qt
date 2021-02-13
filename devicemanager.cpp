@@ -1,10 +1,149 @@
 #include "devicemanager.h"
+#include <QTimer>
 
-/**
- * @brief DeviceManager::DeviceManager
- */
-DeviceManager::DeviceManager(QWidget* parent) {
-	//connect(bleDiscovery, &QBluetoothDeviceDiscoveryAgent::deviceDiscovered, this, &DeviceManager::discoveredDevice);
+DeviceManager::DeviceManager(QObject *parent)
+{
+
+}
+
+DeviceManager::~DeviceManager()
+{
+	bleDiscovery = new QBluetoothDeviceDiscoveryAgent();
+	connect(bleDiscovery, &QBluetoothDeviceDiscoveryAgent::deviceDiscovered, this, &DeviceManager::DiscoveredDevice);
+
+	QTimer* timer = new QTimer(this);
+	connect(timer, &QTimer::timeout, this, &DeviceManager::Write);
+	timer->start(35);
+	qDebug() << "DeviceManager constructed";
+
+	StartDiscovery();
+}
+
+void DeviceManager::QueryWrite(const QString cmd)
+{
+	writeBuffer += cmd;
+}
+
+QString DeviceManager::ConvertNumToWritable(int num, const bool thousand)
+{
+	QString val;
+
+	if(num >= 1000){
+		val += QString::number(floor(num/1000));
+		num -= floor(num/1000)*1000;
+	} else if(thousand){
+		val += "0";
+	}
+
+	if(num >= 100){
+		val += QString::number(floor(num/100));
+		num -= floor(num/100)*100;
+	} else {
+		val += "0";
+	}
+
+	if(num >= 10){
+		val += QString::number(floor(num/10));
+		num -= floor(num/10)*10;
+	} else {
+		val += "0";
+	}
+
+	val += QString::number(num);
+
+	return val;
+}
+
+void DeviceManager::ConnectToDevice(const QBluetoothDeviceInfo &device)
+{
+	//Alert QML that we are connecting
+	qDebug() << "Connecting to "+device.name()+"...";
+
+	bleController = QLowEnergyController::createCentral(device, this);
+
+	connect(bleController, &QLowEnergyController::connected, this, &DeviceManager::Connected);
+
+	currentDevice = device;
+	bleController->setRemoteAddressType(QLowEnergyController::PublicAddress);
+	bleController->connectToDevice();
+}
+
+void DeviceManager::Connected(){
+	//Alert QML we are connected
+	qDebug() << "Connected to "+currentDevice.name();
+
+	connect(bleController, &QLowEnergyController::serviceDiscovered, this, &DeviceManager::BLEServiceDiscovered);
+	bleController->discoverServices();
+}
+
+void DeviceManager::BLEServiceDiscovered(const QBluetoothUuid uuid)
+{
+	qDebug() << "Service discovered:" << uuid.toString();
+	if(uuid.toString() == serviceUUID){
+		qDebug() << "---This is the serial service---";
+		bleSerialService = bleController->createServiceObject(uuid, this);
+
+		connect(bleSerialService, &QLowEnergyService::stateChanged, this, &DeviceManager::BLEServiceDetailDiscovered);
+		bleSerialService->discoverDetails();
+	}
+}
+
+void DeviceManager::BLEServiceDetailDiscovered(QLowEnergyService::ServiceState newState)
+{
+	if(newState == QLowEnergyService::ServiceState::ServiceDiscovered){
+		qDebug() << "Detail discovered";
+		bleSerial = bleSerialService->characteristic(QBluetoothUuid(charUUID));
+		//Alert QML that we are ready. Maybe check if the char is actually valid first?
+		if(bleSerial.isValid()){
+			qDebug() << "Desired characteristic found to be valid. READY";
+			//Alert QML that we are ready. Test that this works
+		}
+	}
+}
+
+//Runs on a 35ms timer. See constructor
+void DeviceManager::Write()
+{
+	if(writeBuffer.length() > 0){
+		qDebug() << "Writing to serial:" << writeBuffer.at(0);
+		//Write characteristic
+		bleSerialService->writeCharacteristic(bleSerial, QByteArray::fromStdString(QString(writeBuffer.at(0)).toStdString()),
+											  QLowEnergyService::WriteMode::WriteWithoutResponse);
+		writeBuffer.remove(0, 1);
+	}
+}
+
+void DeviceManager::StartDiscovery(){
+	qDebug() << "Start Discovery";
+	//Reset devices
+	discoveredDevices.clear();
+	emit DevicesChanged();
+
+	bleDiscovery->start(QBluetoothDeviceDiscoveryAgent::LowEnergyMethod);
+	//Alert QML that we are now searching
+}
+
+void DeviceManager::StopDiscovery(){
+	qDebug() << "Stop Discovery";
+	bleDiscovery->stop();
+	//Alert QML that we are no longer searching
+}
+
+void DeviceManager::DiscoveredDevice(const QBluetoothDeviceInfo &info)
+{
+	qDebug() << "Discovered Device:" << info.name();
+	discoveredDevices.append(info);
+	emit DevicesChanged();
+}
+
+QStringList DeviceManager::devices()
+{
+	QStringList val;
+	for(int i = 0; i < discoveredDevices.count(); i++){
+		val << discoveredDevices[i].name() + " " + discoveredDevices[i].address().toString();
+	}
+
+	return val;
 }
 
 //===================================================================|
@@ -251,4 +390,3 @@ void MainWindow::on_delayEdit_textChanged(const QString &arg1)
 }
 
 */
-
