@@ -8,6 +8,7 @@ CONFIG += c++11
 
 SOURCES += \
         devicemanager.cpp \
+        homeform.cpp \
         main.cpp
 
 RESOURCES += qml.qrc
@@ -24,4 +25,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-	devicemanager.h
+	devicemanager.h \
+	homeform.h
