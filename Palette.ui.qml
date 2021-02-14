@@ -6,6 +6,11 @@ Page {
     width: 450
     height: 800
     anchors.fill: parent
+    property alias brightnessSlider: brightnessSlider
+    property alias delayBox: delayBox
+    property alias linearBlendSwitch: linearBlendSwitch
+    property alias paletteBox: paletteBox
+    property alias applyButton: applyButton
 
     title: qsTr("Palette")
 
@@ -18,6 +23,7 @@ Page {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 100
         anchors.horizontalCenter: parent.horizontalCenter
+        //onClicked: backend.ApplyChanges()
     }
 
     ComboBox {
@@ -31,6 +37,8 @@ Page {
         anchors.verticalCenterOffset: -25
 
         model: ["Rainbow", "Rainbow Stripe", "Cloud", "Party", "Ocean", "Lava", "Forest"]
+
+        //onActivated: backend.setPalette(currentText)
     }
 
     SwitchDelegate {
@@ -38,9 +46,12 @@ Page {
         x: 125
         y: 453
         text: qsTr("Linear Blending")
+        checked: true
         anchors.verticalCenter: parent.verticalCenter
         anchors.verticalCenterOffset: 25
         width: text.width
+
+        //onCheckedChanged: backend.setLinearBlending(checked)
     }
 
     SpinBox {
@@ -54,10 +65,12 @@ Page {
         value: 10
         anchors.verticalCenterOffset: 125
         anchors.horizontalCenter: parent.horizontalCenter
+
+        //onValueChanged: backend.setDelay(value)
     }
 
     Label {
-        id: label
+        id: delayLabel
         x: 206
         y: 455
         text: qsTr("Delay (ms)")
@@ -68,11 +81,33 @@ Page {
         anchors.verticalCenterOffset: 85
         anchors.horizontalCenter: parent.horizontalCenter
     }
-}
 
-/*##^##
-Designer {
-    D{i:0;formeditorZoom:0.66}
-}
-##^##*/
+    Slider {
+        id: brightnessSlider
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: parent.top
+        stepSize: 1
+        to: 255
+        anchors.topMargin: 150
+        anchors.rightMargin: 100
+        anchors.leftMargin: 100
+        value: 255
+        //onValueChanged: backend.setBrightness(value)
+    }
 
+    Label {
+        id: brightnessLabel
+        y: 127
+        text: "Brightness: " + brightnessSlider.value
+        anchors.left: brightnessSlider.right
+        anchors.right: brightnessSlider.left
+        anchors.bottom: brightnessSlider.top
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+        anchors.rightMargin: 0
+        anchors.leftMargin: 0
+        font.pointSize: 12
+        anchors.bottomMargin: 0
+    }
+}
