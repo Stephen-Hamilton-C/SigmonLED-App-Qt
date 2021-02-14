@@ -2,6 +2,7 @@
 #include "homeform.h"
 #include "paletteform.h"
 #include "staticcolorform.h"
+#include "fastonoff.h"
 
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
@@ -24,10 +25,11 @@ int main(int argc, char *argv[])
 
 
 	//Qml Registrations
-	qmlRegisterType<DeviceManager>("com.stephenhamilton.sigmonled", 1, 0, "DeviceManager");
-	qmlRegisterType<HomeForm>("com.stephenhamilton.sigmonled", 1, 0, "HomeBackend");
-	qmlRegisterType<PaletteForm>("com.stephenhamilton.sigmonled", 1, 0, "PaletteBackend");
-	qmlRegisterType<StaticColorForm>("com.stephenhamilton.sigmonled", 1, 0, "StaticColorBackend");
+	qmlRegisterType<DeviceManager>("com.stephenhamilton.sigmonled.main", 1, 0, "DeviceManager");
+	qmlRegisterType<HomeForm>("com.stephenhamilton.sigmonled.main", 1, 0, "HomeBackend");
+	qmlRegisterType<PaletteForm>("com.stephenhamilton.sigmonled.main", 1, 0, "PaletteBackend");
+	qmlRegisterType<StaticColorForm>("com.stephenhamilton.sigmonled.main", 1, 0, "StaticColorBackend");
+	qmlRegisterType<FastOnOff>("com.stephenhamilton.sigmonled.main", 1, 0, "FastBackend");
 
 	engine.load(url);
 
