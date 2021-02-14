@@ -9,6 +9,10 @@ Page {
     hoverEnabled: true
     wheelEnabled: false
     anchors.fill: parent
+    property alias showAllButton: showAllButton
+    property alias connLabel: connLabel
+    property alias searchIndicator: searchIndicator
+    property alias devicesList: devicesList
     property alias connButton: connButton
 
     title: qsTr("Devices")
@@ -29,7 +33,7 @@ Page {
         id: connLabel
         x: 158
         color: "#ff0000"
-        text: qsTr("Not connected")
+        text: qsTr("Disconnected")
         anchors.top: parent.top
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
@@ -40,25 +44,69 @@ Page {
     }
 
     BusyIndicator {
-        id: busyIndicator
+        id: searchIndicator
         x: 195
         anchors.top: parent.top
         anchors.topMargin: 75
         anchors.horizontalCenter: parent.horizontalCenter
-        running: false
+        running: true
     }
 
     ListView {
-        id: listView
+        id: devicesList
         x: 0
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: parent.top
         anchors.bottom: parent.bottom
-        anchors.topMargin: 150
+        anchors.topMargin: searchIndicator.running ? 150 : 50
         anchors.bottomMargin: 125
         anchors.leftMargin: 0
         anchors.rightMargin: 0
+
+        DelayButton {
+            id: showAllButton
+            height: 36
+            text: qsTr("Show all")
+            anchors.left: parent.left
+            anchors.top: parent.bottom
+            font.pointSize: 9
+            anchors.leftMargin: 15
+            anchors.topMargin: 0
+        }
+
+
+        /*
+        delegate: ItemDelegate {
+            required property string modelData
+            width: 100
+            anchors {
+                left: parent.left
+                right: parent.right
+            }
+            text: modelData
+        }
+        */
+
+
+        /*
+        delegate: Rectangle {
+            required property string modelData
+            height: 25
+            width: 100
+            anchors {
+                left: parent.left
+                right: parent.right
+            }
+
+            Text {
+                text: parent.modelData
+            }
+        }
+        */
+
+
+        /*
         model: ListModel {
             ListElement {
                 name: "Grey"
@@ -80,6 +128,7 @@ Page {
                 colorCode: "green"
             }
         }
+
         delegate: Item {
             x: 5
             width: 80
@@ -100,5 +149,9 @@ Page {
                 spacing: 10
             }
         }
+        */
     }
 }
+
+
+
