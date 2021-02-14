@@ -1,5 +1,6 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.5
+import com.stephenhamilton.sigmonled 1.0
 
 ApplicationWindow {
     id: window
@@ -98,18 +99,75 @@ ApplicationWindow {
         id: homeForm
         visible: true
         anchors.fill: parent
+
+        DeviceManager {
+            id: deviceMan
+        }
+
+        HomeBackend {
+            id: homeBack
+        }
+
+        connButton.onClicked: homeBack.connectToTestDevice()
+
     }
 
     Palette {
         id: paletteForm
         visible: false
         anchors.fill: parent
+
+        PaletteBackend {
+            id: paletteBack
+        }
+
+        brightnessSlider {
+            onValueChanged: paletteBack.setBrightness(brightnessSlider.value)
+        }
+
+        delayBox {
+            onValueChanged: paletteBack.setDelay(delayBox.value)
+        }
+
+        linearBlendSwitch {
+            onCheckedChanged: paletteBack.setLinearBlending(linearBlendSwitch.checked)
+        }
+
+        paletteBox {
+            onActivated: paletteBack.setPalette(paletteBox.currentText)
+        }
+
+        applyButton {
+            onClicked: paletteBack.ApplyChanges()
+        }
+
     }
 
     StaticColor {
         id: colorForm
         visible: false
         anchors.fill: parent
+
+        StaticColorBackend {
+            id: colorBack
+        }
+
+        applyButton {
+            onClicked: colorBack.Apply()
+        }
+
+        hueSlider {
+            onValueChanged: colorBack.setH(hueSlider.value)
+        }
+
+        satSlider {
+            onValueChanged: colorBack.setS(satSlider.value)
+        }
+
+        valSlider {
+            onValueChanged: colorBack.setV(valSlider.value)
+        }
+
     }
 
     /*
