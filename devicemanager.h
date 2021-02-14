@@ -12,6 +12,7 @@ class DeviceManager : public QObject
 	Q_OBJECT
 
 	Q_PROPERTY(QStringList devices READ devices NOTIFY DevicesChanged)
+	Q_PROPERTY(bool connected MEMBER connected NOTIFY onConnectedChanged)
 
 public:
 
@@ -35,25 +36,34 @@ public:
 
 	QLowEnergyService* bleSerialService;
 	QLowEnergyCharacteristic bleSerial;
+	QMap<QString, QBluetoothDeviceInfo> deviceMap;
+	bool connected = false;
 
 private slots:
 
 	void DiscoveredDevice(const QBluetoothDeviceInfo &info);
 	void Write();
 	void Connected();
+	void Disconnected();
 	void BLEServiceDiscovered(const QBluetoothUuid uuid);
 	void BLEServiceDetailDiscovered(QLowEnergyService::ServiceState newState);
+	void BLEError(QLowEnergyController::Error err);
+
+public slots:
+	void startDiscovery();
+	void stopDiscovery();
+	void disconnectFromDevice();
 
 private:
 
 	static DeviceManager* ptrInstance;
 
-	void StartDiscovery();
-	void StopDiscovery();
 	void DiscoverDetails();
+	bool discovering = false;
 
 	QBluetoothDeviceDiscoveryAgent* bleDiscovery;
 	QList<QBluetoothDeviceInfo> discoveredDevices;
+
 	QLowEnergyController* bleController;
 	//QLowEnergyService* bleSerialService;
 	//QLowEnergyCharacteristic bleSerial;
@@ -72,32 +82,18 @@ private:
 
 	QStringList devices();
 
-
-	//All this should be handled in HomeForm, it does not fit the design specs for this class
-	/*
-	int hue = 0;
-	int sat = 0;
-	int val = 255;
-
-	//I think brightness should be left alone in the Arduino as it is controlled by HSV
-	//int bright = 255;
-
-	int delay = 10;
-
-	const QMap<QString, QString> sigmonPalette {
-		{"Rainbow", "r"},
-		{"Rainbow Stripe", "R"},
-		{"Cloud", "c"},
-		{"Party", "p"},
-		{"Ocean", "o"},
-		{"Lava", "l"},
-		{"Forest", "f"}
-	};
-	*/
+	QTimer* discoveryTimer;
 
 signals:
 
 	void DevicesChanged(QStringList devices);
+	void onStartedSearch();
+	void onStoppedSearch();
+	void onConnectedChanged(bool connected);
+	void onConnected();
+	void onConnecting();
+	void onDisconnected();
+	void onBLEError(QString errMsg);
 
 };
 

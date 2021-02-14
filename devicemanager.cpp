@@ -16,14 +16,18 @@ DeviceManager::DeviceManager(QObject *parent)
 	QTimer* timer = new QTimer(this);
 	connect(timer, &QTimer::timeout, this, &DeviceManager::Write);
 	timer->start(35);
+
+	//This line is causing init crash
+	discoveryTimer = new QTimer(this);
+	connect(discoveryTimer, &QTimer::timeout, this, &DeviceManager::stopDiscovery);
 	qDebug() << "DeviceManager constructed";
 
-	StartDiscovery();
+	startDiscovery();
 }
 
 DeviceManager::~DeviceManager()
 {
-	StopDiscovery();
+	stopDiscovery();
 	bleController->disconnectFromDevice();
 }
 
@@ -65,8 +69,11 @@ QString DeviceManager::ConvertNumToWritable(int num, const bool thousand)
 void DeviceManager::ConnectToDevice(const QBluetoothDeviceInfo &device)
 {
 	//Alert QML that we are connecting
+	emit onConnecting();
 	qDebug() << "Connecting to "+device.name()+"...";
-
+	if(connected){
+		disconnectFromDevice();
+	}
 	bleController = QLowEnergyController::createCentral(device, this);
 
 	connect(bleController, &QLowEnergyController::connected, this, &DeviceManager::Connected);
@@ -81,7 +88,18 @@ void DeviceManager::Connected(){
 	qDebug() << "Connected to "+currentDevice.name();
 
 	connect(bleController, &QLowEnergyController::serviceDiscovered, this, &DeviceManager::BLEServiceDiscovered);
+	connect(bleController, &QLowEnergyController::disconnected, this, &DeviceManager::Disconnected);
 	bleController->discoverServices();
+	connected = true;
+	emit onConnected();
+	emit onConnectedChanged(connected);
+}
+
+void DeviceManager::Disconnected()
+{
+	connected = false;
+	emit onDisconnected();
+	emit onConnectedChanged(connected);
 }
 
 void DeviceManager::BLEServiceDiscovered(const QBluetoothUuid uuid)
@@ -105,6 +123,52 @@ void DeviceManager::BLEServiceDetailDiscovered(QLowEnergyService::ServiceState n
 
 }
 
+void DeviceManager::BLEError(QLowEnergyController::Error errMsg)
+{
+	qDebug() << "BLE Error:" << errMsg;
+	switch(errMsg){
+		case QLowEnergyController::Error::AuthorizationError: {
+			emit onBLEError("Authorization");
+			disconnectFromDevice();
+			break;
+		}
+		case QLowEnergyController::Error::ConnectionError: {
+			emit onBLEError("Connection");
+			disconnectFromDevice();
+			break;
+		}
+		case QLowEnergyController::Error::InvalidBluetoothAdapterError: {
+			emit onBLEError("Invalid Bluetooth Adapter");
+			disconnectFromDevice();
+			break;
+		}
+		case QLowEnergyController::Error::NetworkError: {
+			emit onBLEError("Network");
+			disconnectFromDevice();
+			break;
+		}
+		case QLowEnergyController::Error::UnknownError: {
+			//emit onBLEError("Unkown");
+			break;
+		}
+		case QLowEnergyController::Error::AdvertisingError: {
+			break;
+		}
+		case QLowEnergyController::Error::RemoteHostClosedError: {
+			emit onBLEError("Remote host forcibly closed");
+			disconnectFromDevice();
+			break;
+		}
+		case QLowEnergyController::Error::UnknownRemoteDeviceError: {
+			//emit onBLEError("Unknown Remote Device");
+			break;
+		}
+		case QLowEnergyController::Error::NoError: {
+			break;
+		}
+	}
+}
+
 //Runs on a 35ms timer. See constructor
 void DeviceManager::Write()
 {
@@ -118,20 +182,41 @@ void DeviceManager::Write()
 	}
 }
 
-void DeviceManager::StartDiscovery(){
+void DeviceManager::startDiscovery(){
+	if(discovering){
+		return;
+	}
 	qDebug() << "Start Discovery";
 	//Reset devices
 	discoveredDevices.clear();
+	deviceMap.clear();
 	emit DevicesChanged(devices());
 
 	bleDiscovery->start(QBluetoothDeviceDiscoveryAgent::LowEnergyMethod);
+	discoveryTimer->stop();
+	discoveryTimer->start(10000);
+	discovering = true;
+
 	//Alert QML that we are now searching
+	emit onStartedSearch();
 }
 
-void DeviceManager::StopDiscovery(){
+void DeviceManager::stopDiscovery(){
+	if(!discovering){
+		return;
+	}
 	qDebug() << "Stop Discovery";
 	bleDiscovery->stop();
+	discoveryTimer->stop();
+	discovering = false;
+
 	//Alert QML that we are no longer searching
+	emit onStoppedSearch();
+}
+
+void DeviceManager::disconnectFromDevice()
+{
+	bleController->disconnectFromDevice();
 }
 
 void DeviceManager::DiscoverDetails()
@@ -143,6 +228,7 @@ void DeviceManager::DiscoveredDevice(const QBluetoothDeviceInfo &info)
 {
 	qDebug() << "Discovered Device:" << info.name();
 	discoveredDevices.append(info);
+	deviceMap.insert(info.name() + " " + info.address().toString(), info);
 	emit DevicesChanged(devices());
 
 	if(info.address().toString() == testDeviceAddress){
