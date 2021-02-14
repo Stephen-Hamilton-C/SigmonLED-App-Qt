@@ -107,7 +107,7 @@ Page {
         verticalAlignment: Text.AlignVCenter
         anchors.rightMargin: 0
         anchors.leftMargin: 0
-        font.pointSize: 12
+        font.pointSize: 14
         anchors.bottomMargin: 0
     }
 }
