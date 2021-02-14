@@ -33,3 +33,5 @@ HEADERS += \
 	homeform.h \
 	paletteform.h \
 	staticcolorform.h
+
+RC_ICONS = Icon/SigmonLED_Icon.ico
