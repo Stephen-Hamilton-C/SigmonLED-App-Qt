@@ -1,7 +1,5 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.5
-import com.stephenhamilton.devicemanager 1.0
-import com.stephenhamilton.homeform 1.0
 
 Page {
     id: page
@@ -11,26 +9,20 @@ Page {
     hoverEnabled: true
     wheelEnabled: false
     anchors.fill: parent
+    property alias connButton: connButton
 
     title: qsTr("Devices")
-
-    DeviceManager {
-        id: deviceManager
-    }
-
-    HomeBackend {
-        id: backend
-    }
 
     Button {
         id: connButton
         x: 175
         y: 396
         width: 100
-        text: backend.connButtonText
+        text: qsTr("Connect")
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 50
         anchors.horizontalCenter: parent.horizontalCenter
+        //onClicked: backend.connectToTestDevice()
     }
 
     Label {
@@ -110,10 +102,3 @@ Page {
         }
     }
 }
-
-/*##^##
-Designer {
-    D{i:0;formeditorZoom:0.75}
-}
-##^##*/
-
