@@ -9,7 +9,9 @@ CONFIG += c++11
 SOURCES += \
         devicemanager.cpp \
         homeform.cpp \
-        main.cpp
+        main.cpp \
+        paletteform.cpp \
+        staticcolorform.cpp
 
 RESOURCES += qml.qrc
 
@@ -26,4 +28,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
 	devicemanager.h \
-	homeform.h
+	homeform.h \
+	paletteform.h \
+	staticcolorform.h
