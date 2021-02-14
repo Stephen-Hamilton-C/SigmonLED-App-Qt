@@ -10,6 +10,7 @@ Page {
 
     title: qsTr("Static Color")
 
+    property alias applyButton: applyButton
     Button {
         id: applyButton
         x: 188
@@ -19,8 +20,10 @@ Page {
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottomMargin: 100
+        //onClicked: backend.Apply()
     }
 
+    property alias hueSlider: hueSlider
     // Source: https://stackoverflow.com/questions/42707818/customizing-slider-in-qt-5-6-qml
     Slider {
         id: hueSlider
@@ -29,7 +32,7 @@ Page {
         height: 300
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
-        to: 255
+        to: 360
         snapMode: Slider.SnapAlways
         value: 0
         anchors.leftMargin: 75
@@ -45,13 +48,16 @@ Page {
             height: hueHorizontal ? implicitHeight : hueSlider.availableHeight
             radius: 10
             border.color: "#000000"
-            color: Qt.hsva(hueSlider.value / 255.0, 1, 1, 1)
+            color: Qt.hsva(hueSlider.value / 360.0, 1, 1, 1)
             scale: hueHorizontal && hueSlider.mirrored ? -1 : 1
 
             readonly property bool hueHorizontal: hueSlider.orientation === Qt.Horizontal
         }
+
+        //onValueChanged: backend.setH(value)
     }
 
+    property alias satSlider: satSlider
     Slider {
         id: satSlider
         y: 159
@@ -75,14 +81,17 @@ Page {
             height: satHorizontal ? implicitHeight : satSlider.availableHeight
             radius: 10
             border.color: "#000000"
-            color: Qt.hsva(hueSlider.value / 255.0,
+            color: Qt.hsva(hueSlider.value / 360.0,
                            satSlider.value / 255.0, 1, 1)
             scale: satHorizontal && satSlider.mirrored ? -1 : 1
 
             readonly property bool satHorizontal: satSlider.orientation === Qt.Horizontal
         }
+
+        //onValueChanged: backend.setS(value)
     }
 
+    property alias valSlider: valSlider
     Slider {
         id: valSlider
         y: 159
@@ -94,7 +103,7 @@ Page {
         anchors.verticalCenterOffset: 0
         to: 255
         snapMode: Slider.SnapAlways
-        value: 0
+        value: 255
         stepSize: 1
         orientation: Qt.Vertical
 
@@ -122,6 +131,8 @@ Page {
 
             readonly property bool valHorizontal: valSlider.orientation === Qt.Horizontal
         }
+
+        //onValueChanged: backend.setV(value)
     }
 
     Rectangle {
@@ -130,8 +141,7 @@ Page {
         y: 506
         width: 50
         height: 50
-        color: Qt.hsva(hueSlider.value / 255, satSlider.value / 255,
-                       valSlider.value / 255, 1)
+        color: Qt.hsva(hueSlider.value / 360, satSlider.value / 255, 1, 1)
         radius: 10
         border.width: 2
         anchors.bottom: parent.bottom
