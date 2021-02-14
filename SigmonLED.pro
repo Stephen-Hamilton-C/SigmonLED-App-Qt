@@ -1,6 +1,4 @@
-QT       += core gui bluetooth
-
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT += quick bluetooth
 
 CONFIG += c++11
 
@@ -9,16 +7,29 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    main.cpp \
-    mainwindow.cpp
+        devicemanager.cpp \
+        fastonoff.cpp \
+        homeform.cpp \
+        main.cpp \
+        paletteform.cpp \
+        staticcolorform.cpp
 
-HEADERS += \
-    mainwindow.h
+RESOURCES += qml.qrc
 
-FORMS += \
-    mainwindow.ui
+# Additional import path used to resolve QML modules in Qt Creator's code model
+QML_IMPORT_PATH =
+
+# Additional import path used to resolve QML modules just for Qt Quick Designer
+QML_DESIGNER_IMPORT_PATH =
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+HEADERS += \
+	devicemanager.h \
+	fastonoff.h \
+	homeform.h \
+	paletteform.h \
+	staticcolorform.h
