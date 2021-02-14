@@ -1,13 +1,15 @@
 #include "devicemanager.h"
 #include <QTimer>
 
+DeviceManager* DeviceManager::ptrInstance = nullptr;
+
 DeviceManager::DeviceManager(QObject *parent)
 {
+	if(ptrInstance != nullptr){
+		delete this;
+	}
+	ptrInstance = this;
 
-}
-
-DeviceManager::~DeviceManager()
-{
 	bleDiscovery = new QBluetoothDeviceDiscoveryAgent();
 	connect(bleDiscovery, &QBluetoothDeviceDiscoveryAgent::deviceDiscovered, this, &DeviceManager::DiscoveredDevice);
 
@@ -17,6 +19,12 @@ DeviceManager::~DeviceManager()
 	qDebug() << "DeviceManager constructed";
 
 	StartDiscovery();
+}
+
+DeviceManager::~DeviceManager()
+{
+	StopDiscovery();
+	bleController->disconnectFromDevice();
 }
 
 void DeviceManager::QueryWrite(const QString cmd)
@@ -84,21 +92,17 @@ void DeviceManager::BLEServiceDiscovered(const QBluetoothUuid uuid)
 		bleSerialService = bleController->createServiceObject(uuid, this);
 
 		connect(bleSerialService, &QLowEnergyService::stateChanged, this, &DeviceManager::BLEServiceDetailDiscovered);
-		bleSerialService->discoverDetails();
+		QTimer::singleShot(50, this, &DeviceManager::DiscoverDetails);
 	}
 }
 
 void DeviceManager::BLEServiceDetailDiscovered(QLowEnergyService::ServiceState newState)
 {
-	if(newState == QLowEnergyService::ServiceState::ServiceDiscovered){
-		qDebug() << "Detail discovered";
-		bleSerial = bleSerialService->characteristic(QBluetoothUuid(charUUID));
-		//Alert QML that we are ready. Maybe check if the char is actually valid first?
-		if(bleSerial.isValid()){
-			qDebug() << "Desired characteristic found to be valid. READY";
-			//Alert QML that we are ready. Test that this works
-		}
-	}
+	qDebug() << "Detail discovered";
+	bleSerial = bleSerialService->characteristic(QBluetoothUuid(charUUID));
+	qDebug() << "Serial valid:" << bleSerial.isValid();
+	//Alert QML that we are ready. Check if the char is actually valid first.
+
 }
 
 //Runs on a 35ms timer. See constructor
@@ -106,6 +110,7 @@ void DeviceManager::Write()
 {
 	if(writeBuffer.length() > 0){
 		qDebug() << "Writing to serial:" << writeBuffer.at(0);
+
 		//Write characteristic
 		bleSerialService->writeCharacteristic(bleSerial, QByteArray::fromStdString(QString(writeBuffer.at(0)).toStdString()),
 											  QLowEnergyService::WriteMode::WriteWithoutResponse);
@@ -117,7 +122,7 @@ void DeviceManager::StartDiscovery(){
 	qDebug() << "Start Discovery";
 	//Reset devices
 	discoveredDevices.clear();
-	emit DevicesChanged();
+	emit DevicesChanged(devices());
 
 	bleDiscovery->start(QBluetoothDeviceDiscoveryAgent::LowEnergyMethod);
 	//Alert QML that we are now searching
@@ -129,11 +134,20 @@ void DeviceManager::StopDiscovery(){
 	//Alert QML that we are no longer searching
 }
 
+void DeviceManager::DiscoverDetails()
+{
+	bleSerialService->discoverDetails();
+}
+
 void DeviceManager::DiscoveredDevice(const QBluetoothDeviceInfo &info)
 {
 	qDebug() << "Discovered Device:" << info.name();
 	discoveredDevices.append(info);
-	emit DevicesChanged();
+	emit DevicesChanged(devices());
+
+	if(info.address().toString() == testDeviceAddress){
+		testDevice = info;
+	}
 }
 
 QStringList DeviceManager::devices()

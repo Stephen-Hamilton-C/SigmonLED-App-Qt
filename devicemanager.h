@@ -23,10 +23,18 @@ public:
 	 * @param cmd The command to write to the device
 	 */
 	void QueryWrite(const QString cmd);
-	QString ConvertNumToWritable(int num, const bool thousand = false);
+	static QString ConvertNumToWritable(int num, const bool thousand = false);
 	void ConnectToDevice(const QBluetoothDeviceInfo &device);
 
 	QBluetoothDeviceInfo currentDevice;
+	QBluetoothDeviceInfo testDevice;
+
+	static DeviceManager* getInstance(){
+		return ptrInstance;
+	}
+
+	QLowEnergyService* bleSerialService;
+	QLowEnergyCharacteristic bleSerial;
 
 private slots:
 
@@ -38,14 +46,17 @@ private slots:
 
 private:
 
+	static DeviceManager* ptrInstance;
+
 	void StartDiscovery();
 	void StopDiscovery();
+	void DiscoverDetails();
 
 	QBluetoothDeviceDiscoveryAgent* bleDiscovery;
 	QList<QBluetoothDeviceInfo> discoveredDevices;
 	QLowEnergyController* bleController;
-	QLowEnergyService* bleSerialService;
-	QLowEnergyCharacteristic bleSerial;
+	//QLowEnergyService* bleSerialService;
+	//QLowEnergyCharacteristic bleSerial;
 
 	QString writeBuffer;
 
@@ -56,7 +67,8 @@ private:
 	/**
 	 * @brief charUUID The Serial Terminal write characteristic for HM-10 BLE modules
 	 */
-	const QString charUUID = "{0000ffe1-0000-1000-8000-00805f9b34fb}";
+	const QString charUUID = "0000ffe1-0000-1000-8000-00805f9b34fb";
+	const QString testDeviceAddress = "64:69:4E:80:23:4E";
 
 	QStringList devices();
 
@@ -85,7 +97,7 @@ private:
 
 signals:
 
-	void DevicesChanged();
+	void DevicesChanged(QStringList devices);
 
 };
 
