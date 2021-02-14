@@ -1,4 +1,7 @@
 #include "devicemanager.h"
+#include "homeform.h"
+#include "paletteform.h"
+#include "staticcolorform.h"
 
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
@@ -21,9 +24,10 @@ int main(int argc, char *argv[])
 
 
 	//Qml Registrations
-	qmlRegisterType<DeviceManager>("com.stephenhamilton.devicemanager", 1, 0, "DeviceManager");
-	qmlRegisterType<HomeForm>("com.stephenhamilton.homeform", 1, 0, "HomeBackend");
-
+	qmlRegisterType<DeviceManager>("com.stephenhamilton.sigmonled", 1, 0, "DeviceManager");
+	qmlRegisterType<HomeForm>("com.stephenhamilton.sigmonled", 1, 0, "HomeBackend");
+	qmlRegisterType<PaletteForm>("com.stephenhamilton.sigmonled", 1, 0, "PaletteBackend");
+	qmlRegisterType<StaticColorForm>("com.stephenhamilton.sigmonled", 1, 0, "StaticColorBackend");
 
 	engine.load(url);
 
