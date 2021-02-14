@@ -8,6 +8,7 @@ CONFIG += c++11
 
 SOURCES += \
         devicemanager.cpp \
+        fastonoff.cpp \
         homeform.cpp \
         main.cpp \
         paletteform.cpp \
@@ -28,6 +29,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
 	devicemanager.h \
+	fastonoff.h \
 	homeform.h \
 	paletteform.h \
 	staticcolorform.h
