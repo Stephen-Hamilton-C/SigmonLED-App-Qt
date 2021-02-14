@@ -6,6 +6,7 @@
 #include <QColor>
 #include <QBluetoothDeviceDiscoveryAgent>
 #include <QLowEnergyController>
+#include <QTimer>
 
 class DeviceManager : public QObject
 {
