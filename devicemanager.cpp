@@ -13,11 +13,10 @@ DeviceManager::DeviceManager(QObject *parent)
 	bleDiscovery = new QBluetoothDeviceDiscoveryAgent();
 	connect(bleDiscovery, &QBluetoothDeviceDiscoveryAgent::deviceDiscovered, this, &DeviceManager::DiscoveredDevice);
 
-	QTimer* timer = new QTimer(this);
-	connect(timer, &QTimer::timeout, this, &DeviceManager::Write);
-	timer->start(35);
+	QTimer* writeTimer = new QTimer(this);
+	connect(writeTimer, &QTimer::timeout, this, &DeviceManager::Write);
+	writeTimer->start(35);
 
-	//This line is causing init crash
 	discoveryTimer = new QTimer(this);
 	connect(discoveryTimer, &QTimer::timeout, this, &DeviceManager::stopDiscovery);
 	qDebug() << "DeviceManager constructed";
@@ -172,7 +171,7 @@ void DeviceManager::BLEError(QLowEnergyController::Error errMsg)
 //Runs on a 35ms timer. See constructor
 void DeviceManager::Write()
 {
-	if(writeBuffer.length() > 0){
+	if(connected && writeBuffer.length() > 0){
 		qDebug() << "Writing to serial:" << writeBuffer.at(0);
 
 		//Write characteristic
@@ -222,6 +221,7 @@ void DeviceManager::disconnectFromDevice()
 void DeviceManager::DiscoverDetails()
 {
 	bleSerialService->discoverDetails();
+	QueryWrite("x");
 }
 
 void DeviceManager::DiscoveredDevice(const QBluetoothDeviceInfo &info)
