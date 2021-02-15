@@ -35,3 +35,6 @@ HEADERS += \
 	staticcolorform.h
 
 RC_ICONS = Icon/SigmonLED_Icon.ico
+
+DISTFILES += \
+	Changelog.md
