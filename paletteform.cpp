@@ -11,7 +11,7 @@ void PaletteForm::ApplyChanges()
 	qDebug() << "Apply";
 	DeviceManager* dm = DeviceManager::getInstance();
 	dm->QueryWrite("B"+brightness);
-	dm->QueryWrite("p"+palette+(linearBlending ? "l" : "n"));
+	dm->QueryWrite((solidPalette ? "P" : "p") + palette + (linearBlending ? "l" : "n"));
 	dm->QueryWrite("d"+delay);
 }
 
@@ -25,6 +25,12 @@ void PaletteForm::setLinearBlending(bool linearBlending)
 {
 	qDebug() << "Blending:" << linearBlending;
 	this->linearBlending = linearBlending;
+}
+
+void PaletteForm::setSolidPalette(bool solidPalette)
+{
+	qDebug() << "Solid Palette:" << solidPalette;
+	this->solidPalette = solidPalette;
 }
 
 void PaletteForm::setDelay(int delay)

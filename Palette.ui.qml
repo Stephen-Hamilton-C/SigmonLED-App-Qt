@@ -6,6 +6,7 @@ Page {
     width: 450
     height: 800
     anchors.fill: parent
+    property alias solidPaletteSwitch: solidPaletteSwitch
     property alias brightnessSlider: brightnessSlider
     property alias delayBox: delayBox
     property alias linearBlendSwitch: linearBlendSwitch
@@ -34,7 +35,7 @@ Page {
         anchors.verticalCenter: parent.verticalCenter
         anchors.horizontalCenter: parent.horizontalCenter
         currentIndex: 0
-        anchors.verticalCenterOffset: -25
+        anchors.verticalCenterOffset: -75
 
         model: ["Rainbow", "Rainbow Stripe", "Cloud", "Party", "Ocean", "Lava", "Forest"]
 
@@ -48,6 +49,7 @@ Page {
         text: qsTr("Linear Blending")
         checked: true
         anchors.verticalCenter: parent.verticalCenter
+        anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenterOffset: 25
         width: text.width
 
@@ -109,5 +111,16 @@ Page {
         anchors.leftMargin: 0
         font.pointSize: 14
         anchors.bottomMargin: 0
+    }
+
+    SwitchDelegate {
+        id: solidPaletteSwitch
+        x: 0
+        y: 449
+        width: text.width
+        text: qsTr("Solid Palette")
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenterOffset: -25
     }
 }

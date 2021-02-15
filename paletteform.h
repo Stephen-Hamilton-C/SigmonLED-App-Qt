@@ -16,6 +16,7 @@ public slots:
 	void ApplyChanges();
 	void setPalette(QString palette);
 	void setLinearBlending(bool linearBlending);
+	void setSolidPalette(bool solidPalette);
 	void setDelay(int delay);
 	void setBrightness(int brightness);
 
@@ -23,6 +24,7 @@ private:
 
 	QString palette = "r";
 	bool linearBlending = true;
+	bool solidPalette = false;
 	QString brightness = "255";
 	QString delay = "0010";
 

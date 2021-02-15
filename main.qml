@@ -199,6 +199,10 @@ ApplicationWindow {
             onValueChanged: paletteBack.setDelay(delayBox.value)
         }
 
+        solidPaletteSwitch {
+            onCheckedChanged: paletteBack.setSolidPalette(solidPaletteSwitch.checked);
+        }
+
         linearBlendSwitch {
             onCheckedChanged: paletteBack.setLinearBlending(linearBlendSwitch.checked)
         }
