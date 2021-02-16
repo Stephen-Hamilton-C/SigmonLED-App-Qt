@@ -89,7 +89,7 @@ QString DeviceManager::ConvertNumToWritable(int num, const bool thousand)
 void DeviceManager::ConnectToDevice(const QBluetoothDeviceInfo &device)
 {
 	//Alert QML that we are connecting
-	emit BLEConnect();
+	emit onBLEConnect();
 	qDebug() << "Connecting to "+device.name()+"...";
 
 	//Disconnect if already connected
@@ -118,8 +118,8 @@ void DeviceManager::BLEConnected(){
 
 	//Alert QML we are connected
 	connected = true;
-	emit BLEConnect();
-	emit BLEConnectedChanged(connected);
+	emit onBLEConnect();
+	emit onBLEConnectedChanged(connected);
 }
 
 void DeviceManager::BLEDisconnected()
@@ -131,9 +131,9 @@ void DeviceManager::BLEDisconnected()
 	//Alert QML we disconnected
 	connected = false;
 	ready = false;
-	emit BLEDisconnect();
-	emit BLEConnectedChanged(connected);
-	emit BLEReadyChanged(ready);
+	emit onBLEDisconnect();
+	emit onBLEConnectedChanged(connected);
+	emit onBLEReadyChanged(ready);
 }
 
 void DeviceManager::BLEServiceDiscovered(const QBluetoothUuid uuid)
@@ -169,8 +169,8 @@ void DeviceManager::BLEServiceDetailDiscovered(QLowEnergyService::ServiceState n
 		QueueWrite("x");
 
 		ready = true;
-		emit BLEReady();
-		emit BLEReadyChanged(ready);
+		emit onBLEReady();
+		emit onBLEReadyChanged(ready);
 	}
 }
 
@@ -180,22 +180,22 @@ void DeviceManager::BLEError(QLowEnergyController::Error errMsg)
 	qDebug() << "BLE Error:" << errMsg;
 	switch(errMsg){
 		case QLowEnergyController::Error::AuthorizationError: {
-			emit BLEFault("Authorization");
+			emit onBLEFault("Authorization");
 			disconnectFromDevice();
 			break;
 		}
 		case QLowEnergyController::Error::ConnectionError: {
-			emit BLEFault("Connection");
+			emit onBLEFault("Connection");
 			disconnectFromDevice();
 			break;
 		}
 		case QLowEnergyController::Error::InvalidBluetoothAdapterError: {
-			emit BLEFault("Invalid Bluetooth Adapter");
+			emit onBLEFault("Invalid Bluetooth Adapter");
 			disconnectFromDevice();
 			break;
 		}
 		case QLowEnergyController::Error::NetworkError: {
-			emit BLEFault("Network");
+			emit onBLEFault("Network");
 			disconnectFromDevice();
 			break;
 		}
@@ -207,7 +207,7 @@ void DeviceManager::BLEError(QLowEnergyController::Error errMsg)
 			break;
 		}
 		case QLowEnergyController::Error::RemoteHostClosedError: {
-			emit BLEFault("Remote host forcibly closed");
+			emit onBLEFault("Remote host forcibly closed");
 			disconnectFromDevice();
 			break;
 		}
@@ -256,7 +256,7 @@ void DeviceManager::startDiscovery(){
 	discoveryTimer->start(10000);
 
 	//Alert QML that we are now searching
-	emit BLEStartedSearch();
+	emit onBLEStartedSearch();
 	discovering = true;
 }
 
@@ -272,7 +272,7 @@ void DeviceManager::stopDiscovery(){
 	discoveryTimer->stop();
 
 	//Alert QML that we are no longer searching
-	emit BLEStoppedSearch();
+	emit onBLEStoppedSearch();
 	discovering = false;
 }
 

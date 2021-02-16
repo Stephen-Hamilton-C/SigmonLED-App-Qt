@@ -1,5 +1,6 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.5
+import com.stephenhamilton.sigmonled.main 1.0
 
 Page {
     id: page
@@ -26,7 +27,6 @@ Page {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 50
         anchors.horizontalCenter: parent.horizontalCenter
-        //onClicked: backend.connectToTestDevice()
     }
 
     Label {
@@ -74,84 +74,12 @@ Page {
             anchors.leftMargin: 15
             anchors.topMargin: 0
         }
-
-
-        /*
-        delegate: ItemDelegate {
-            required property string modelData
-            width: 100
-            anchors {
-                left: parent.left
-                right: parent.right
-            }
-            text: modelData
-        }
-        */
-
-
-        /*
-        delegate: Rectangle {
-            required property string modelData
-            height: 25
-            width: 100
-            anchors {
-                left: parent.left
-                right: parent.right
-            }
-
-            Text {
-                text: parent.modelData
-            }
-        }
-        */
-
-
-        /*
-        model: ListModel {
-            ListElement {
-                name: "Grey"
-                colorCode: "grey"
-            }
-
-            ListElement {
-                name: "Red"
-                colorCode: "red"
-            }
-
-            ListElement {
-                name: "Blue"
-                colorCode: "blue"
-            }
-
-            ListElement {
-                name: "Green"
-                colorCode: "green"
-            }
-        }
-
-        delegate: Item {
-            x: 5
-            width: 80
-            height: 40
-            Row {
-                id: row1
-                Rectangle {
-                    width: 40
-                    height: 40
-                    color: colorCode
-                }
-
-                Text {
-                    text: name
-                    anchors.verticalCenter: parent.verticalCenter
-                    font.bold: true
-                }
-                spacing: 10
-            }
-        }
-        */
     }
 }
 
-
+/*##^##
+Designer {
+    D{i:0;formeditorZoom:0.75}
+}
+##^##*/
 

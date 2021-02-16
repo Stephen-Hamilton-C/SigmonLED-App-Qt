@@ -12,8 +12,8 @@ class DeviceManager : public QObject
 	Q_OBJECT
 
 	//Used to indicate connection status to QML
-	Q_PROPERTY(bool connected MEMBER connected NOTIFY BLEConnectedChanged)
-	Q_PROPERTY(bool ready MEMBER ready NOTIFY readyChanged)
+	Q_PROPERTY(bool connected MEMBER connected NOTIFY onBLEConnectedChanged)
+	Q_PROPERTY(bool ready MEMBER ready NOTIFY onBLEReadyChanged)
 
 public:
 
@@ -206,39 +206,39 @@ signals:
 	/**
 	 * @brief Emitted when discovery starts
 	 */
-	void BLEStartedSearch();
+	void onBLEStartedSearch();
 	/**
 	 * @brief Emitted when discovery stops
 	 */
-	void BLEStoppedSearch();
+	void onBLEStoppedSearch();
 	/**
 	 * @brief Emitted when connected or disconnected. Bound to QML property.
 	 */
-	void BLEConnectedChanged(bool connected);
+	void onBLEConnectedChanged(bool connected);
 	/**
 	 * @brief Emitted when connected
 	 */
-	void BLEConnect();
+	void onBLEConnect();
 	/**
 	 * @brief Emitted when a connection is ready to write to
 	 */
-	void BLEReady();
+	void onBLEReady();
 	/**
 	 * @brief Emitted when ready status is changed
 	 */
-	void BLEReadyChanged(bool ready);
+	void onBLEReadyChanged(bool ready);
 	/**
 	 * @brief Emitted when a connection is being attempted
 	 */
-	void BLEConnecting();
+	void onBLEConnecting();
 	/**
 	 * @brief Emitted when disconnected
 	 */
-	void BLEDisconnect();
+	void onBLEDisconnect();
 	/**
 	 * @brief Emitted when a BLE error occurs.
 	 */
-	void BLEFault(QString errMsg);
+	void onBLEFault(QString errMsg);
 
 };
 

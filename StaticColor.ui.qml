@@ -7,10 +7,12 @@ Page {
     height: 800
     font.pointSize: 11
     anchors.fill: parent
-
     title: qsTr("Static Color")
-
     property alias applyButton: applyButton
+    property alias hueSlider: hueSlider
+    property alias satSlider: satSlider
+    property alias valSlider: valSlider
+
     Button {
         id: applyButton
         x: 188
@@ -20,11 +22,10 @@ Page {
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottomMargin: 100
-        //onClicked: backend.Apply()
     }
 
-    property alias hueSlider: hueSlider
     // Source: https://stackoverflow.com/questions/42707818/customizing-slider-in-qt-5-6-qml
+    //This slider has a custom colored background
     Slider {
         id: hueSlider
         y: 159
@@ -49,15 +50,13 @@ Page {
             radius: 10
             border.color: "#000000"
             color: Qt.hsva(hueSlider.value / 360.0, 1, 1, 1)
+
             scale: hueHorizontal && hueSlider.mirrored ? -1 : 1
 
             readonly property bool hueHorizontal: hueSlider.orientation === Qt.Horizontal
         }
-
-        //onValueChanged: backend.setH(value)
     }
 
-    property alias satSlider: satSlider
     Slider {
         id: satSlider
         y: 159
@@ -91,7 +90,6 @@ Page {
         //onValueChanged: backend.setS(value)
     }
 
-    property alias valSlider: valSlider
     Slider {
         id: valSlider
         y: 159

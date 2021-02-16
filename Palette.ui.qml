@@ -24,7 +24,6 @@ Page {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 100
         anchors.horizontalCenter: parent.horizontalCenter
-        //onClicked: backend.ApplyChanges()
     }
 
     ComboBox {
@@ -38,8 +37,6 @@ Page {
         anchors.verticalCenterOffset: -75
 
         model: ["Rainbow", "Rainbow Stripe", "Cloud", "Party", "Ocean", "Lava", "Forest"]
-
-        //onActivated: backend.setPalette(currentText)
     }
 
     SwitchDelegate {
@@ -52,8 +49,6 @@ Page {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenterOffset: 25
         width: text.width
-
-        //onCheckedChanged: backend.setLinearBlending(checked)
     }
 
     SpinBox {
@@ -67,8 +62,6 @@ Page {
         value: 10
         anchors.verticalCenterOffset: 125
         anchors.horizontalCenter: parent.horizontalCenter
-
-        //onValueChanged: backend.setDelay(value)
     }
 
     Label {
@@ -95,7 +88,6 @@ Page {
         anchors.rightMargin: 100
         anchors.leftMargin: 100
         value: 255
-        //onValueChanged: backend.setBrightness(value)
     }
 
     Label {

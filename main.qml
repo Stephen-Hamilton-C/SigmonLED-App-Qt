@@ -52,13 +52,6 @@ ApplicationWindow {
                 text: qsTr("Devices")
                 width: parent.width
                 onClicked: {
-                    /*
-                    if(stackView.children[stackView.children.length-1].toString().split('.')[0].search("HomeForm") === -1){
-                        stackView.clear()
-                        stackView.push("HomeForm.ui.qml")
-                    }
-                    */
-
                     homeForm.visible = true
                     colorForm.visible = false
                     paletteForm.visible = false
@@ -72,13 +65,6 @@ ApplicationWindow {
                 width: parent.width
                 enabled: deviceMan.ready
                 onClicked: {
-                    /*
-                    if(stackView.children[stackView.children.length-1].toString().split('.')[0].search("StaticColor") === -1){
-                        stackView.clear()
-                        stackView.push("StaticColor.ui.qml")
-                    }
-                    */
-
                     homeForm.visible = false
                     colorForm.visible = true
                     paletteForm.visible = false
@@ -91,13 +77,6 @@ ApplicationWindow {
                 width: parent.width
                 enabled: deviceMan.ready
                 onClicked: {
-                    /*
-                    if(stackView.children[stackView.children.length-1].toString().split('.')[0].search("Palette") === -1){
-                        stackView.clear()
-                        stackView.push("Palette.ui.qml")
-                    }
-                    */
-
                     homeForm.visible = false
                     colorForm.visible = false
                     paletteForm.visible = true
@@ -109,6 +88,7 @@ ApplicationWindow {
     }
 
     //Probably should make some Qml files and put the linkage there instead of here
+    //Or perhaps use Qt Designer's backend system
     HomeForm {
         id: homeForm
         visible: true
@@ -118,38 +98,38 @@ ApplicationWindow {
             id: deviceMan
 
 
-            onBLEStartedSearch: {
+            onOnBLEStartedSearch: {
                 homeForm.searchIndicator.running = true
             }
 
-            onBLEStoppedSearch: {
+            onOnBLEStoppedSearch: {
                 homeForm.searchIndicator.running = false
             }
 
-            onBLEConnect: {
+            onOnBLEConnect: {
                 homeForm.connLabel.text = "Connected"
                 homeForm.connLabel.color = "#0099ff"
                 homeForm.connButton.text = "Disconnect"
             }
 
-            onBLEReady: {
+            onOnBLEReady: {
                 homeForm.connLabel.text = "Ready"
                 homeForm.connLabel.color = "#00aa00"
                 homeForm.connButton.text = "Disconnect"
             }
 
-            onBLEConnecting: {
+            onOnBLEConnecting: {
                 homeForm.connLabel.text = "Connecting..."
                 homeForm.connLabel.color = "#aaaa00"
             }
 
-            onBLEDisconnect: {
+            onOnBLEDisconnect: {
                 homeForm.connLabel.text = "Disconnected"
                 homeForm.connLabel.color = "#ff0000"
                 homeForm.connButton.text = "Connect"
             }
 
-            onBLEFault: {
+            onOnBLEFault: {
                 homeForm.connLabel.text = "Err: "+errMsg
                 homeForm.connLabel.text = "Disconnected"
                 homeForm.connLabel.color = "#ff0000"
@@ -167,7 +147,6 @@ ApplicationWindow {
             showAllButton.text = homeBack.showAll ? "Hide" : "Show All"
         }
 
-
         devicesList {
             model: homeBack.devices
             delegate: ItemDelegate {
@@ -177,10 +156,12 @@ ApplicationWindow {
                     left: parent.left
                     right: parent.right
                 }
+                //Remove the encoded MAC address from the modelData
                 text: modelData.substring(0, modelData.length-18)
+                //Highlight if selected
                 highlighted: homeBack.highlightedDelegate == modelData
 
-
+                //select on click
                 onClicked: homeBack.highlightedDelegate = modelData
             }
         }
@@ -275,14 +256,6 @@ ApplicationWindow {
         enabled: deviceMan.ready
         onClicked: fastBack.off()
     }
-
-    /*
-    StackView {
-        id: stackView
-        initialItem: homeForm
-        anchors.fill: parent
-    }
-    */
 }
 
 
