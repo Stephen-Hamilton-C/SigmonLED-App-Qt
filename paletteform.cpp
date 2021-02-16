@@ -1,18 +1,26 @@
 #include "paletteform.h"
 #include "devicemanager.h"
 
-PaletteForm::PaletteForm(QObject *parent)
-{
-
-}
+PaletteForm::PaletteForm(QObject *parent) {}
 
 void PaletteForm::ApplyChanges()
 {
 	qDebug() << "Apply";
 	DeviceManager* dm = DeviceManager::getInstance();
-	dm->QueryWrite("B"+brightness);
-	dm->QueryWrite((solidPalette ? "P" : "p") + palette + (linearBlending ? "l" : "n"));
-	dm->QueryWrite("d"+delay);
+
+	//Set the brightness
+	dm->QueueWrite("B"+brightness);
+
+	//Let's walk through this mess.
+	//First line is solid palette (P) or standard running palette (p).
+	//Next line is the palette selected, converted into the Arduino char.
+	//Last line is the linear blending toggle. l for blending, n for none.
+	dm->QueueWrite((solidPalette ? "P" : "p")
+				   + palette +
+				   (linearBlending ? "l" : "n"));
+
+	//Set time between color updates
+	dm->QueueWrite("d"+delay);
 }
 
 void PaletteForm::setPalette(QString palette)

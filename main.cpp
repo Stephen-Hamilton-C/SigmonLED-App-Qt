@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 	}, Qt::QueuedConnection);
 
 
-	//Qml Registrations
+//Qml Registrations:
 	qmlRegisterType<DeviceManager>("com.stephenhamilton.sigmonled.main", 1, 0, "DeviceManager");
 	qmlRegisterType<HomeForm>("com.stephenhamilton.sigmonled.main", 1, 0, "HomeBackend");
 	qmlRegisterType<PaletteForm>("com.stephenhamilton.sigmonled.main", 1, 0, "PaletteBackend");

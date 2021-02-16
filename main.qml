@@ -70,7 +70,7 @@ ApplicationWindow {
             ItemDelegate {
                 text: qsTr("Static Color")
                 width: parent.width
-                enabled: deviceMan.connected
+                enabled: deviceMan.ready
                 onClicked: {
                     /*
                     if(stackView.children[stackView.children.length-1].toString().split('.')[0].search("StaticColor") === -1){
@@ -89,7 +89,7 @@ ApplicationWindow {
             ItemDelegate {
                 text: qsTr("Palette")
                 width: parent.width
-                enabled: deviceMan.connected
+                enabled: deviceMan.ready
                 onClicked: {
                     /*
                     if(stackView.children[stackView.children.length-1].toString().split('.')[0].search("Palette") === -1){
@@ -118,32 +118,38 @@ ApplicationWindow {
             id: deviceMan
 
 
-            onOnStartedSearch: {
+            onBLEStartedSearch: {
                 homeForm.searchIndicator.running = true
             }
 
-            onOnStoppedSearch: {
+            onBLEStoppedSearch: {
                 homeForm.searchIndicator.running = false
             }
 
-            onOnConnected: {
+            onBLEConnect: {
                 homeForm.connLabel.text = "Connected"
+                homeForm.connLabel.color = "#0099ff"
+                homeForm.connButton.text = "Disconnect"
+            }
+
+            onBLEReady: {
+                homeForm.connLabel.text = "Ready"
                 homeForm.connLabel.color = "#00aa00"
                 homeForm.connButton.text = "Disconnect"
             }
 
-            onOnConnecting: {
+            onBLEConnecting: {
                 homeForm.connLabel.text = "Connecting..."
                 homeForm.connLabel.color = "#aaaa00"
             }
 
-            onOnDisconnected: {
+            onBLEDisconnect: {
                 homeForm.connLabel.text = "Disconnected"
                 homeForm.connLabel.color = "#ff0000"
                 homeForm.connButton.text = "Connect"
             }
 
-            onOnBLEError: {
+            onBLEFault: {
                 homeForm.connLabel.text = "Err: "+errMsg
                 homeForm.connLabel.text = "Disconnected"
                 homeForm.connLabel.color = "#ff0000"
@@ -255,7 +261,7 @@ ApplicationWindow {
         anchors.bottom: fastOffButton.top
         anchors.horizontalCenter: fastOffButton.horizontalCenter
         anchors.bottomMargin: 0
-        enabled: deviceMan.connected
+        enabled: deviceMan.ready
         onClicked: fastBack.on()
     }
 
@@ -266,7 +272,7 @@ ApplicationWindow {
         anchors.bottom: parent.bottom
         anchors.rightMargin: 25
         anchors.bottomMargin: 50
-        enabled: deviceMan.connected
+        enabled: deviceMan.ready
         onClicked: fastBack.off()
     }
 

@@ -1,23 +1,23 @@
 #include "homeform.h"
 #include "devicemanager.h"
 
-#include <QStandardItemModel>
-
 HomeForm::HomeForm(QObject *parent) : QObject(parent)
 {
-	connect(DeviceManager::getInstance(), &DeviceManager::DevicesChanged, this, &HomeForm::devicesUpdated);
+	connect(DeviceManager::getInstance(), &DeviceManager::DevicesChanged, this, &HomeForm::DeviceListUpdated);
 }
 
 void HomeForm::connectPressed()
 {
 	DeviceManager* dm = DeviceManager::getInstance();
 	if(!dm->connected){
+		//Get selected device from the currently highlighted item in the list.
 		if(highlightedDelegate.length() > 0){
-
+			//The delegate is encoded with the MAC address. Luckily, I'm smart, and made it really easy to map it to a device.
 			QBluetoothDeviceInfo info = dm->deviceMap[highlightedDelegate];
 			dm->ConnectToDevice(info);
 		}
 	} else {
+		//Act as a disconnect button if connect
 		dm->disconnectFromDevice();
 	}
 }
@@ -29,18 +29,20 @@ void HomeForm::connectToTestDevice()
 
 bool HomeForm::showAll()
 {
-	return m_showAll;
+	return m_ShowAll;
 }
 
 void HomeForm::setShowAll(bool showAll)
 {
-	m_showAll = showAll;
-	devicesUpdated(DeviceManager::getInstance()->deviceMap.keys());
+	m_ShowAll = showAll;
+
+	//Update the device list with *all* the discovered devices
+	DeviceListUpdated(DeviceManager::getInstance()->deviceMap.keys());
 }
 
-void HomeForm::devicesUpdated(QStringList deviceNames)
+void HomeForm::DeviceListUpdated(QStringList deviceNames)
 {
-	if(m_showAll){
+	if(m_ShowAll){
 		devices = deviceNames;
 	} else {
 		devices = QStringList();
@@ -51,7 +53,7 @@ void HomeForm::devicesUpdated(QStringList deviceNames)
 			qDebug() << "DeviceMAC:" << deviceBrand;
 			deviceBrand = deviceBrand.left(8);
 			qDebug() << "DeviceBrand:" << deviceBrand;
-			if(deviceBrand == shownBrand){
+			if(deviceBrand == idMACType){
 				devices << device;
 			}
 		}

@@ -1,25 +1,23 @@
 #include "staticcolorform.h"
 #include "devicemanager.h"
 
-StaticColorForm::StaticColorForm(QObject *parent) : QObject(parent)
-{
-
-}
+StaticColorForm::StaticColorForm(QObject *parent) : QObject(parent) {}
 
 void StaticColorForm::Apply()
 {
 	qDebug() << "Apply";
+
+	//Convert from HSV to RGB. See header def for HSVtoRGB for argument ranges.
 	RGBColor color = HSVtoRGB(h, s/255.0, v/255.0);
 
-	qDebug() << "R:" << color.r;
-	qDebug() << "G:" << color.g;
-	qDebug() << "B:" << color.b;
-
 	DeviceManager* dm = DeviceManager::getInstance();
-	dm->QueryWrite("B255"); //Full brightness as this will effectively be controlled by HSV
-	dm->QueryWrite("r"+dm->ConvertNumToWritable(color.r));
-	dm->QueryWrite("g"+dm->ConvertNumToWritable(color.g));
-	dm->QueryWrite("b"+dm->ConvertNumToWritable(color.b));
+	//Set full brightness as this will effectively be controlled by HSV
+	dm->QueueWrite("B255");
+
+	//Set RGB
+	dm->QueueWrite("r"+dm->ConvertNumToWritable(color.r));
+	dm->QueueWrite("g"+dm->ConvertNumToWritable(color.g));
+	dm->QueueWrite("b"+dm->ConvertNumToWritable(color.b));
 }
 
 void StaticColorForm::setH(int h)
@@ -44,9 +42,11 @@ void StaticColorForm::setV(int v)
 RGBColor StaticColorForm::HSVtoRGB(float H, float S,float V){
 	//if(H>360 || H<0 || S>100 || S<0 || V>100 || V<0){
 	if(H>360 || H<0 || S>1 || S<0 || V>1 || V<0){
+		//Return an empty color if color is invalid
 		qDebug() << "The givem HSV values are not in valid range";
 		return RGBColor();
 	}
+
 	//float s = S/100;
 	//float v = V/100;
 	float s = S;

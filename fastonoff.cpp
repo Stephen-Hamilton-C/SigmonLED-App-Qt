@@ -8,10 +8,12 @@ FastOnOff::FastOnOff(QObject *parent) : QObject(parent)
 
 void FastOnOff::on()
 {
-	DeviceManager::getInstance()->QueryWrite("W");
+	//Wake
+	DeviceManager::getInstance()->QueueWrite("W");
 }
 
 void FastOnOff::off()
 {
-	DeviceManager::getInstance()->QueryWrite("S");
+	//Sleep
+	DeviceManager::getInstance()->QueueWrite("S");
 }
