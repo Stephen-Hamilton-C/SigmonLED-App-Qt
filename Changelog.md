@@ -6,8 +6,9 @@ SigmonLED uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 [comment]: # (This is a comment, it will not be included)
 
-## [Unreleased] [0.1.1] - 2021-02-15
+## [Unreleased] [0.2.0] - 2021-02-15
 ### Added
 - This Changelog :)
+- JavaDoc-style documentation for source code
 ### Fixed
 - Potential bug that would cause Arduino to lock if a device lost connection while communicating
