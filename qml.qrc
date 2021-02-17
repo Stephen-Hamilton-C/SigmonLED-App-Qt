@@ -6,4 +6,10 @@
         <file>Palette.ui.qml</file>
         <file>qtquickcontrols2.conf</file>
     </qresource>
+    <qresource prefix="/icons">
+        <file alias="menu">icons/icons8-menu.svg</file>
+        <file alias="refresh">icons/icons8-refresh.svg</file>
+        <file alias="appicon-32">icons/SigmonLED Icon-32.png</file>
+        <file alias="appicon">icons/SigmonLED_Icon.ico</file>
+    </qresource>
 </RCC>

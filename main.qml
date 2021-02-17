@@ -16,8 +16,7 @@ ApplicationWindow {
 
         ToolButton {
             id: menuButton
-            text: "\u2630" //stackView.depth > 1 ? "\u25C0" : "\u2630"
-            font.pixelSize: Qt.application.font.pixelSize * 1.6
+            icon.source: "icons/menu"
             onClicked: {
                 drawer.open()
             }
@@ -25,8 +24,7 @@ ApplicationWindow {
 
         ToolButton {
             id: searchButton
-            text: "\u27F3" //U+21BB
-            font.pixelSize: Qt.application.font.pixelSize * 2
+            icon.source: "icons/refresh"
             anchors.right: parent.right
             visible: homeForm.visible
             onClicked: {
