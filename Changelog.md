@@ -11,4 +11,5 @@ SigmonLED uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - This Changelog :)
 - JavaDoc-style documentation for source code
 ### Fixed
+- Android icons missing (#2)
 - Potential bug that would cause Arduino to lock if a device lost connection while communicating
