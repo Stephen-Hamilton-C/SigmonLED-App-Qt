@@ -25,11 +25,11 @@ int main(int argc, char *argv[])
 
 
 //Qml Registrations:
-	qmlRegisterType<DeviceManager>("com.stephenhamilton.sigmonled.main", 1, 0, "DeviceManager");
-	qmlRegisterType<HomeForm>("com.stephenhamilton.sigmonled.main", 1, 0, "HomeBackend");
-	qmlRegisterType<PaletteForm>("com.stephenhamilton.sigmonled.main", 1, 0, "PaletteBackend");
-	qmlRegisterType<StaticColorForm>("com.stephenhamilton.sigmonled.main", 1, 0, "StaticColorBackend");
-	qmlRegisterType<FastOnOff>("com.stephenhamilton.sigmonled.main", 1, 0, "FastBackend");
+	qmlRegisterType<DeviceManager>("StephenHamilton.SigmonLED.Main", 1, 0, "DeviceManager");
+	qmlRegisterType<HomeForm>("StephenHamilton.SigmonLED.Home", 1, 0, "HomeBackend");
+	qmlRegisterType<PaletteForm>("StephenHamilton.SigmonLED.Palette", 1, 0, "PaletteBackend");
+	qmlRegisterType<StaticColorForm>("StephenHamilton.SigmonLED.StaticColor", 1, 0, "StaticColorBackend");
+	qmlRegisterType<FastOnOff>("StephenHamilton.SigmonLED.Main", 1, 0, "FastBackend");
 
 	engine.load(url);
 
