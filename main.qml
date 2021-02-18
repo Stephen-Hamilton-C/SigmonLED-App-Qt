@@ -1,6 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.5
-import com.stephenhamilton.sigmonled.main 1.0
+import QtQuick.Controls.Material 2.12
+import StephenHamilton.SigmonLED.Main 1.0
 
 ApplicationWindow {
     id: window
@@ -11,12 +12,15 @@ ApplicationWindow {
 
     property string currentPage: "Devices"
 
+    Material.theme: settingsPage.darkMode ? "Dark" : "Light"
+
     header: ToolBar {
         contentHeight: menuButton.implicitHeight
 
         ToolButton {
             id: menuButton
             icon.source: "icons/menu"
+            icon.color: white
             onClicked: {
                 drawer.open()
             }
@@ -25,8 +29,9 @@ ApplicationWindow {
         ToolButton {
             id: searchButton
             icon.source: "icons/refresh"
+            icon.color: white
             anchors.right: parent.right
-            visible: homeForm.visible
+            visible: homePage.visible
             onClicked: {
                 deviceMan.startDiscovery()
             }
@@ -34,6 +39,7 @@ ApplicationWindow {
 
         Label {
             text: currentPage
+            color: "#FFFFFF"
             anchors.centerIn: parent
         }
     }
@@ -50,11 +56,13 @@ ApplicationWindow {
                 text: qsTr("Devices")
                 width: parent.width
                 onClicked: {
-                    homeForm.visible = true
-                    colorForm.visible = false
-                    paletteForm.visible = false
+                    homePage.visible = true
+                    colorPage.visible = false
+                    palettePage.visible = false
+                    settingsPage.visible = false
                     currentPage = text
                     drawer.close()
+                    console.log("Dark mode: "+settingsPage.darkMode)
                 }
             }
 
@@ -63,9 +71,10 @@ ApplicationWindow {
                 width: parent.width
                 enabled: deviceMan.ready
                 onClicked: {
-                    homeForm.visible = false
-                    colorForm.visible = true
-                    paletteForm.visible = false
+                    homePage.visible = false
+                    colorPage.visible = true
+                    palettePage.visible = false
+                    settingsPage.visible = false
                     currentPage = text
                     drawer.close()
                 }
@@ -75,9 +84,22 @@ ApplicationWindow {
                 width: parent.width
                 enabled: deviceMan.ready
                 onClicked: {
-                    homeForm.visible = false
-                    colorForm.visible = false
-                    paletteForm.visible = true
+                    homePage.visible = false
+                    colorPage.visible = false
+                    palettePage.visible = true
+                    settingsPage.visible = false
+                    currentPage = text
+                    drawer.close()
+                }
+            }
+            ItemDelegate {
+                text: qsTr("Settings")
+                width: parent.width
+                onClicked: {
+                    homePage.visible = false
+                    colorPage.visible = false
+                    palettePage.visible = false
+                    settingsPage.visible = true
                     currentPage = text
                     drawer.close()
                 }
@@ -85,148 +107,71 @@ ApplicationWindow {
         }
     }
 
-    //Probably should make some Qml files and put the linkage there instead of here
-    //Or perhaps use Qt Designer's backend system
-    HomeForm {
-        id: homeForm
+    DeviceManager {
+        id: deviceMan
+
+
+        onOnBLEStartedSearch: {
+            homePage.searchIndicator.running = true
+        }
+
+        onOnBLEStoppedSearch: {
+            homePage.searchIndicator.running = false
+        }
+
+        onOnBLEConnect: {
+            homePage.connLabel.text = "Connected"
+            homePage.connLabel.color = "#0099ff"
+            homePage.connButton.text = "Disconnect"
+        }
+
+        onOnBLEReady: {
+            homePage.connLabel.text = "Ready"
+            homePage.connLabel.color = "#00aa00"
+            homePage.connButton.text = "Disconnect"
+        }
+
+        onOnBLEConnecting: {
+            homePage.connLabel.text = "Connecting..."
+            homePage.connLabel.color = "#aaaa00"
+        }
+
+        onOnBLEDisconnect: {
+            homePage.connLabel.text = "Disconnected"
+            homePage.connLabel.color = "#ff0000"
+            homePage.connButton.text = "Connect"
+        }
+
+        onOnBLEFault: {
+            homePage.connLabel.text = "Err: "+errMsg
+            homePage.connLabel.text = "Disconnected"
+            homePage.connLabel.color = "#ff0000"
+            homePage.connButton.text = "Connect"
+        }
+    }
+
+    Home {
+        id: homePage
         visible: true
         anchors.fill: parent
-
-        DeviceManager {
-            id: deviceMan
-
-
-            onOnBLEStartedSearch: {
-                homeForm.searchIndicator.running = true
-            }
-
-            onOnBLEStoppedSearch: {
-                homeForm.searchIndicator.running = false
-            }
-
-            onOnBLEConnect: {
-                homeForm.connLabel.text = "Connected"
-                homeForm.connLabel.color = "#0099ff"
-                homeForm.connButton.text = "Disconnect"
-            }
-
-            onOnBLEReady: {
-                homeForm.connLabel.text = "Ready"
-                homeForm.connLabel.color = "#00aa00"
-                homeForm.connButton.text = "Disconnect"
-            }
-
-            onOnBLEConnecting: {
-                homeForm.connLabel.text = "Connecting..."
-                homeForm.connLabel.color = "#aaaa00"
-            }
-
-            onOnBLEDisconnect: {
-                homeForm.connLabel.text = "Disconnected"
-                homeForm.connLabel.color = "#ff0000"
-                homeForm.connButton.text = "Connect"
-            }
-
-            onOnBLEFault: {
-                homeForm.connLabel.text = "Err: "+errMsg
-                homeForm.connLabel.text = "Disconnected"
-                homeForm.connLabel.color = "#ff0000"
-                homeForm.connButton.text = "Connect"
-            }
-        }
-
-        HomeBackend {
-            id: homeBack
-        }
-
-        connButton.onClicked: homeBack.connectPressed()
-        showAllButton.onActivated: {
-            homeBack.showAll = !homeBack.showAll
-            showAllButton.text = homeBack.showAll ? "Hide" : "Show All"
-        }
-
-        devicesList {
-            model: homeBack.devices
-            delegate: ItemDelegate {
-                required property string modelData
-                width: 100
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                }
-                //Remove the encoded MAC address from the modelData
-                text: modelData.substring(0, modelData.length-18)
-                //Highlight if selected
-                highlighted: homeBack.highlightedDelegate == modelData
-
-                //select on click
-                onClicked: homeBack.highlightedDelegate = modelData
-            }
-        }
-
-
     }
 
     Palette {
-        id: paletteForm
+        id: palettePage
         visible: false
         anchors.fill: parent
-
-        PaletteBackend {
-            id: paletteBack
-        }
-
-        brightnessSlider {
-            onValueChanged: paletteBack.setBrightness(brightnessSlider.value)
-        }
-
-        delayBox {
-            onValueChanged: paletteBack.setDelay(delayBox.value)
-        }
-
-        solidPaletteSwitch {
-            onCheckedChanged: paletteBack.setSolidPalette(solidPaletteSwitch.checked);
-        }
-
-        linearBlendSwitch {
-            onCheckedChanged: paletteBack.setLinearBlending(linearBlendSwitch.checked)
-        }
-
-        paletteBox {
-            onActivated: paletteBack.setPalette(paletteBox.currentText)
-        }
-
-        applyButton {
-            onClicked: paletteBack.ApplyChanges()
-        }
-
     }
 
     StaticColor {
-        id: colorForm
+        id: colorPage
         visible: false
         anchors.fill: parent
+    }
 
-        StaticColorBackend {
-            id: colorBack
-        }
-
-        applyButton {
-            onClicked: colorBack.Apply()
-        }
-
-        hueSlider {
-            onValueChanged: colorBack.setH(hueSlider.value)
-        }
-
-        satSlider {
-            onValueChanged: colorBack.setS(satSlider.value)
-        }
-
-        valSlider {
-            onValueChanged: colorBack.setV(valSlider.value)
-        }
-
+    Settings {
+        id: settingsPage
+        visible: false
+        anchors.fill: parent
     }
 
     //Fast buttons - simple on/off buttons that sit in the corner to easily turn LEDs on and off
