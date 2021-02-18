@@ -1,6 +1,5 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.5
-import com.stephenhamilton.sigmonled.main 1.0
 
 Page {
     id: page
