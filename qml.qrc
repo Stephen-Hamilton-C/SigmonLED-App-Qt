@@ -2,9 +2,14 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>HomeForm.ui.qml</file>
-        <file>StaticColor.ui.qml</file>
-        <file>Palette.ui.qml</file>
+        <file>StaticColorForm.ui.qml</file>
+        <file>PaletteForm.ui.qml</file>
         <file>qtquickcontrols2.conf</file>
+        <file>Settings.qml</file>
+        <file>SettingsForm.ui.qml</file>
+        <file>Home.qml</file>
+        <file>Palette.qml</file>
+        <file>StaticColor.qml</file>
     </qresource>
     <qresource prefix="/icons">
         <file alias="menu">icons/icons8-menu.svg</file>
