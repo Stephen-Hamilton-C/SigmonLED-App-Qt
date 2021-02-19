@@ -48,11 +48,10 @@ void HomeForm::DeviceListUpdated(QStringList deviceNames)
 		devices = QStringList();
 		for(int i = 0; i < deviceNames.count(); i++){
 			const QString device = deviceNames[i];
-			qDebug() << "Device:" << device;
+
 			QString deviceBrand = device.right(17);
-			qDebug() << "DeviceMAC:" << deviceBrand;
 			deviceBrand = deviceBrand.left(8);
-			qDebug() << "DeviceBrand:" << deviceBrand;
+
 			if(deviceBrand == idMACType){
 				devices << device;
 			}
