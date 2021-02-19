@@ -3,6 +3,7 @@
 
 #include <QBluetoothDeviceDiscoveryAgent>
 #include <QLowEnergyController>
+#include <QTimer>
 
 /**
  * @brief DeviceManager is meant to handle connection between bluetooth devices.

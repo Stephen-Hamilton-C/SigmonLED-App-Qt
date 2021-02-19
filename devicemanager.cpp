@@ -2,7 +2,6 @@
 #include "configmanager.h"
 #include "settings.h"
 
-#include <QTimer>
 #include <QJsonObject>
 
 //Singleton
