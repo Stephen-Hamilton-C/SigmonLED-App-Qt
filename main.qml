@@ -20,7 +20,7 @@ ApplicationWindow {
         ToolButton {
             id: menuButton
             icon.source: "icons/menu"
-            icon.color: white
+            icon.color: "white"
             onClicked: {
                 drawer.open()
             }
@@ -29,7 +29,7 @@ ApplicationWindow {
         ToolButton {
             id: searchButton
             icon.source: "icons/refresh"
-            icon.color: white
+            icon.color: "white"
             anchors.right: parent.right
             visible: homePage.visible
             onClicked: {
@@ -105,6 +105,10 @@ ApplicationWindow {
                 }
             }
         }
+    }
+
+    ConfigManager {
+        id: configMan
     }
 
     DeviceManager {
