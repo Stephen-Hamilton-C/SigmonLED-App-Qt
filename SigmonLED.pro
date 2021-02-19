@@ -7,11 +7,13 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+        configmanager.cpp \
         devicemanager.cpp \
         fastonoff.cpp \
         homeform.cpp \
         main.cpp \
         paletteform.cpp \
+        settings.cpp \
         staticcolorform.cpp
 
 RESOURCES += qml.qrc
@@ -28,10 +30,12 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+	configmanager.h \
 	devicemanager.h \
 	fastonoff.h \
 	homeform.h \
 	paletteform.h \
+	settings.h \
 	staticcolorform.h
 
 RC_ICONS = Icon/SigmonLED_Icon.ico
