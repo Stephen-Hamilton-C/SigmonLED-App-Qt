@@ -1,6 +1,8 @@
 #include "staticcolorform.h"
 #include "devicemanager.h"
 
+#include <math.h>
+
 StaticColorForm::StaticColorForm(QObject *parent) : QObject(parent) {}
 
 void StaticColorForm::Apply()

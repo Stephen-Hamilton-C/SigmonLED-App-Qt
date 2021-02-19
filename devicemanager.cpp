@@ -2,6 +2,7 @@
 #include "configmanager.h"
 #include "settings.h"
 
+#include <math.h>
 #include <QJsonObject>
 
 //Singleton
@@ -56,6 +57,7 @@ QString DeviceManager::ConvertNumToWritable(int num, const bool thousand)
 	//Get thousands place
 	if(num >= 1000){
 		val += QString::number(floor(num/1000));
+
 		num -= floor(num/1000)*1000;
 	} else if(thousand){
 		val += "0";
