@@ -101,6 +101,10 @@ private slots:
 	 */
 	void BLEDisconnected();
 
+//ConfigManager:
+	void read(const QJsonObject &json);
+	void write(QJsonObject &json);
+
 //Timer:
 	/**
 	 * @brief Signalled from the writeTimer every 35 ms. Writes one char from the writeBuffer.
@@ -147,6 +151,10 @@ private:
 	 * @brief The MAC address of the test Arduino I use.
 	 */
 	const QString testDeviceAddress = "64:69:4E:80:23:4E";
+	/**
+	 * @brief The JSON key for storing the last connected MAC address
+	 */
+	const QString jsonLastMAC = "devices_LastConnectedMAC";
 
 //Methods:
 	/**
@@ -178,7 +186,11 @@ private:
 	 */
 	bool discovering = false;
 	/**
-	 * @brief Devices that have been discovered by the discovery agent
+	 * @brief Determines if the controller should attempt to automatically connect to the last device connected to. Also determined by Settings.
+	 */
+	bool shouldReconnect = true;
+	/**
+	 * @brief Devices that have been discovered by the discovery agent.
 	 */
 	QList<QBluetoothDeviceInfo> discoveredDevices;
 	/**
@@ -190,25 +202,29 @@ private:
 	 * This is set by QueueWrite().
 	 */
 	QString writeBuffer;
+	/**
+	 * @brief The MAC address of the last device that successfully connected and responded.
+	 */
+	QString lastConnectedMAC;
 
 //Timers:
 	/**
-	 * @brief The timer that automatically stops discovery after a few seconds
+	 * @brief The timer that automatically stops discovery after a few seconds.
 	 */
 	QTimer* discoveryTimer;
 
 signals:
 
 	/**
-	 * @brief Emitted when discoveredDevices is changed
+	 * @brief Emitted when discoveredDevices is changed.
 	 */
 	void DevicesChanged(QStringList devices);
 	/**
-	 * @brief Emitted when discovery starts
+	 * @brief Emitted when discovery starts.
 	 */
 	void onBLEStartedSearch();
 	/**
-	 * @brief Emitted when discovery stops
+	 * @brief Emitted when discovery stops.
 	 */
 	void onBLEStoppedSearch();
 	/**
@@ -216,23 +232,23 @@ signals:
 	 */
 	void onBLEConnectedChanged(bool connected);
 	/**
-	 * @brief Emitted when connected
+	 * @brief Emitted when connected.
 	 */
 	void onBLEConnect();
 	/**
-	 * @brief Emitted when a connection is ready to write to
+	 * @brief Emitted when a connection is ready to write to.
 	 */
 	void onBLEReady();
 	/**
-	 * @brief Emitted when ready status is changed
+	 * @brief Emitted when ready status is changed.
 	 */
 	void onBLEReadyChanged(bool ready);
 	/**
-	 * @brief Emitted when a connection is being attempted
+	 * @brief Emitted when a connection is being attempted.
 	 */
 	void onBLEConnecting();
 	/**
-	 * @brief Emitted when disconnected
+	 * @brief Emitted when disconnected.
 	 */
 	void onBLEDisconnect();
 	/**

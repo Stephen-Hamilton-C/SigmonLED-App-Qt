@@ -1,6 +1,9 @@
 #include "devicemanager.h"
+#include "configmanager.h"
+#include "settings.h"
 
 #include <QTimer>
+#include <QJsonObject>
 
 //Singleton
 DeviceManager* DeviceManager::ptrInstance = nullptr;
@@ -26,10 +29,14 @@ DeviceManager::DeviceManager(QObject *parent)
 	discoveryTimer = new QTimer(this);
 	connect(discoveryTimer, &QTimer::timeout, this, &DeviceManager::stopDiscovery);
 
+	//Plug into the ConfigManager to store last device connected to
+	connect(ConfigManager::getInstance(), &ConfigManager::read, this, &DeviceManager::read);
+	connect(ConfigManager::getInstance(), &ConfigManager::write, this, &DeviceManager::write);
+
 	qDebug() << "DeviceManager constructed";
 
-	//Immediately start searching
-	startDiscovery();
+	//Start searching
+	QTimer::singleShot(100, this, &DeviceManager::startDiscovery);
 }
 
 DeviceManager::~DeviceManager()
@@ -136,6 +143,22 @@ void DeviceManager::BLEDisconnected()
 	emit onBLEReadyChanged(ready);
 }
 
+void DeviceManager::read(const QJsonObject &json)
+{
+	if(json.contains(jsonLastMAC) && json[jsonLastMAC].isString()){
+		lastConnectedMAC = json[jsonLastMAC].toString();
+	}
+
+	qDebug() << "DeviceManager Read";
+}
+
+void DeviceManager::write(QJsonObject &json)
+{
+	json[jsonLastMAC] = lastConnectedMAC;
+
+	qDebug() << "DeviceManager Write";
+}
+
 void DeviceManager::BLEServiceDiscovered(const QBluetoothUuid uuid)
 {
 	qDebug() << "Service discovered:" << uuid.toString();
@@ -164,6 +187,10 @@ void DeviceManager::BLEServiceDetailDiscovered(QLowEnergyService::ServiceState n
 	if(bleSerial.isValid()){
 		//Alert QML the device is ready to write.
 		qDebug() << "Found serial characteristic";
+
+		//Store last connected for auto connection on boot
+		lastConnectedMAC = currentDevice.address().toString();
+		shouldReconnect = false;
 
 		//Ensure the Arduino is not locked up by a previously dropped connection
 		QueueWrite("x");
@@ -300,6 +327,10 @@ void DeviceManager::BLEDiscoveredDevice(const QBluetoothDeviceInfo &info)
 	//Assign testDevice if the device is the test device
 	if(info.address().toString() == testDeviceAddress){
 		testDevice = info;
+	}
+
+	if(Settings::getInstance()->autoConnect && shouldReconnect && info.address().toString() == lastConnectedMAC){
+		ConnectToDevice(info);
 	}
 }
 
