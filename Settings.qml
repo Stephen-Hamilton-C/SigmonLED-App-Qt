@@ -1,5 +1,6 @@
 import QtQuick 2.4
 import QtQuick.Controls.Material 2.12
+import StephenHamilton.SigmonLED.Settings 1.0
 
 SettingsForm {
 
@@ -7,11 +8,22 @@ SettingsForm {
     property bool darkMode: darkModeSwitch.checked
 
     //Also expose darkModeSwitch.checked to backend, that way it can be set from a saved config
+    SettingsBackend {
+        id: backend
+
+        onDarkModeChanged: darkModeSwitch.checked = darkMode
+        onAutoConnectChanged: autoConnectSwitch.checked = autoConnect
+    }
+
+    darkModeSwitch {
+        onCheckedChanged: {
+            backend.darkMode = darkModeSwitch.checked
+        }
+    }
 
     autoConnectSwitch {
-        checked: false //Use backend property
         onCheckedChanged: {
-            //Set backend property
+            backend.autoConnect = autoConnectSwitch.checked
         }
     }
 
