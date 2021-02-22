@@ -40,3 +40,4 @@ RC_ICONS = icons/SigmonLED_Icon.ico
 
 DISTFILES += \
 	Changelog.md
+	README.md
