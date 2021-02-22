@@ -4,6 +4,7 @@
 #include <QBluetoothDeviceDiscoveryAgent>
 #include <QLowEnergyController>
 #include <QTimer>
+#include <QSettings>
 
 /**
  * @brief DeviceManager is meant to handle connection between bluetooth devices.
@@ -102,10 +103,6 @@ private slots:
 	 */
 	void BLEDisconnected();
 
-//ConfigManager:
-	void read(const QJsonObject &json);
-	void write(QJsonObject &json);
-
 //Timer:
 	/**
 	 * @brief Signalled from the writeTimer every 35 ms. Writes one char from the writeBuffer.
@@ -203,10 +200,8 @@ private:
 	 * This is set by QueueWrite().
 	 */
 	QString writeBuffer;
-	/**
-	 * @brief The MAC address of the last device that successfully connected and responded.
-	 */
-	QString lastConnectedMAC;
+	//Literally won't even explain this. It doesn't need any.
+	QSettings settings;
 
 //Timers:
 	/**

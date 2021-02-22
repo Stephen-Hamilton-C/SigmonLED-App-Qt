@@ -1,49 +1,34 @@
 #include "settings.h"
-#include "configmanager.h"
 
-#include <QJsonObject>
-
-//Singleton
-Settings* Settings::ptrInstance = nullptr;
+#include <QTimer>
 
 Settings::Settings(QObject *parent) : QObject(parent)
 {
-	//Singleton
-	if(ptrInstance != nullptr){
-		delete this;
-	}
-	ptrInstance = this;
-
-	//Plug into the ConfigManager to store settings
-	connect(ConfigManager::getInstance(), &ConfigManager::read, this, &Settings::read);
-	connect(ConfigManager::getInstance(), &ConfigManager::write, this, &Settings::write);
-
-	qDebug() << "Settings Constructed";
+	QTimer::singleShot(100, this, &Settings::emitInit);
 }
 
-void Settings::read(const QJsonObject &json)
+void Settings::emitInit()
 {
-	//Dark mode
-	if(json.contains(jsonDarkMode) && json[jsonDarkMode].isBool()){
-		darkMode = json[jsonDarkMode].toBool();
-		emit darkModeChanged(darkMode);
-	}
-
-	//Auto Connect
-	if(json.contains(jsonAutoConn) && json[jsonAutoConn].isBool()){
-		autoConnect = json[jsonAutoConn].toBool();
-		emit autoConnectChanged(autoConnect);
-	}
-
-	qDebug() << "Settings Read";
+	emit autoConnectChanged(autoConnect());
+	emit darkModeChanged(darkMode());
 }
 
-void Settings::write(QJsonObject &json)
+bool Settings::darkMode()
 {
-	json[jsonDarkMode] = darkMode;
-	json[jsonAutoConn] = autoConnect;
-
-	qDebug() << "Settings Write";
+	return settings.value("DarkMode", false).toBool();
 }
 
+void Settings::setDarkMode(bool darkMode)
+{
+	settings.setValue("DarkMode", darkMode);
+}
 
+bool Settings::autoConnect()
+{
+	return settings.value("AutoConnect", false).toBool();
+}
+
+void Settings::setAutoConnect(bool autoConnect)
+{
+	settings.setValue("AutoConnect", autoConnect);
+}

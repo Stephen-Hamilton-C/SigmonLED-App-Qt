@@ -1,5 +1,4 @@
 #include "devicemanager.h"
-#include "configmanager.h"
 #include "settings.h"
 
 #include <math.h>
@@ -28,10 +27,6 @@ DeviceManager::DeviceManager(QObject *parent)
 	//Initialize stop discovery timer
 	discoveryTimer = new QTimer(this);
 	connect(discoveryTimer, &QTimer::timeout, this, &DeviceManager::stopDiscovery);
-
-	//Plug into the ConfigManager to store last device connected to
-	connect(ConfigManager::getInstance(), &ConfigManager::read, this, &DeviceManager::read);
-	connect(ConfigManager::getInstance(), &ConfigManager::write, this, &DeviceManager::write);
 
 	qDebug() << "DeviceManager constructed";
 
@@ -144,22 +139,6 @@ void DeviceManager::BLEDisconnected()
 	emit onBLEReadyChanged(ready);
 }
 
-void DeviceManager::read(const QJsonObject &json)
-{
-	if(json.contains(jsonLastMAC) && json[jsonLastMAC].isString()){
-		lastConnectedMAC = json[jsonLastMAC].toString();
-	}
-
-	qDebug() << "DeviceManager Read";
-}
-
-void DeviceManager::write(QJsonObject &json)
-{
-	json[jsonLastMAC] = lastConnectedMAC;
-
-	qDebug() << "DeviceManager Write";
-}
-
 void DeviceManager::BLEServiceDiscovered(const QBluetoothUuid uuid)
 {
 	qDebug() << "Service discovered:" << uuid.toString();
@@ -190,7 +169,7 @@ void DeviceManager::BLEServiceDetailDiscovered(QLowEnergyService::ServiceState n
 		qDebug() << "Found serial characteristic";
 
 		//Store last connected for auto connection on boot
-		lastConnectedMAC = currentDevice.address().toString();
+		settings.setValue("LastConnectedMAC", currentDevice.address().toString());
 		shouldReconnect = false;
 
 		//Ensure the Arduino is not locked up by a previously dropped connection
@@ -330,7 +309,7 @@ void DeviceManager::BLEDiscoveredDevice(const QBluetoothDeviceInfo &info)
 		testDevice = info;
 	}
 
-	if(Settings::getInstance()->autoConnect && shouldReconnect && info.address().toString() == lastConnectedMAC){
+	if(settings.value("AutoConnect", false).toBool() && shouldReconnect && info.address().toString() == settings.value("LastConnectedMAC").toString()){
 		ConnectToDevice(info);
 	}
 }

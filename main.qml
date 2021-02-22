@@ -19,8 +19,9 @@ ApplicationWindow {
 
         ToolButton {
             id: menuButton
-            icon.source: "icons/menu"
-            icon.color: "white"
+            text: "Menu"
+            //icon.source: "icons/menu"
+            //icon.color: "white"
             onClicked: {
                 drawer.open()
             }
@@ -28,8 +29,9 @@ ApplicationWindow {
 
         ToolButton {
             id: searchButton
-            icon.source: "icons/refresh"
-            icon.color: "white"
+            text: "Search"
+            //icon.source: "icons/refresh"
+            //icon.color: "white"
             anchors.right: parent.right
             visible: homePage.visible
             onClicked: {
@@ -105,10 +107,6 @@ ApplicationWindow {
                 }
             }
         }
-    }
-
-    ConfigManager {
-        id: configMan
     }
 
     DeviceManager {

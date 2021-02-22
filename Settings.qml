@@ -7,7 +7,6 @@ SettingsForm {
     //Expose switch checked to main. If the theme is set from main, it will be set across the entire app.
     property bool darkMode: darkModeSwitch.checked
 
-    //Also expose darkModeSwitch.checked to backend, that way it can be set from a saved config
     SettingsBackend {
         id: backend
 

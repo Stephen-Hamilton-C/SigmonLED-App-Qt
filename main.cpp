@@ -1,4 +1,3 @@
-#include "configmanager.h"
 #include "devicemanager.h"
 #include "homeform.h"
 #include "paletteform.h"
@@ -25,10 +24,12 @@ int main(int argc, char *argv[])
 			QCoreApplication::exit(-1);
 	}, Qt::QueuedConnection);
 
+//QCoreApplication Data
+	QCoreApplication::setOrganizationName("Stephen-Hamilton-C");
+	QCoreApplication::setApplicationName("SigmonLED");
 
 //Qml Registrations:
 	qmlRegisterType<DeviceManager>("StephenHamilton.SigmonLED.Main", 1, 0, "DeviceManager");
-	qmlRegisterType<ConfigManager>("StephenHamilton.SigmonLED.Main", 1, 0, "ConfigManager");
 	qmlRegisterType<HomeForm>("StephenHamilton.SigmonLED.Home", 1, 0, "HomeBackend");
 	qmlRegisterType<PaletteForm>("StephenHamilton.SigmonLED.Palette", 1, 0, "PaletteBackend");
 	qmlRegisterType<StaticColorForm>("StephenHamilton.SigmonLED.StaticColor", 1, 0, "StaticColorBackend");
