@@ -6,6 +6,10 @@ SigmonLED uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 [comment]: # (This is a comment, it will not be included)
 
+## [Unreleased] - 2021-02-22
+### Added
+- Custom Palette Creation
+
 ## [0.2.0] - 2021-02-22
 ### Added
 - This Changelog :)

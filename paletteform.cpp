@@ -52,3 +52,26 @@ void PaletteForm::setBrightness(int brightness)
 	qDebug() << "Brightness:" << brightness;
 	this->brightness = DeviceManager::getInstance()->ConvertNumToWritable(brightness);
 }
+
+void PaletteForm::testCustomPalette()
+{
+	DeviceManager::getInstance()->QueueWrite(
+				"C"
+				"r255g000b000#"
+				"r127g127b127#"
+				"r000g000b255#"
+				"r000g000b000#"
+				"r255g000b000#"
+				"r127g127b127#"
+				"r000g000b255#"
+				"r000g000b000#"
+				"r255g000b000#"
+				"r255g000b000#"
+				"r127g127b127#"
+				"r127g127b127#"
+				"r000g000b255#"
+				"r000g000b255#"
+				"r000g000b000#"
+				"r000g000b000#"
+	);
+}

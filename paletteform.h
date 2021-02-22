@@ -42,6 +42,7 @@ public slots:
 	 * @brief Signalled when the brightness is set.
 	 */
 	void setBrightness(int brightness);
+	void testCustomPalette();
 
 private:
 
@@ -56,7 +57,8 @@ private:
 		{"Party", "p"},
 		{"Ocean", "o"},
 		{"Lava", "l"},
-		{"Forest", "f"}
+		{"Forest", "f"},
+		{"Custom", "C"}
 	};
 
 //Variables:
