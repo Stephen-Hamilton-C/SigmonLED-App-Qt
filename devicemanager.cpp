@@ -309,7 +309,7 @@ void DeviceManager::BLEDiscoveredDevice(const QBluetoothDeviceInfo &info)
 		testDevice = info;
 	}
 
-	if(settings.value("AutoConnect", false).toBool() && shouldReconnect && info.address().toString() == settings.value("LastConnectedMAC").toString()){
+	if(settings.value("AutoConnect", true).toBool() && shouldReconnect && info.address().toString() == settings.value("LastConnectedMAC").toString()){
 		ConnectToDevice(info);
 	}
 }

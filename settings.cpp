@@ -25,7 +25,7 @@ void Settings::setDarkMode(bool darkMode)
 
 bool Settings::autoConnect()
 {
-	return settings.value("AutoConnect", false).toBool();
+	return settings.value("AutoConnect", true).toBool();
 }
 
 void Settings::setAutoConnect(bool autoConnect)

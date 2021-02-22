@@ -6,12 +6,13 @@ SigmonLED uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 [comment]: # (This is a comment, it will not be included)
 
-## [Unreleased] [0.2.0] - 2021-02-15
+## [0.2.0] - 2021-02-15
 ### Added
 - This Changelog :)
-- JavaDoc-style documentation for source code
-- Dark mode setting
-- Auto-reconnect, will automatically connect to a previous device on app boot
+- JavaDoc-style documentation for source code.
+- Dark mode setting. Off by default.
+- Auto-reconnect, will automatically connect to a previous device on app boot. On by default.
+- Solid Palette mode functionality.
 ### Fixed
 - Android icons missing (#2). No longer icons, but text. Temporary solution until this Qt bug can be fixed. Unfortunately looks to be out of my control currently.
-- Potential bug that would cause Arduino to lock if a device lost connection while communicating
+- Potential bug that would cause Arduino to lock if a device lost connection while communicating.
