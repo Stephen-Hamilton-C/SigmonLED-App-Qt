@@ -1,9 +1,10 @@
 #include "devicemanager.h"
 #include "homeform.h"
 #include "paletteform.h"
-#include "staticcolorform.h"
+#include "colorpicker.h"
 #include "fastonoff.h"
 #include "settings.h"
+#include "staticcolor.h"
 
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
@@ -29,12 +30,13 @@ int main(int argc, char *argv[])
 	QCoreApplication::setApplicationName("SigmonLED");
 
 //Qml Registrations:
-	qmlRegisterType<DeviceManager>("StephenHamilton.SigmonLED.Main", 1, 0, "DeviceManager");
+	qmlRegisterType<DeviceManager>("StephenHamilton.SigmonLED.DeviceManager", 1, 0, "DeviceManager");
 	qmlRegisterType<HomeForm>("StephenHamilton.SigmonLED.Home", 1, 0, "HomeBackend");
 	qmlRegisterType<PaletteForm>("StephenHamilton.SigmonLED.Palette", 1, 0, "PaletteBackend");
-	qmlRegisterType<StaticColorForm>("StephenHamilton.SigmonLED.StaticColor", 1, 0, "StaticColorBackend");
-	qmlRegisterType<FastOnOff>("StephenHamilton.SigmonLED.Main", 1, 0, "FastBackend");
+	qmlRegisterType<ColorPicker>("StephenHamilton.SigmonLED.ColorPicker", 1, 0, "ColorPickerBackend");
+	qmlRegisterType<FastOnOff>("StephenHamilton.SigmonLED.FastButtons", 1, 0, "FastBackend");
 	qmlRegisterType<Settings>("StephenHamilton.SigmonLED.Settings", 1, 0, "SettingsBackend");
+	qmlRegisterType<StaticColor>("StephenHamilton.SigmonLED.StaticColor", 1, 0, "StaticColorBackend");
 
 	engine.load(url);
 

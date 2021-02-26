@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QMap>
+#include <QSettings>
 
 /**
  * @brief The backend interface for the palette UI.
@@ -13,6 +14,7 @@ class PaletteForm : public QObject
 
 public:
 	explicit PaletteForm(QObject *parent = nullptr);
+	~PaletteForm();
 
 public slots:
 //Typically called from QML
@@ -83,6 +85,14 @@ private:
 	 */
 	QString palette = "r";
 
+	QSettings settings;
+
+signals:
+	void paletteChanged(QString palette);
+	void delayChanged(int delay);
+	void brightnessChanged(int brightness);
+	void solidPaletteChanged(bool solidPalette);
+	void linearBlendingChanged(bool linearBlending);
 
 };
 

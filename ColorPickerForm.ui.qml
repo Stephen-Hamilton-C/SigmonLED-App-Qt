@@ -7,7 +7,7 @@ Page {
     height: 800
     font.pointSize: 11
     anchors.fill: parent
-    title: qsTr("Static Color")
+    title: qsTr("Color Picker")
     property alias applyButton: applyButton
     property alias hueSlider: hueSlider
     property alias satSlider: satSlider

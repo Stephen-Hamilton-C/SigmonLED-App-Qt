@@ -1,7 +1,31 @@
 #include "paletteform.h"
 #include "devicemanager.h"
 
-PaletteForm::PaletteForm(QObject *parent) {}
+PaletteForm::PaletteForm(QObject *parent)
+{
+	linearBlending = settings.value("LinearBlending", true).toBool();
+	solidPalette = settings.value("SolidPalette", false).toBool();
+	brightness = settings.value("Brightness", "255").toString();
+	delay = settings.value("Delay", "0010").toString();
+	palette = sigmonPalette[settings.value("Palette", "r").toString()];
+
+	QTimer::singleShot(100, this, [this]{
+		emit linearBlendingChanged(linearBlending);
+		emit solidPaletteChanged(solidPalette);
+		emit brightnessChanged(brightness.toInt());
+		emit delayChanged(delay.toInt());
+		emit paletteChanged(palette);
+	});
+}
+
+PaletteForm::~PaletteForm()
+{
+	settings.setValue("LinearBlending", linearBlending);
+	settings.setValue("SolidPalette", solidPalette);
+	settings.setValue("Brightness", brightness);
+	settings.setValue("Delay", delay);
+	settings.setValue("Palette", palette);
+}
 
 void PaletteForm::ApplyChanges()
 {
@@ -27,6 +51,7 @@ void PaletteForm::setPalette(QString palette)
 {
 	qDebug() << "Palette:" << palette;
 	this->palette = sigmonPalette[palette];
+	settings.setValue("Palette", palette);
 }
 
 void PaletteForm::setLinearBlending(bool linearBlending)

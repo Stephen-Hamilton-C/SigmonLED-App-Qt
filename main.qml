@@ -1,7 +1,8 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.5
 import QtQuick.Controls.Material 2.12
-import StephenHamilton.SigmonLED.Main 1.0
+import StephenHamilton.SigmonLED.DeviceManager 1.0
+import StephenHamilton.SigmonLED.FastButtons 1.0
 
 ApplicationWindow {
     id: window

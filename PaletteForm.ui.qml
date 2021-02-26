@@ -37,7 +37,7 @@ Page {
         currentIndex: 0
         anchors.verticalCenterOffset: -75
 
-        model: ["Custom", "Rainbow", "Rainbow Stripe", "Cloud", "Party", "Ocean", "Lava", "Forest"]
+        model: ["Rainbow", "Rainbow Stripe", "Cloud", "Party", "Ocean", "Lava", "Forest", "Custom"]
     }
 
     SwitchDelegate {

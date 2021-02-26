@@ -2,7 +2,7 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>HomeForm.ui.qml</file>
-        <file>StaticColorForm.ui.qml</file>
+        <file>ColorPickerForm.ui.qml</file>
         <file>PaletteForm.ui.qml</file>
         <file>qtquickcontrols2.conf</file>
         <file>Settings.qml</file>

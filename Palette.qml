@@ -6,6 +6,12 @@ PaletteForm {
 
     PaletteBackend {
         id: paletteBack
+
+        onPaletteChanged: paletteBox.currentText = palette
+        onDelayChanged: delayBox.value = delay
+        onBrightnessChanged: brightnessSlider.value = brightness
+        onSolidPaletteChanged: solidPaletteSwitch.checked = solidPalette
+        onLinearBlendingChanged: linearBlendSwitch.checked = linearBlending
     }
 
     brightnessSlider {
