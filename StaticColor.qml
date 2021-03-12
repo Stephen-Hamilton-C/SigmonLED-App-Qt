@@ -1,7 +1,6 @@
 import QtQuick 2.0
 import StephenHamilton.SigmonLED.ColorPicker 1.0
 import StephenHamilton.SigmonLED.StaticColor 1.0
-import StephenHamilton.SigmonLED.DeviceManager 1.0
 
 ColorPickerForm {
     id: page
@@ -22,15 +21,21 @@ ColorPickerForm {
     }
 
     hueSlider {
-        onValueChanged: pickerBack.setH(hueSlider.value)
+        onValueChanged: pickerBack.hue = hueSlider.value
     }
 
     satSlider {
-        onValueChanged: pickerBack.setS(satSlider.value)
+        onValueChanged: pickerBack.saturation = satSlider.value
     }
 
     valSlider {
-        onValueChanged: pickerBack.setV(valSlider.value)
+        onValueChanged: pickerBack.brightness = valSlider.value
     }
 
+    Component.onCompleted: pickerBack.setSettingName("StaticColor")
+    onVisibleChanged: {
+        if(page.visible === false){
+            pickerBack.saveSettings()
+        }
+    }
 }

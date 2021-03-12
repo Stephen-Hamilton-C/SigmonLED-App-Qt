@@ -1,5 +1,5 @@
 #include "staticcolor.h"
-#include "ColorRGB.h"
+#include "colorrgb.h"
 #include "devicemanager.h"
 
 #include <QDebug>

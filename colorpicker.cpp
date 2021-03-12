@@ -1,41 +1,34 @@
 #include "colorpicker.h"
 #include "devicemanager.h"
-#include "ColorRGB.h"
+#include "colorrgb.h"
 
 ColorPicker::ColorPicker(QObject *parent) : QObject(parent)
 {
-	//TODO: Make this start from QML rather than construct. Let QML define which settings to load
-	h = settings.value("HSVHue", 0).toInt();
-	s = settings.value("HSVSaturation", 0).toInt();
-	v = settings.value("HSVValue", 0).toInt();
-	QTimer::singleShot(100, this, [this]{
-		emit hueChanged(h);
-		emit saturationChanged(s);
-		emit brightnessChanged(v);
-	});
+
 }
 
 ColorPicker::~ColorPicker()
 {
-	settings.setValue("HSVHue", h);
-	settings.setValue("HSVSaturation", s);
-	settings.setValue("HSVValue", v);
+    saveSettings();
 }
 
-void ColorPicker::setH(int h)
+void ColorPicker::setSettingName(QString name)
 {
-	qDebug() << "Hue:" << h;
-	this->h = h;
+    settingName = name;
+
+    hue = settings.value("HSVHue"+settingName, 0).toInt();
+    saturation = settings.value("HSVSaturation"+settingName, 0).toInt();
+    value = settings.value("HSVValue"+settingName, 0).toInt();
+    QTimer::singleShot(100, this, [this]{
+        emit hueChanged(hue);
+        emit saturationChanged(saturation);
+        emit brightnessChanged(value);
+    });
 }
 
-void ColorPicker::setS(int s)
+void ColorPicker::saveSettings()
 {
-	qDebug() << "Saturation:" << s;
-	this->s = s;
-}
-
-void ColorPicker::setV(int v)
-{
-	qDebug() << "Value:" << v;
-	this->v = v;
+    settings.setValue("HSVHue"+settingName, hue);
+    settings.setValue("HSVSaturation"+settingName, saturation);
+    settings.setValue("HSVValue"+settingName, value);
 }
