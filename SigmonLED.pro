@@ -13,6 +13,7 @@ SOURCES += \
         fastonoff.cpp \
         homeform.cpp \
         main.cpp \
+        palettecolormodel.cpp \
         paletteform.cpp \
         settings.cpp \
         staticcolor.cpp
@@ -36,6 +37,7 @@ HEADERS += \
 	devicemanager.h \
 	fastonoff.h \
 	homeform.h \
+	palettecolormodel.h \
 	paletteform.h \
 	settings.h \
 	staticcolor.h
@@ -43,5 +45,9 @@ HEADERS += \
 RC_ICONS = icons/SigmonLED_Icon.ico
 
 DISTFILES += \
-	Changelog.md
+	Changelog.md \
+	android/AndroidManifest.xml \
+	android/build.gradle
 	README.md
+
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android

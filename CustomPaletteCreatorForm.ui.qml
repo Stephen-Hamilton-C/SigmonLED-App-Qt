@@ -5,6 +5,8 @@ Page {
     id: page
     width: 450
     height: 800
+    property alias uploadButton: uploadButton
+    property alias colorView: colorView
     title: qsTr("Palette Editor")
 
     ListView {
@@ -12,41 +14,24 @@ Page {
         anchors.fill: parent
         spacing: 3
         anchors.bottomMargin: 100
-        delegate: ItemDelegate {
-            anchors {
-                left: parent.left
-                right: parent.right
-            }
-
-            text: name
-            Label {
-                text: name
-            }
-
-            Rectangle {
-                width: 40
-                height: 40
-                color: colorCode
-            }
-        }
         model: ListModel {
             ListElement {
-                name: "Grey"
+                name: "Color 1"
                 colorCode: "grey"
             }
 
             ListElement {
-                name: "Red"
+                name: "Color 2"
                 colorCode: "red"
             }
 
             ListElement {
-                name: "Blue"
+                name: "Color 3"
                 colorCode: "blue"
             }
 
             ListElement {
-                name: "Green"
+                name: "Color 4"
                 colorCode: "green"
             }
         }
@@ -61,3 +46,10 @@ Page {
         anchors.bottomMargin: 50
     }
 }
+
+/*##^##
+Designer {
+    D{i:0;formeditorZoom:1.1}
+}
+##^##*/
+
