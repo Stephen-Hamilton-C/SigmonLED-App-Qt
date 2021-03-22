@@ -5,9 +5,13 @@
 #include "fastonoff.h"
 #include "settings.h"
 #include "staticcolor.h"
+#include "custompalettesform.h"
+#include "palettemodel.h"
+#include "palettelist.h"
 
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
 
 int main(int argc, char *argv[])
 {
@@ -37,6 +41,11 @@ int main(int argc, char *argv[])
 	qmlRegisterType<FastOnOff>("StephenHamilton.SigmonLED.FastButtons", 1, 0, "FastBackend");
 	qmlRegisterType<Settings>("StephenHamilton.SigmonLED.Settings", 1, 0, "SettingsBackend");
 	qmlRegisterType<StaticColor>("StephenHamilton.SigmonLED.StaticColor", 1, 0, "StaticColorBackend");
+	qmlRegisterType<CustomPalettesForm>("StephenHamilton.SigmonLED.CustomPalettes", 1, 0, "CustomPalettesBackend");
+
+	qmlRegisterType<PaletteModel>("StephenHamilton.SigmonLED.CustomPalettes", 1, 0, "PaletteModel");
+	qmlRegisterUncreatableType<PaletteList>("StephenHamilton.SigmonLED.CustomPalettes", 1, 0, "PaletteList",
+											QStringLiteral("PaletteList should not be created in QML"));
 
 	engine.load(url);
 

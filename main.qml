@@ -197,6 +197,7 @@ ApplicationWindow {
         id: customPalettesPage
         visible: false
         anchors.fill: parent
+        deviceReady: deviceMan.ready
     }
 
     //Fast buttons - simple on/off buttons that sit in the corner to easily turn LEDs on and off

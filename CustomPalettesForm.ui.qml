@@ -9,6 +9,7 @@ Page {
     hoverEnabled: true
     wheelEnabled: false
     anchors.fill: parent
+    property alias createButton: createButton
     property alias listView: listView
 
     title: qsTr("Custom Palettes")
@@ -23,12 +24,13 @@ Page {
     }
 
     Button {
-        id: button
+        id: createButton
         text: qsTr("Add New...")
         anchors.left: listView.left
         anchors.right: listView.right
         anchors.top: listView.bottom
         font.letterSpacing: 1
+        enabled: true
         font.pointSize: 12
         font.wordSpacing: 1
         anchors.rightMargin: 0
