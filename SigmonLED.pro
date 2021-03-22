@@ -9,13 +9,15 @@ CONFIG += c++11
 SOURCES += \
         colorpicker.cpp \
         colorrgb.cpp \
+        custompalettesform.cpp \
         devicemanager.cpp \
         fastonoff.cpp \
         homeform.cpp \
         main.cpp \
         palette.cpp \
-        palettecolormodel.cpp \
         paletteform.cpp \
+        palettelist.cpp \
+        palettemodel.cpp \
         settings.cpp \
         staticcolor.cpp
 
@@ -35,12 +37,14 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
 	colorpicker.h \
 	colorrgb.h \
+	custompalettesform.h \
 	devicemanager.h \
 	fastonoff.h \
 	homeform.h \
 	palette.h \
-	palettecolormodel.h \
 	paletteform.h \
+	palettelist.h \
+	palettemodel.h \
 	settings.h \
 	staticcolor.h
 
