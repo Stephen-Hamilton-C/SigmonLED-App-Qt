@@ -7,6 +7,7 @@ PaletteForm {
     PaletteBackend {
         id: paletteBack
 
+        //TODO: fix text not updating. Not allowed to set currentText
         onPaletteChanged: paletteBox.currentText = palette
         onDelayChanged: delayBox.value = delay
         onBrightnessChanged: brightnessSlider.value = brightness
