@@ -1,6 +1,8 @@
 #ifndef COLORRGB_H
 #define COLORRGB_H
 
+#include <QString>
+
 /**
  * @brief Stores three ints for rgb color in a struct.
  */
@@ -29,6 +31,15 @@ public:
 	 * @param V Value (Brightness) (0 - 1)
 	 */
 	static ColorRGB HSVtoRGB(float H, float S, float V);
+
+	QString toString();
+
+	static ColorRGB fromHEX(QString hexString);
+
+private:
+
+	static int hexChannelToColor(QString hexChannel);
+	static int hexCharToInt(QChar hexChar);
 
 };
 

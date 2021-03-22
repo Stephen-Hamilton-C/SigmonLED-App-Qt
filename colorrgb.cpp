@@ -45,3 +45,72 @@ ColorRGB ColorRGB::HSVtoRGB(float H, float S,float V){
 
 	return ColorRGB(R, G, B);
 }
+
+ColorRGB ColorRGB::fromHEX(QString hexString)
+{
+	QString redStr = QString(hexString.at(1))+QString(hexString.at(2));
+	int red = hexChannelToColor(redStr);
+
+	QString greenStr = QString(hexString.at(3))+QString(hexString.at(4));
+	int green = hexChannelToColor(greenStr);
+
+	QString blueStr = QString(hexString.at(5))+QString(hexString.at(6));
+	int blue = hexChannelToColor(blueStr);
+
+	return ColorRGB(red, green, blue);
+}
+
+int ColorRGB::hexChannelToColor(QString hexChannel)
+{
+	int color = 0;
+	int hexTens = hexCharToInt(hexChannel.at(0));
+	int hexOnes = hexCharToInt(hexChannel.at(1));
+	color = hexOnes + hexTens * 16;
+
+	return color;
+}
+
+int ColorRGB::hexCharToInt(QChar hexChar)
+{
+	hexChar = hexChar.toUpper();
+	if(hexChar == '1')
+		return 1;
+	if(hexChar == '2')
+		return 2;
+	if(hexChar == '3')
+		return 3;
+	if(hexChar == '4')
+		return 4;
+	if(hexChar == '5')
+		return 5;
+	if(hexChar == '6')
+		return 6;
+	if(hexChar == '7')
+		return 7;
+	if(hexChar == '8')
+		return 8;
+	if(hexChar == '9')
+		return 9;
+	if(hexChar == 'A')
+		return 10;
+	if(hexChar == 'B')
+		return 11;
+	if(hexChar == 'C')
+		return 12;
+	if(hexChar == 'D')
+		return 13;
+	if(hexChar == 'E')
+		return 14;
+	if(hexChar == 'F')
+		return 15;
+
+
+	return 0;
+}
+
+QString ColorRGB::toString()
+{
+	return "R:"+QString::number(r)+","+
+			"G:"+QString::number(g)+","+
+			"B:"+QString::number(b);
+}
