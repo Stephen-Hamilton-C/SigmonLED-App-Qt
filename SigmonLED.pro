@@ -13,6 +13,7 @@ SOURCES += \
         fastonoff.cpp \
         homeform.cpp \
         main.cpp \
+        palette.cpp \
         palettecolormodel.cpp \
         paletteform.cpp \
         settings.cpp \
@@ -37,6 +38,7 @@ HEADERS += \
 	devicemanager.h \
 	fastonoff.h \
 	homeform.h \
+	palette.h \
 	palettecolormodel.h \
 	paletteform.h \
 	settings.h \

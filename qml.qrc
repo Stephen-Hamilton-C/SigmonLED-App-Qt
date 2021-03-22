@@ -10,8 +10,8 @@
         <file>Home.qml</file>
         <file>Palette.qml</file>
         <file>StaticColor.qml</file>
-        <file>CustomPaletteCreator.qml</file>
-        <file>CustomPaletteCreatorForm.ui.qml</file>
+        <file>CustomPalettes.qml</file>
+        <file>CustomPalettesForm.ui.qml</file>
     </qresource>
     <qresource prefix="/icons">
         <file alias="menu">icons/icons8-menu.svg</file>

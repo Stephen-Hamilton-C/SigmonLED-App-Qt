@@ -63,9 +63,9 @@ ApplicationWindow {
                     colorPage.visible = false
                     palettePage.visible = false
                     settingsPage.visible = false
+                    customPalettesPage.visible = false
                     currentPage = text
                     drawer.close()
-                    console.log("Dark mode: "+settingsPage.darkMode)
                 }
             }
 
@@ -78,6 +78,7 @@ ApplicationWindow {
                     colorPage.visible = true
                     palettePage.visible = false
                     settingsPage.visible = false
+                    customPalettesPage.visible = false
                     currentPage = text
                     drawer.close()
                 }
@@ -91,6 +92,20 @@ ApplicationWindow {
                     colorPage.visible = false
                     palettePage.visible = true
                     settingsPage.visible = false
+                    customPalettesPage.visible = false
+                    currentPage = text
+                    drawer.close()
+                }
+            }
+            ItemDelegate {
+                text: qsTr("Custom Palettes")
+                width: parent.width
+                onClicked: {
+                    homePage.visible = false
+                    colorPage.visible = false
+                    palettePage.visible = false
+                    settingsPage.visible = false
+                    customPalettesPage.visible = true
                     currentPage = text
                     drawer.close()
                 }
@@ -103,6 +118,7 @@ ApplicationWindow {
                     colorPage.visible = false
                     palettePage.visible = false
                     settingsPage.visible = true
+                    customPalettesPage.visible = false
                     currentPage = text
                     drawer.close()
                 }
@@ -173,6 +189,12 @@ ApplicationWindow {
 
     Settings {
         id: settingsPage
+        visible: false
+        anchors.fill: parent
+    }
+
+    CustomPalettes {
+        id: customPalettesPage
         visible: false
         anchors.fill: parent
     }
