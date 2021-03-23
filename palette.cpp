@@ -1,5 +1,6 @@
 #include "palette.h"
 #include "devicemanager.h"
+#include "colorrgb.h"
 
 #include <QUuid>
 #include <QDebug>
@@ -63,14 +64,32 @@ void Palette::save()
 	}
 
 	settings.setValue("CustomPalettes/"+id+"/name", name);
-	settings.setValue("CustomPalettes/"+id+"/colors", colors);
+	//settings.setValue("CustomPalettes/"+id+"/colors", colors);
 	settings.setValue("CustomPalettes", palettes);
+
+	for(int i = 0; i < 16; i++){
+		ColorRGB color = ColorRGB::toHSV(ColorRGB::fromHEX(colors[i].toString()));
+		settings.setValue("CustomPalettes/"+id+"/Colors/"+QString::number(i)+"HSVHue", color.r);
+		settings.setValue("CustomPalettes/"+id+"/Colors/"+QString::number(i)+"HSVSaturation", color.g);
+		settings.setValue("CustomPalettes/"+id+"/Colors/"+QString::number(i)+"HSVValue", color.b);
+	}
 }
 
 void Palette::load(QString id)
 {
 	name = settings.value("CustomPalettes/"+id+"/name", "New Palette").toString();
-	colors = settings.value("CustomPalettes/"+id+"/colors", Palette::defaultColors).toList();
+	//colors = settings.value("CustomPalettes/"+id+"/colors", Palette::defaultColors).toList();
+
+	colors.clear();
+	for(int i = 0; i < 16; i++){
+		ColorRGB hsvColor;
+		hsvColor.r = settings.value("CustomPalettes/"+id+"/Colors/"+QString::number(i)+"HSVHue", 0).toInt();
+		hsvColor.g = settings.value("CustomPalettes/"+id+"/Colors/"+QString::number(i)+"HSVSaturation", 0).toInt();
+		hsvColor.b = settings.value("CustomPalettes/"+id+"/Colors/"+QString::number(i)+"HSVValue", 0).toInt();
+
+		ColorRGB rgbColor = ColorRGB::fromHSV(hsvColor);
+		colors.append(QColor(rgbColor.r, rgbColor.g, rgbColor.b));
+	}
 }
 
 void Palette::del()
@@ -83,7 +102,13 @@ void Palette::del()
 	}
 
 	settings.remove("CustomPalettes/"+id+"/name");
-	settings.remove("CustomPalettes/"+id+"/colors");
+
+	for(int i = 0; i < 16; i++){
+		settings.remove("CustomPalettes/"+id+"/Colors/"+QString::number(i)+"HSVHue");
+		settings.remove("CustomPalettes/"+id+"/Colors/"+QString::number(i)+"HSVSaturation");
+		settings.remove("CustomPalettes/"+id+"/Colors/"+QString::number(i)+"HSVValue");
+	}
+
 	settings.setValue("CustomPalettes", palettes);
 
 	delete this;

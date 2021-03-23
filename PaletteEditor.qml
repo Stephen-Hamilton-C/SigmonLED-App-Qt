@@ -7,7 +7,6 @@ PaletteEditorForm {
     id: page
 
     property alias backend: backend
-    //property alias saveButton: saveButton
 
     CustomPaletteEditorBackend {
         id: backend
@@ -21,6 +20,7 @@ PaletteEditorForm {
         }
 
         delegate: RoundButton {
+            id: button
             height: gridView.cellHeight
             width: gridView.cellWidth
             background: Rectangle {
@@ -36,6 +36,8 @@ PaletteEditorForm {
             onClicked: {
                 //Open color picker. When apply is clicked, set the palette color index
                 console.log("Clicked on "+model.index)
+                console.log("Palette color index: "+(parseInt(model.index)-1).toString())
+                backend.editColor(parseInt(model.index)-1)
             }
         }
     }

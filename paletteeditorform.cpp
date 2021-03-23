@@ -63,3 +63,17 @@ void PaletteEditorForm::savePalette()
 
 	currentPalette->save();
 }
+
+void PaletteEditorForm::refreshPalette()
+{
+	if(!currentPalette)
+		return;
+
+	currentPalette->load(paletteID);
+	setPaletteID(paletteID);
+}
+
+void PaletteEditorForm::editColor(int colorIndex)
+{
+	emit colorIndexEdit(colorIndex);
+}

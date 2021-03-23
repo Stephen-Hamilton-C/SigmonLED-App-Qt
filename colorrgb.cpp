@@ -4,7 +4,7 @@
 #include <math.h>
 
 //Source: https://www.codespeedy.com/hsv-to-rgb-in-cpp/
-ColorRGB ColorRGB::HSVtoRGB(float H, float S,float V){
+ColorRGB ColorRGB::fromHSV(float H, float S,float V){
 	//if(H>360 || H<0 || S>100 || S<0 || V>100 || V<0){
 	if(H>360 || H<0 || S>1 || S<0 || V>1 || V<0){
 		//Return an empty color if color is invalid
@@ -44,6 +44,62 @@ ColorRGB ColorRGB::HSVtoRGB(float H, float S,float V){
 	int B = qRound((b+m)*255);
 
 	return ColorRGB(R, G, B);
+}
+
+ColorRGB ColorRGB::fromHSV(ColorRGB hsv)
+{
+	return fromHSV(hsv.r, hsv.g, hsv.b);
+}
+
+//Source: https://stackoverflow.com/a/6930407
+ColorRGB ColorRGB::toHSV(float R, float G, float B)
+{
+	ColorRGB out;
+
+	double      min, max, delta;
+
+	min = R < G ? R : G;
+	min = min  < B ? min  : B;
+
+	max = R > G ? R : G;
+	max = max  > B ? max  : B;
+
+	out.b = max;                                // v
+	delta = max - min;
+	if (delta < 0.00001)
+	{
+		out.g = 0;
+		out.r = 0; // undefined, maybe nan?
+		return out;
+	}
+	if( max > 0.0 ) { // NOTE: if Max is == 0, this divide would cause a crash
+		out.g = (delta / max);                  // s
+	} else {
+		// if max is 0, then r = g = b = 0
+		// s = 0, h is undefined
+		out.g = 0.0;
+		out.r = NAN;                            // its now undefined
+		return out;
+	}
+	if( R >= max )                           // > is bogus, just keeps compilor happy
+		out.r = ( G - B ) / delta;        // between yellow & magenta
+	else
+	if( G >= max )
+		out.r = 2.0 + ( B - R ) / delta;  // between cyan & yellow
+	else
+		out.r = 4.0 + ( R - G ) / delta;  // between magenta & cyan
+
+	out.r *= 60.0;                              // degrees
+
+	if( out.r < 0.0 )
+		out.r += 360.0;
+
+	return out;
+}
+
+ColorRGB ColorRGB::toHSV(ColorRGB rgb)
+{
+	return toHSV(rgb.r, rgb.g, rgb.b);
 }
 
 ColorRGB ColorRGB::fromHEX(QString hexString)

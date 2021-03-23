@@ -30,7 +30,11 @@ public:
 	 * @param S Saturation (0 - 1)
 	 * @param V Value (Brightness) (0 - 1)
 	 */
-	static ColorRGB HSVtoRGB(float H, float S, float V);
+	static ColorRGB fromHSV(float H, float S, float V);
+	static ColorRGB fromHSV(ColorRGB hsv);
+
+	static ColorRGB toHSV(float R, float G, float B);
+	static ColorRGB toHSV(ColorRGB rgb);
 
 	QString toString();
 

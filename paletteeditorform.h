@@ -28,6 +28,8 @@ public:
 
 public slots:
 	void savePalette();
+	void refreshPalette();
+	void editColor(int colorIndex);
 
 private:
 
@@ -39,6 +41,7 @@ signals:
 	void listChanged(PaletteEditorList* list);
 	void paletteIDChanged(QString paletteID);
 	void nameChanged(QString name);
+	void colorIndexEdit(int colorIndex);
 };
 
 #endif // PALETTEEDITORFORM_H

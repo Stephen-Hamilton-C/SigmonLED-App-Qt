@@ -125,5 +125,23 @@ CustomPalettesForm {
             editor.visible = false
             backend.refreshPalettes()
         }
+
+        backend.onColorIndexEdit: {
+            console.log("Edit: "+colorIndex)
+            picker.pickerBack.setSettingName("CustomPalettes/"+editor.backend.paletteID+"/Colors/"+colorIndex)
+            picker.visible = true
+        }
     }
+
+    ColorPicker {
+        id: picker
+        visible: false
+
+        applyButton.onClicked: {
+            picker.visible = false
+            picker.pickerBack.saveSettings()
+            editor.backend.refreshPalette()
+        }
+    }
+
 }

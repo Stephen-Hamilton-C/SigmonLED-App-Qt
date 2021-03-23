@@ -16,9 +16,9 @@ void ColorPicker::setSettingName(QString name)
 {
     settingName = name;
 
-    hue = settings.value("HSVHue"+settingName, 0).toInt();
-    saturation = settings.value("HSVSaturation"+settingName, 0).toInt();
-    value = settings.value("HSVValue"+settingName, 0).toInt();
+	hue = settings.value(settingName+"HSVHue", 0).toInt();
+	saturation = settings.value(settingName+"HSVSaturation", 0).toInt();
+	value = settings.value(settingName+"HSVValue", 0).toInt();
     QTimer::singleShot(100, this, [this]{
         emit hueChanged(hue);
         emit saturationChanged(saturation);
@@ -28,7 +28,7 @@ void ColorPicker::setSettingName(QString name)
 
 void ColorPicker::saveSettings()
 {
-    settings.setValue("HSVHue"+settingName, hue);
-    settings.setValue("HSVSaturation"+settingName, saturation);
-    settings.setValue("HSVValue"+settingName, value);
+	settings.setValue(settingName+"HSVHue", hue);
+	settings.setValue(settingName+"HSVSaturation", saturation);
+	settings.setValue(settingName+"HSVValue", value);
 }
