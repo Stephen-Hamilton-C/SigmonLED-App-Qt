@@ -12,6 +12,8 @@
         <file>StaticColor.qml</file>
         <file>CustomPalettes.qml</file>
         <file>CustomPalettesForm.ui.qml</file>
+        <file>PaletteEditor.qml</file>
+        <file>PaletteEditorForm.ui.qml</file>
     </qresource>
     <qresource prefix="/icons">
         <file alias="menu">icons/icons8-menu.svg</file>

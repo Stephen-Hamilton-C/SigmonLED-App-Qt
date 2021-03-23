@@ -8,6 +8,9 @@
 #include "custompalettesform.h"
 #include "palettemodel.h"
 #include "palettelist.h"
+#include "paletteeditorlist.h"
+#include "paletteeditormodel.h"
+#include "paletteeditorform.h"
 
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
@@ -42,10 +45,16 @@ int main(int argc, char *argv[])
 	qmlRegisterType<Settings>("StephenHamilton.SigmonLED.Settings", 1, 0, "SettingsBackend");
 	qmlRegisterType<StaticColor>("StephenHamilton.SigmonLED.StaticColor", 1, 0, "StaticColorBackend");
 	qmlRegisterType<CustomPalettesForm>("StephenHamilton.SigmonLED.CustomPalettes", 1, 0, "CustomPalettesBackend");
+	qmlRegisterType<PaletteEditorForm>("StephenHamilton.SigmonLED.CustomPaletteEditor", 1, 0, "CustomPaletteEditorBackend");
 
 	qmlRegisterType<PaletteModel>("StephenHamilton.SigmonLED.CustomPalettes", 1, 0, "PaletteModel");
 	qmlRegisterUncreatableType<PaletteList>("StephenHamilton.SigmonLED.CustomPalettes", 1, 0, "PaletteList",
 											QStringLiteral("PaletteList should not be created in QML"));
+
+	qmlRegisterType<PaletteEditorModel>("StephenHamilton.SigmonLED.CustomPaletteEditor", 1, 0, "PaletteEditorModel");
+	qmlRegisterUncreatableType<PaletteEditorList>("StephenHamilton.SigmonLED.CustomPaletteEditor", 1, 0, "PaletteEditorList",
+												  QStringLiteral("PaletteEditorList should not be created in QML"));
+
 
 	engine.load(url);
 

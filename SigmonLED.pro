@@ -15,6 +15,9 @@ SOURCES += \
         homeform.cpp \
         main.cpp \
         palette.cpp \
+        paletteeditorform.cpp \
+        paletteeditorlist.cpp \
+        paletteeditormodel.cpp \
         paletteform.cpp \
         palettelist.cpp \
         palettemodel.cpp \
@@ -42,6 +45,9 @@ HEADERS += \
 	fastonoff.h \
 	homeform.h \
 	palette.h \
+	paletteeditorform.h \
+	paletteeditorlist.h \
+	paletteeditormodel.h \
 	paletteform.h \
 	palettelist.h \
 	palettemodel.h \
