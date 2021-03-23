@@ -13,7 +13,11 @@ CustomPalettesForm {
         onSendingProgressChanged: console.log("PROGRESS SIGNAL: "+sendingProgress)
     }
 
-    createButton.onClicked: backend.newPalette()
+    createButton.onClicked: {
+        var newUuid = backend.newPalette()
+        editor.visible = true
+        editor.backend.paletteID = newUuid
+    }
 
     sendingDialog.visible: backend.sendingPalette;
     sendingProgress.value: backend.sendingProgress;
@@ -92,7 +96,10 @@ CustomPalettesForm {
                     anchors.rightMargin: 10
                     width: 40
                     height: 40
-                    onClicked: console.log("model: "+model)
+                    onClicked: {
+                        editor.visible = true
+                        editor.backend.paletteID = model.uuid
+                    }
                 }
 
                 Button {
@@ -105,6 +112,18 @@ CustomPalettesForm {
                     onClicked: backend.delPalette(model.uuid)
                 }
             }
+        }
+    }
+
+    PaletteEditor {
+        id: editor
+        visible: false
+
+        saveButton.onClicked: {
+            editor.backend.name = nameField.text
+            editor.backend.savePalette()
+            editor.visible = false
+            backend.refreshPalettes()
         }
     }
 }

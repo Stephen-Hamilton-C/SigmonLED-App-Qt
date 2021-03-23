@@ -26,9 +26,11 @@ public:
 	double getSendingProgress() const;
 	void setSendingProgress(double value);
 
+	static QMap<QString, Palette*> palettes;
+
 public slots:
 	void refreshPalettes();
-	void newPalette();
+	QString newPalette();
 	void delPalette(QString id);
 	void uploadPalette(QString id);
 
@@ -36,7 +38,6 @@ private slots:
 	void writeBufferUpdated(QString writeBuffer);
 
 private:
-	QMap<QString, Palette*> palettes;
 	QSettings settings;
 
 	PaletteList* list;

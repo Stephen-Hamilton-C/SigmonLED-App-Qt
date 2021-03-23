@@ -3,6 +3,8 @@
 
 #include <QDebug>
 
+QMap<QString, Palette*> CustomPalettesForm::palettes;
+
 CustomPalettesForm::CustomPalettesForm(QObject *parent) : QObject(parent)
 {
 	list = new PaletteList();
@@ -28,12 +30,14 @@ void CustomPalettesForm::refreshPalettes()
 	qDebug() << "StoredPalettes:" << storedPalettes;
 }
 
-void CustomPalettesForm::newPalette()
+QString CustomPalettesForm::newPalette()
 {
-	Palette newPalette;
-	newPalette.setName("Test"+newPalette.getId());
-	newPalette.save();
+	Palette palette;
+	palette.setName("New Palette");
+	palette.save();
 	refreshPalettes();
+
+	return palette.getId();
 }
 
 void CustomPalettesForm::delPalette(QString id)
