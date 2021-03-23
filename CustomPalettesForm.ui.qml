@@ -46,7 +46,7 @@ Page {
         color: "#80ffffff"
         anchors.fill: parent
         z: 2
-        visible: true
+        visible: false
 
         ProgressBar {
             id: sendingProgress

@@ -16,7 +16,6 @@ int PaletteModel::rowCount(const QModelIndex &parent) const
 		return 0;
 
 	return mList->items().size();
-	// FIXME: Implement me!
 }
 
 QVariant PaletteModel::data(const QModelIndex &index, int role) const
