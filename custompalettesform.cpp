@@ -7,8 +7,6 @@ CustomPalettesForm::CustomPalettesForm(QObject *parent) : QObject(parent)
 {
 	list = new PaletteList();
 	refreshPalettes();
-
-	connect(DeviceManager::getInstance(), &DeviceManager::writeBufferChanged, this, &CustomPalettesForm::writeBufferUpdated);
 }
 
 void CustomPalettesForm::refreshPalettes()
@@ -49,12 +47,31 @@ void CustomPalettesForm::uploadPalette(QString id)
 	palettes[id]->upload();
 	activateProgress = true;
 	startingLength = 197; //Calculated using notepad and the default colors
+	connect(DeviceManager::getInstance(), &DeviceManager::writeBufferChanged, this, &CustomPalettesForm::writeBufferUpdated);
 }
 
 void CustomPalettesForm::writeBufferUpdated(QString writeBuffer)
 {
-	sendingPalette = writeBuffer.length() > 0;
+	sendingPalette = activateProgress && writeBuffer.length() > 0;
 	sendingProgress = (double)writeBuffer.length() / (double)startingLength;
+	emit sendingPaletteChanged(sendingPalette);
+	emit sendingProgressChanged(sendingProgress);
+	qDebug() << "sendingPalette:" << sendingPalette;
+
+	if(writeBuffer.length() == 0){
+		activateProgress = false;
+		disconnect(DeviceManager::getInstance(), &DeviceManager::writeBufferChanged, this, &CustomPalettesForm::writeBufferUpdated);
+	}
+}
+
+double CustomPalettesForm::getSendingProgress() const
+{
+	return sendingProgress;
+}
+
+void CustomPalettesForm::setSendingProgress(double value)
+{
+	sendingProgress = value;
 }
 
 bool CustomPalettesForm::getSendingPalette() const

@@ -9,46 +9,16 @@ CustomPalettesForm {
 
     CustomPalettesBackend {
         id: backend
+        onSendingPaletteChanged: console.log("SENDING PALETTE SIGNAL: "+sendingPalette)
+        onSendingProgressChanged: console.log("PROGRESS SIGNAL: "+sendingProgress)
     }
 
     createButton.onClicked: backend.newPalette()
 
+    sendingDialog.visible: backend.sendingPalette;
+    sendingProgress.value: backend.sendingProgress;
+
     listView {
-        //model: backend.palettes
-        /*
-        model: ListModel {
-            ListElement {
-                name: "American Palette"
-                uuid: "{129338946}"
-                colors: [
-                    ListElement {
-                        color: "#ff0000"
-                    },
-                    ListElement {
-                        color: "#666666"
-                    },
-                    ListElement {
-                        color: "#0000ff"
-                    }
-                ]
-            }
-            ListElement {
-                name: "Italian Palette"
-                uuid: "{876249453}"
-                colors: [
-                    ListElement {
-                        color: "#ff0000"
-                    },
-                    ListElement {
-                        color: "#666666"
-                    },
-                    ListElement {
-                        color: "#00ff00"
-                    }
-                ]
-            }
-        }
-        */
 
         model: PaletteModel {
             list: backend.list
@@ -69,7 +39,6 @@ CustomPalettesForm {
                 anchors.right: parent.right
                 anchors.leftMargin: 0
                 anchors.rightMargin: 0
-                //spacing: 10
                 Rectangle {
                     id: colorRect
                     width: 40
@@ -110,7 +79,10 @@ CustomPalettesForm {
                     anchors.rightMargin: 10
                     width: 40
                     height: 40
-                    onClicked: backend.uploadPalette(model.uuid)
+                    onClicked: {
+                        backend.uploadPalette(model.uuid)
+                        sendingLabel.text = "Sending "+model.name+"..."
+                    }
                 }
 
                 Button {
@@ -134,28 +106,5 @@ CustomPalettesForm {
                 }
             }
         }
-        /*
-        model: ListModel {
-            ListElement {
-                name: "Grey"
-                colorCode: "grey"
-            }
-
-            ListElement {
-                name: "Red"
-                colorCode: "red"
-            }
-
-            ListElement {
-                name: "Blue"
-                colorCode: "blue"
-            }
-
-            ListElement {
-                name: "Green"
-                colorCode: "green"
-            }
-        }
-        */
     }
 }

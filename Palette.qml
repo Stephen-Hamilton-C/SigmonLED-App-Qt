@@ -39,6 +39,4 @@ PaletteForm {
         onClicked: paletteBack.ApplyChanges()
     }
 
-    testButton.onClicked: paletteBack.testCustomPalette()
-
 }

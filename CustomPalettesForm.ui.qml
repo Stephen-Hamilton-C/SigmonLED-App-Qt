@@ -9,8 +9,9 @@ Page {
     hoverEnabled: true
     wheelEnabled: false
     anchors.fill: parent
-    property alias label: label
-    property alias progressBar: progressBar
+    property alias sendingProgress: sendingProgress
+    property alias sendingLabel: sendingLabel
+    property alias sendingDialog: sendingDialog
     property alias createButton: createButton
     property alias listView: listView
 
@@ -44,27 +45,57 @@ Page {
         id: sendingDialog
         color: "#80ffffff"
         anchors.fill: parent
-        visible: false
+        z: 2
+        visible: true
 
         ProgressBar {
-            id: progressBar
+            id: sendingProgress
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
             anchors.right: parent.right
-            indeterminate: true
+            to: 0
+            from: 1
+            indeterminate: false
             anchors.rightMargin: 25
             anchors.leftMargin: 25
             value: 0
         }
 
+        ProgressBar {
+            id: sendingProgressEffect
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: sendingProgress.bottom
+            anchors.topMargin: 0
+            indeterminate: true
+            anchors.rightMargin: 25
+            anchors.leftMargin: 25
+        }
+
+        ProgressBar {
+            id: sendingProgressEffect2
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.bottom: sendingProgress.top
+            anchors.bottomMargin: 0
+            indeterminate: true
+            anchors.rightMargin: 25
+            anchors.leftMargin: 25
+        }
+
         Label {
-            id: label
+            id: sendingLabel
             x: 209
             y: 249
             text: qsTr("Uploading Palette...")
             anchors.verticalCenter: parent.verticalCenter
             anchors.verticalCenterOffset: -30
             anchors.horizontalCenter: parent.horizontalCenter
+        }
+
+        MouseArea {
+            id: mouseArea
+            anchors.fill: parent
         }
     }
 }

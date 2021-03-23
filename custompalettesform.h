@@ -23,6 +23,9 @@ public:
 	bool getSendingPalette() const;
 	void setSendingPalette(bool value);
 
+	double getSendingProgress() const;
+	void setSendingProgress(double value);
+
 public slots:
 	void refreshPalettes();
 	void newPalette();
@@ -46,6 +49,8 @@ private:
 signals:
 	void modelChanged();
 	void listChanged();
+	void sendingPaletteChanged(bool sendingPalette);
+	void sendingProgressChanged(double sendingProgress);
 };
 
 #endif // CUSTOMPALETTESFORM_H

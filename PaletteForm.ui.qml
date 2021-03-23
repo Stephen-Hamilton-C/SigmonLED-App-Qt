@@ -6,7 +6,6 @@ Page {
     width: 450
     height: 800
     anchors.fill: parent
-    property alias testButton: testButton
     property alias solidPaletteSwitch: solidPaletteSwitch
     property alias brightnessSlider: brightnessSlider
     property alias delayBox: delayBox
@@ -115,12 +114,5 @@ Page {
         anchors.verticalCenter: parent.verticalCenter
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenterOffset: -25
-    }
-
-    Button {
-        id: testButton
-        x: 191
-        y: 231
-        text: qsTr("Test")
     }
 }
