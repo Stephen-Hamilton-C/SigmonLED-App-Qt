@@ -64,14 +64,18 @@ void Palette::save()
 	}
 
 	settings.setValue("CustomPalettes/"+id+"/name", name);
-	//settings.setValue("CustomPalettes/"+id+"/colors", colors);
 	settings.setValue("CustomPalettes", palettes);
 
 	for(int i = 0; i < 16; i++){
+		qDebug() << "HEX:" << colors[i].toString();
+		ColorRGB rgb = ColorRGB::fromHEX(colors[i].toString());
+		qDebug() << "RGB:" << rgb.toString();
+		qDebug() << "HSV:" << ColorRGB::toHSV(rgb).toString();
 		ColorRGB color = ColorRGB::toHSV(ColorRGB::fromHEX(colors[i].toString()));
 		settings.setValue("CustomPalettes/"+id+"/Colors/"+QString::number(i)+"HSVHue", color.r);
 		settings.setValue("CustomPalettes/"+id+"/Colors/"+QString::number(i)+"HSVSaturation", color.g);
 		settings.setValue("CustomPalettes/"+id+"/Colors/"+QString::number(i)+"HSVValue", color.b);
+		qDebug() << "Saving color:" << color.toString();
 	}
 }
 
@@ -82,13 +86,19 @@ void Palette::load(QString id)
 
 	colors.clear();
 	for(int i = 0; i < 16; i++){
+		QColor color;
 		ColorRGB hsvColor;
-		hsvColor.r = settings.value("CustomPalettes/"+id+"/Colors/"+QString::number(i)+"HSVHue", 0).toInt();
-		hsvColor.g = settings.value("CustomPalettes/"+id+"/Colors/"+QString::number(i)+"HSVSaturation", 0).toInt();
-		hsvColor.b = settings.value("CustomPalettes/"+id+"/Colors/"+QString::number(i)+"HSVValue", 0).toInt();
 
-		ColorRGB rgbColor = ColorRGB::fromHSV(hsvColor);
-		colors.append(QColor(rgbColor.r, rgbColor.g, rgbColor.b));
+		int h = settings.value("CustomPalettes/"+id+"/Colors/"+QString::number(i)+"HSVHue", 0).toInt();
+		int s = settings.value("CustomPalettes/"+id+"/Colors/"+QString::number(i)+"HSVSaturation", 0).toInt();
+		int v = settings.value("CustomPalettes/"+id+"/Colors/"+QString::number(i)+"HSVValue", 0).toInt();
+		qDebug() << "h" << h << "s" << s << "v" << v;
+		color = QColor::fromHsv(h, s, v);
+
+		qDebug() << "Loaded HSV:" << h << "," << s << "," << v;
+		qDebug() << "Converted QColor:" << color.hue() << "," << color.saturation() << "," << color.value();
+
+		colors.append(color);
 	}
 }
 

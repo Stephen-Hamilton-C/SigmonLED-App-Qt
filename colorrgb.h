@@ -10,11 +10,11 @@ class ColorRGB {
 
 public:
 
-	int r;
-	int g;
-	int b;
+	double r;
+	double g;
+	double b;
 
-	ColorRGB(int r, int g, int b){
+	ColorRGB(double r, double g, double b){
 		this->r = r;
 		this->g = g;
 		this->b = b;

@@ -70,6 +70,9 @@ ColorRGB ColorRGB::toHSV(float R, float G, float B)
 	{
 		out.g = 0;
 		out.r = 0; // undefined, maybe nan?
+
+		out.g *= 255;
+
 		return out;
 	}
 	if( max > 0.0 ) { // NOTE: if Max is == 0, this divide would cause a crash
@@ -79,6 +82,9 @@ ColorRGB ColorRGB::toHSV(float R, float G, float B)
 		// s = 0, h is undefined
 		out.g = 0.0;
 		out.r = NAN;                            // its now undefined
+
+		out.g *= 255;
+
 		return out;
 	}
 	if( R >= max )                           // > is bogus, just keeps compilor happy
@@ -93,6 +99,8 @@ ColorRGB ColorRGB::toHSV(float R, float G, float B)
 
 	if( out.r < 0.0 )
 		out.r += 360.0;
+
+	out.g *= 255;
 
 	return out;
 }
