@@ -46,6 +46,16 @@ void CustomPalettesForm::uploadPalette(QString id)
 	palettes[id]->upload();
 }
 
+bool CustomPalettesForm::getSendingPalette() const
+{
+	return sendingPalette;
+}
+
+void CustomPalettesForm::setSendingPalette(bool value)
+{
+	sendingPalette = value;
+}
+
 PaletteList *CustomPalettesForm::getList() const
 {
 	return list;

@@ -35,6 +35,11 @@ public:
 	 */
 	void QueueWrite(const QString cmd);
 	/**
+	 * @brief Checks if the writeBuffer is empty
+	 * @return
+	 */
+	bool doneWriting();
+	/**
 	 * @brief Converts an integer to a QString that can be written to a SigmonLED Arduino safely.
 	 * Example: converts 64 into 064, 8 into 008.
 	 * @param num The integer number to convert.

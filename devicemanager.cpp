@@ -45,6 +45,11 @@ void DeviceManager::QueueWrite(const QString cmd)
 	writeBuffer += cmd;
 }
 
+bool DeviceManager::doneWriting()
+{
+	return writeBuffer.length() == 0;
+}
+
 QString DeviceManager::ConvertNumToWritable(int num, const bool thousand)
 {
 	QString val;

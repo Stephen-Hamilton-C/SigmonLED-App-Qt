@@ -11,12 +11,16 @@ class CustomPalettesForm : public QObject
 {
 	Q_OBJECT
 	Q_PROPERTY(PaletteList* list READ getList WRITE setList NOTIFY listChanged)
+	Q_PROPERTY(bool sendingPalette READ getSendingPalette WRITE setSendingPalette NOTIFY sendingPaletteChanged)
 
 public:
 	explicit CustomPalettesForm(QObject *parent = nullptr);
 
 	PaletteList *getList() const;
 	void setList(PaletteList *value);
+
+	bool getSendingPalette() const;
+	void setSendingPalette(bool value);
 
 public slots:
 	void refreshPalettes();
@@ -29,6 +33,8 @@ private:
 	QSettings settings;
 
 	PaletteList* list;
+
+	bool sendingPalette = false;
 
 
 signals:

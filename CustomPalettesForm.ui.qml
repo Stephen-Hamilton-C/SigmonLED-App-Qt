@@ -9,6 +9,8 @@ Page {
     hoverEnabled: true
     wheelEnabled: false
     anchors.fill: parent
+    property alias label: label
+    property alias progressBar: progressBar
     property alias createButton: createButton
     property alias listView: listView
 
@@ -36,5 +38,33 @@ Page {
         anchors.rightMargin: 0
         anchors.leftMargin: 0
         anchors.topMargin: 0
+    }
+
+    Rectangle {
+        id: sendingDialog
+        color: "#80ffffff"
+        anchors.fill: parent
+        visible: false
+
+        ProgressBar {
+            id: progressBar
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: parent.left
+            anchors.right: parent.right
+            indeterminate: true
+            anchors.rightMargin: 25
+            anchors.leftMargin: 25
+            value: 0
+        }
+
+        Label {
+            id: label
+            x: 209
+            y: 249
+            text: qsTr("Uploading Palette...")
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.verticalCenterOffset: -30
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
     }
 }
