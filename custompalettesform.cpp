@@ -1,4 +1,5 @@
 #include "custompalettesform.h"
+#include "devicemanager.h"
 
 #include <QDebug>
 
@@ -6,6 +7,8 @@ CustomPalettesForm::CustomPalettesForm(QObject *parent) : QObject(parent)
 {
 	list = new PaletteList();
 	refreshPalettes();
+
+	connect(DeviceManager::getInstance(), &DeviceManager::writeBufferChanged, this, &CustomPalettesForm::writeBufferUpdated);
 }
 
 void CustomPalettesForm::refreshPalettes()
@@ -44,6 +47,14 @@ void CustomPalettesForm::delPalette(QString id)
 void CustomPalettesForm::uploadPalette(QString id)
 {
 	palettes[id]->upload();
+	activateProgress = true;
+	startingLength = 197; //Calculated using notepad and the default colors
+}
+
+void CustomPalettesForm::writeBufferUpdated(QString writeBuffer)
+{
+	sendingPalette = writeBuffer.length() > 0;
+	sendingProgress = (double)writeBuffer.length() / (double)startingLength;
 }
 
 bool CustomPalettesForm::getSendingPalette() const

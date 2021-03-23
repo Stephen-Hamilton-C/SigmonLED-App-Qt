@@ -35,10 +35,12 @@ public:
 	 */
 	void QueueWrite(const QString cmd);
 	/**
-	 * @brief Checks if the writeBuffer is empty
+	 * @brief Returns what is currently in the write buffer
 	 * @return
 	 */
-	bool doneWriting();
+	QString getWriteBuffer() {
+		return writeBuffer;
+	}
 	/**
 	 * @brief Converts an integer to a QString that can be written to a SigmonLED Arduino safely.
 	 * Example: converts 64 into 064, 8 into 008.
@@ -216,6 +218,10 @@ private:
 
 signals:
 
+	/**
+	 * @brief Emitted when the write buffer changes
+	 */
+	void writeBufferChanged(QString writeBuffer);
 	/**
 	 * @brief Emitted when discoveredDevices is changed.
 	 */

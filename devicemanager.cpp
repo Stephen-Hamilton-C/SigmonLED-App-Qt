@@ -43,11 +43,7 @@ DeviceManager::~DeviceManager()
 void DeviceManager::QueueWrite(const QString cmd)
 {
 	writeBuffer += cmd;
-}
-
-bool DeviceManager::doneWriting()
-{
-	return writeBuffer.length() == 0;
+	emit writeBufferChanged(writeBuffer);
 }
 
 QString DeviceManager::ConvertNumToWritable(int num, const bool thousand)
@@ -135,6 +131,7 @@ void DeviceManager::BLEDisconnected()
 	qDebug() << "Disconnected";
 
 	writeBuffer.clear();
+	emit writeBufferChanged(writeBuffer);
 
 	//Alert QML we disconnected
 	connected = false;
@@ -247,6 +244,7 @@ void DeviceManager::Timer_Write()
 
 		//Remove first char to move on to next one for next timer loop
 		writeBuffer.remove(0, 1);
+		emit writeBufferChanged(writeBuffer);
 	}
 }
 
