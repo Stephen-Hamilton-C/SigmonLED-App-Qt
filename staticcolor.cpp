@@ -14,7 +14,7 @@ void StaticColor::apply(double h, double s, double v)
 	qDebug() << "Apply";
 
 	//Convert from HSV to RGB. See header def for HSVtoRGB for argument ranges.
-	ColorRGB color = ColorRGB::HSVtoRGB(h, s/255.0, v/255.0);
+	ColorRGB color = ColorRGB::fromHSV(h, s/255.0, v/255.0);
 
 	DeviceManager* dm = DeviceManager::getInstance();
 	//Set full brightness as this will effectively be controlled by HSV
