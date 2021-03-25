@@ -35,8 +35,6 @@ PaletteEditorForm {
 
             onClicked: {
                 //Open color picker. When apply is clicked, set the palette color index
-                console.log("Clicked on "+model.index)
-                console.log("Palette color index: "+(parseInt(model.index)-1).toString())
                 backend.editColor(parseInt(model.index)-1)
             }
         }
