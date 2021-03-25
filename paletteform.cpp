@@ -35,6 +35,10 @@ void PaletteForm::ApplyChanges()
 	//Set the brightness
 	dm->QueueWrite("B"+brightness);
 
+	//Sanity check on palette
+	if(palette.isEmpty())
+		palette = "r";
+
 	//Let's walk through this mess.
 	//First line is solid palette (P) or standard running palette (p).
 	//Next line is the palette selected, converted into the Arduino char.
