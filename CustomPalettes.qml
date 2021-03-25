@@ -9,8 +9,6 @@ CustomPalettesForm {
 
     CustomPalettesBackend {
         id: backend
-        onSendingPaletteChanged: console.log("SENDING PALETTE SIGNAL: "+sendingPalette)
-        onSendingProgressChanged: console.log("PROGRESS SIGNAL: "+sendingProgress)
     }
 
     createButton.onClicked: {
@@ -127,9 +125,12 @@ CustomPalettesForm {
         }
 
         backend.onColorIndexEdit: {
-            console.log("Edit: "+colorIndex)
             picker.pickerBack.setSettingName("CustomPalettes/"+editor.backend.paletteID+"/Colors/"+colorIndex)
             picker.visible = true
+        }
+
+        nameField.onTextChanged: {
+            editor.backend.name = nameField.text
         }
     }
 
