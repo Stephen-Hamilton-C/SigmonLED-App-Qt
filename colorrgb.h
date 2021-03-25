@@ -14,6 +14,18 @@ public:
 	double g;
 	double b;
 
+	int getRInt() const {
+		return (int)(r+0.5);
+	}
+
+	int getGInt() const {
+		return (int)(g+0.5);
+	}
+
+	int getBInt() const {
+		return (int)(b+0.5);
+	}
+
 	ColorRGB(double r, double g, double b){
 		this->r = r;
 		this->g = g;
