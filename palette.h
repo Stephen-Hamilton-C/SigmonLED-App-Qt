@@ -11,7 +11,7 @@ class Palette : public QObject
 {
 	Q_OBJECT
 	Q_PROPERTY(QVariantList colors MEMBER colors NOTIFY colorsChanged)
-	Q_PROPERTY(QString name MEMBER name NOTIFY nameChanged)
+	Q_PROPERTY(QString name READ getName WRITE setName NOTIFY nameChanged)
 	Q_PROPERTY(QString uuid MEMBER id NOTIFY idChanged)
 
 public:
@@ -37,8 +37,9 @@ public:
 		return id;
 	}
 
-	void setName(QString name){
+	void setName(const QString &name){
 		this->name = name;
+		settings.setValue("CustomPalettes/"+id+"/name", name);
 	}
 
 	static QVariantList defaultColors;
