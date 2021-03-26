@@ -5,6 +5,8 @@
 #include <QMap>
 #include <QSettings>
 
+class DeviceManager;
+
 /**
  * @brief The backend interface for the palette UI.
  */
@@ -14,7 +16,6 @@ class PaletteForm : public QObject
 
 public:
 	explicit PaletteForm(QObject *parent = nullptr);
-	~PaletteForm();
 
 public slots:
 //Typically called from QML
@@ -73,19 +74,21 @@ private:
 	 */
 	bool solidPalette = false;
 	/**
-	 * @brief The brightness of the LEDs, from 000 to 255. Should be a SigmonLED writable number
+	 * @brief The brightness of the LEDs, from 0 to 255.
 	 */
-	QString brightness = "255";
+	int brightness = 255;
 	/**
-	 * @brief The delay in ms between each color progression, from 0000 to 9999. Should be a SigmonLED thousand writable number
+	 * @brief The delay in ms between each color progression, from 0 to 4095.
 	 */
-	QString delay = "0010";
+	int delay = 10;
 	/**
 	 * @brief The palette char
 	 */
 	QString palette = "r";
 
 	QSettings settings;
+
+	DeviceManager* dm;
 
 signals:
 	void paletteChanged(QString palette);
