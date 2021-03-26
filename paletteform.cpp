@@ -5,35 +5,31 @@ PaletteForm::PaletteForm(QObject *parent)
 {
 	linearBlending = settings.value("LinearBlending", true).toBool();
 	solidPalette = settings.value("SolidPalette", false).toBool();
-	brightness = settings.value("Brightness", "255").toString();
-	delay = settings.value("Delay", "0010").toString();
-	palette = sigmonPalette[settings.value("Palette", "r").toString()];
+	brightness = settings.value("Brightness", 255).toInt();
+	delay = settings.value("Delay", 10).toInt();
+
+	//Don't change palette until this is fixed (check TODO in changelog)
+	//palette = sigmonPalette[settings.value("Palette", "r").toString()];
 
 	QTimer::singleShot(100, this, [this]{
 		emit linearBlendingChanged(linearBlending);
 		emit solidPaletteChanged(solidPalette);
-		emit brightnessChanged(brightness.toInt());
-		emit delayChanged(delay.toInt());
-		emit paletteChanged(palette);
+		emit brightnessChanged(brightness);
+		emit delayChanged(delay);
+		//emit paletteChanged(palette);
 	});
-}
 
-PaletteForm::~PaletteForm()
-{
-	settings.setValue("LinearBlending", linearBlending);
-	settings.setValue("SolidPalette", solidPalette);
-	settings.setValue("Brightness", brightness);
-	settings.setValue("Delay", delay);
-	settings.setValue("Palette", palette);
+	dm = DeviceManager::getInstance();
 }
 
 void PaletteForm::ApplyChanges()
 {
 	qDebug() << "Apply";
-	DeviceManager* dm = DeviceManager::getInstance();
+
+	dm->QueueWrite("x");
 
 	//Set the brightness
-	dm->QueueWrite("B"+brightness);
+	dm->QueueWrite("B"+dm->ConvertNumToWritable(brightness));
 
 	//Sanity check on palette
 	if(palette.isEmpty())
@@ -47,62 +43,68 @@ void PaletteForm::ApplyChanges()
 				   + palette +
 				   (linearBlending ? "l" : "n"));
 
-	//Set time between color updates
-	dm->QueueWrite("d"+delay);
+	//Set time between color updates.
+	dm->QueueWrite("d"+dm->ConvertNumToWritable(delay, true));
 }
 
 void PaletteForm::setPalette(QString palette)
 {
 	qDebug() << "Palette:" << palette;
 	this->palette = sigmonPalette[palette];
-	settings.setValue("Palette", palette);
+
 }
 
 void PaletteForm::setLinearBlending(bool linearBlending)
 {
 	qDebug() << "Blending:" << linearBlending;
 	this->linearBlending = linearBlending;
+	settings.setValue("LinearBlending", linearBlending);
 }
 
 void PaletteForm::setSolidPalette(bool solidPalette)
 {
 	qDebug() << "Solid Palette:" << solidPalette;
 	this->solidPalette = solidPalette;
+	settings.setValue("SolidPalette", solidPalette);
 }
 
 void PaletteForm::setDelay(int delay)
 {
 	qDebug() << "Delay:" << delay;
-	this->delay = DeviceManager::getInstance()->ConvertNumToWritable(delay, true);
+	this->delay = delay;
+	settings.setValue("Delay", delay);
+
 }
 
 void PaletteForm::setBrightness(int brightness)
 {
 	qDebug() << "Brightness:" << brightness;
-	this->brightness = DeviceManager::getInstance()->ConvertNumToWritable(brightness);
+	this->brightness = brightness;
+	settings.setValue("Brightness", brightness);
 }
 
 void PaletteForm::testCustomPalette()
 {
 	//Cr255g000b000#r127g127b127#r000g000b255#r000g000b000#r255g000b000#r127g127b127#r000g000b255#r000g000b000#r255g000b000#r255g000b000#r127g127b127#r127g127b127#r000g000b255#r000g000b255#r000g000b000#r000g000b000##
+	//CrFFg00b00#r7Fg7Fb7F#r00g00bFF#r00g00b00#rFFg00b00#r7Fg7Fb7F#r00g00bFF#r00g00b00#rFFg00b00#rFFg00b00#r7Fg7Fb7F#r7Fg7Fb7F#r00g00bFF#r00g00bFF#r00g00b00#r00g00b00##
 	DeviceManager::getInstance()->QueueWrite(
-				"C"
-				"r255g000b000#"
-				"r127g127b127#"
-				"r000g000b255#"
-				"r000g000b000#"
-				"r255g000b000#"
-				"r127g127b127#"
-				"r000g000b255#"
-				"r000g000b000#"
-				"r255g000b000#"
-				"r255g000b000#"
-				"r127g127b127#"
-				"r127g127b127#"
-				"r000g000b255#"
-				"r000g000b255#"
-				"r000g000b000#"
-				"r000g000b000#"
-				"#"
+				"xC"
+				"rFFg00b00#"
+				"r7Fg7Fb7F#"
+				"r00g00bFF#"
+				"r00g00b00#"
+				"rFFg00b00#"
+				"r7Fg7Fb7F#"
+				"r00g00bFF#"
+				"r00g00b00#"
+				"rFFg00b00#"
+				"rFFg00b00#"
+				"r7Fg7Fb7F#"
+				"r7Fg7Fb7F#"
+				"r00g00bFF#"
+				"r00g00bFF#"
+				"r00g00b00#"
+				"r00g00b00#"
+				"#x"
 	);
 }
