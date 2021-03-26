@@ -24,16 +24,19 @@ Palette::Palette(QString id, QObject *parent) : QObject(parent)
 
 int Palette::upload()
 {
-	QString writeString = "C";
+	DeviceManager* dm = DeviceManager::getInstance();
+
+	QString writeString = "xC";
+
 	for(int i = 0; i < colors.count(); i++){
 		ColorRGB color = ColorRGB::fromHEX(colors.at(i).toString());
 
 		writeString += "r";
-		writeString += DeviceManager::ConvertNumToWritable(color.r);
+		writeString += dm->ConvertNumToWritable(color.r);
 		writeString += "g";
-		writeString += DeviceManager::ConvertNumToWritable(color.g);
+		writeString += dm->ConvertNumToWritable(color.g);
 		writeString += "b";
-		writeString += DeviceManager::ConvertNumToWritable(color.b);
+		writeString += dm->ConvertNumToWritable(color.b);
 		writeString += "#";
 
 	}
@@ -41,9 +44,13 @@ int Palette::upload()
 	writeString += "#";
 
 	writeString += "B";
-	writeString += settings.value("Brightness", "255").toString();
+	writeString += dm->ConvertNumToWritable(settings.value("Brightness", 255).toInt());
 
-	DeviceManager::getInstance()->QueueWrite(writeString);
+	writeString += "x";
+
+	qDebug() << "Writing" << writeString;
+
+	dm->QueueWrite(writeString);
 
 	return writeString.length();
 }
