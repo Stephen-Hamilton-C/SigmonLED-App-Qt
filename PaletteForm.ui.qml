@@ -57,8 +57,8 @@ Page {
         y: 487
         anchors.verticalCenter: parent.verticalCenter
         editable: true
-        stepSize: 10
-        to: 9999
+        stepSize: 5
+        to: 4095
         value: 10
         anchors.verticalCenterOffset: 125
         anchors.horizontalCenter: parent.horizontalCenter
