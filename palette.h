@@ -18,7 +18,7 @@ public:
 	explicit Palette(QObject *parent = nullptr);
 	explicit Palette(QString id, QObject *parent = nullptr);
 
-	void upload();
+	int upload();
 
 	QString toString();
 	bool compare(Palette const &otherPalette) const;

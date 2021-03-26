@@ -22,7 +22,7 @@ Palette::Palette(QString id, QObject *parent) : QObject(parent)
 	load(id);
 }
 
-void Palette::upload()
+int Palette::upload()
 {
 	QString writeString = "C";
 	for(int i = 0; i < colors.count(); i++){
@@ -44,6 +44,8 @@ void Palette::upload()
 	writeString += settings.value("Brightness", "255").toString();
 
 	DeviceManager::getInstance()->QueueWrite(writeString);
+
+	return writeString.length();
 }
 
 QString Palette::toString()
