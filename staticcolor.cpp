@@ -18,7 +18,7 @@ void StaticColor::apply(double h, double s, double v)
 
 	DeviceManager* dm = DeviceManager::getInstance();
 	//Set full brightness as this will effectively be controlled by HSV
-	dm->QueueWrite("B255");
+	dm->QueueWrite("xBFF");
 
 	//Set RGB
 	dm->QueueWrite("r"+dm->ConvertNumToWritable(color.r));
