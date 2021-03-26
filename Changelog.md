@@ -6,9 +6,12 @@ SigmonLED uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 [comment]: # (This is a comment, it will not be included)
 
-## [Unreleased] - 2021-02-22
+## [Unreleased] - 2021-03-25
 ### Added
-- Custom Palette Creation
+- Custom Palette Creation.
+
+### Known Issues
+- (#1) Android app has no icon.
 
 ## [0.2.0] - 2021-02-22
 ### Added
