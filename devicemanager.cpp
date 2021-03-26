@@ -22,7 +22,7 @@ DeviceManager::DeviceManager(QObject *parent)
 	//Initialize write timer
 	QTimer* writeTimer = new QTimer(this);
 	connect(writeTimer, &QTimer::timeout, this, &DeviceManager::Timer_Write);
-	writeTimer->start(35);
+	writeTimer->start(15);
 
 	//Initialize stop discovery timer
 	discoveryTimer = new QTimer(this);
@@ -46,10 +46,38 @@ void DeviceManager::QueueWrite(const QString cmd)
 	emit writeBufferChanged(writeBuffer);
 }
 
-QString DeviceManager::ConvertNumToWritable(int num, const bool thousand)
+QString DeviceManager::ConvertNumToWritable(int num, const bool hundred)
 {
 	QString val;
 
+	if(num >= 4095 && hundred)
+		return "FFF";
+
+	if(num >= 255 && !hundred)
+		return "FF";
+
+	if(num == 0 && hundred)
+		return "000";
+
+	if(num == 0 && !hundred)
+		return "00";
+
+	int division = num;
+	while(division > 0){
+		int decimalRemain = division % 16;
+		val.insert(0, intToHex(decimalRemain));
+		division /= 16;
+	}
+
+	if(hundred){
+		while(val.length() < 3){
+			val.insert(0, '0');
+		}
+	} else if(val.length() == 1){
+		val.insert(0, '0');
+	}
+
+	/*
 	//Get thousands place
 	if(num >= 1000){
 		val += QString::number(floor(num/1000));
@@ -86,6 +114,7 @@ QString DeviceManager::ConvertNumToWritable(int num, const bool thousand)
 		qErrnoWarning("Number too long for thousands. Returning 0000.");
 		return "0000";
 	}
+	*/
 
 	return val;
 }
@@ -326,4 +355,27 @@ QStringList DeviceManager::EncodeDevicesList()
 	}
 
 	return val;
+}
+
+QChar DeviceManager::intToHex(int num)
+{
+	switch(num){
+		case 0: return '0';
+		case 1: return '1';
+		case 2: return '2';
+		case 3: return '3';
+		case 4: return '4';
+		case 5: return '5';
+		case 6: return '6';
+		case 7: return '7';
+		case 8: return '8';
+		case 9: return '9';
+		case 10: return 'A';
+		case 11: return 'B';
+		case 12: return 'C';
+		case 13: return 'D';
+		case 14: return 'E';
+		case 15: return 'F';
+		default: return 0;
+	}
 }

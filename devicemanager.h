@@ -49,7 +49,7 @@ public:
 	 * Example: converts 250 into 0250, 50 into 0050.
 	 * @return
 	 */
-	static QString ConvertNumToWritable(int num, const bool thousand = false);
+	static QString ConvertNumToWritable(int num, const bool hundred = false);
 	/**
 	 * @brief Connects to a Bluetooth device using its info
 	 * @param device The device to connect to
@@ -166,6 +166,8 @@ private:
 	 * @brief Converts the discoveredDevices list into a list of QStrings that have the device name and then the MAC address
 	 */
 	QStringList EncodeDevicesList();
+
+	static QChar intToHex(int num);
 
 //BLE:
 	/**
