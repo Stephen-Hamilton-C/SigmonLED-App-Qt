@@ -48,9 +48,8 @@ void CustomPalettesForm::delPalette(QString id)
 
 void CustomPalettesForm::uploadPalette(QString id)
 {
-	palettes[id]->upload();
+	startingLength = palettes[id]->upload();
 	activateProgress = true;
-	startingLength = 197; //Calculated using notepad and the default colors
 	connect(DeviceManager::getInstance(), &DeviceManager::writeBufferChanged, this, &CustomPalettesForm::writeBufferUpdated);
 }
 
