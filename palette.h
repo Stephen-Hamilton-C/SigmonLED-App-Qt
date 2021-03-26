@@ -1,11 +1,12 @@
 #ifndef PALETTE_H
 #define PALETTE_H
 
-#include "colorrgb.h"
-
 #include <QObject>
 #include <QColor>
 #include <QSettings>
+
+class ColorRGB;
+class DeviceManager;
 
 class Palette : public QObject
 {
