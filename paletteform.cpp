@@ -84,6 +84,7 @@ void PaletteForm::setBrightness(int brightness)
 
 void PaletteForm::testCustomPalette()
 {
+	//Cr255g000b000#r127g127b127#r000g000b255#r000g000b000#r255g000b000#r127g127b127#r000g000b255#r000g000b000#r255g000b000#r255g000b000#r127g127b127#r127g127b127#r000g000b255#r000g000b255#r000g000b000#r000g000b000##
 	DeviceManager::getInstance()->QueueWrite(
 				"C"
 				"r255g000b000#"
@@ -102,5 +103,6 @@ void PaletteForm::testCustomPalette()
 				"r000g000b255#"
 				"r000g000b000#"
 				"r000g000b000#"
+				"#"
 	);
 }
