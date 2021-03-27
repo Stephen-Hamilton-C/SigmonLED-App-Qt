@@ -77,45 +77,6 @@ QString DeviceManager::ConvertNumToWritable(int num, const bool hundred)
 		val.insert(0, '0');
 	}
 
-	/*
-	//Get thousands place
-	if(num >= 1000){
-		val += QString::number(floor(num/1000));
-
-		num -= floor(num/1000)*1000;
-	} else if(thousand){
-		val += "0";
-	}
-
-	//Get hundreds place
-	if(num >= 100){
-		val += QString::number(floor(num/100));
-		num -= floor(num/100)*100;
-	} else {
-		val += "0";
-	}
-
-	//Get tens place
-	if(num >= 10){
-		val += QString::number(floor(num/10));
-		num -= floor(num/10)*10;
-	} else {
-		val += "0";
-	}
-
-	//Get ones place
-	val += QString::number(num);
-
-	//Sanity check
-	if(val.length() > 3 && !thousand){
-		qErrnoWarning("Number too long for hundreds. Returning 000.");
-		return "000";
-	} else if(val.length() > 4 && thousand){
-		qErrnoWarning("Number too long for thousands. Returning 0000.");
-		return "0000";
-	}
-	*/
-
 	return val;
 }
 
