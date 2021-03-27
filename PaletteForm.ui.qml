@@ -6,6 +6,7 @@ Page {
     width: 450
     height: 800
     anchors.fill: parent
+    property alias stretchBox: stretchBox
     property alias solidPaletteSwitch: solidPaletteSwitch
     property alias brightnessSlider: brightnessSlider
     property alias delayBox: delayBox
@@ -32,9 +33,10 @@ Page {
         y: 226
         width: 200
         anchors.verticalCenter: parent.verticalCenter
+        anchors.horizontalCenterOffset: 0
         anchors.horizontalCenter: parent.horizontalCenter
         currentIndex: 0
-        anchors.verticalCenterOffset: -75
+        anchors.verticalCenterOffset: -125
 
         model: ["Rainbow", "Rainbow Stripe", "Cloud", "Party", "Ocean", "Lava", "Forest", "Custom"]
     }
@@ -45,9 +47,9 @@ Page {
         y: 453
         text: qsTr("Linear Blending")
         checked: true
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.verticalCenterOffset: 25
+        anchors.verticalCenter: solidPaletteSwitch.verticalCenter
+        anchors.horizontalCenter: solidPaletteSwitch.horizontalCenter
+        anchors.verticalCenterOffset: 50
         width: text.width
     }
 
@@ -55,26 +57,25 @@ Page {
         id: delayBox
         x: 129
         y: 487
-        anchors.verticalCenter: parent.verticalCenter
+        anchors.verticalCenter: delayLabel.verticalCenter
+        anchors.horizontalCenterOffset: 0
         editable: true
         stepSize: 5
         to: 4095
         value: 10
-        anchors.verticalCenterOffset: 125
-        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenterOffset: 40
+        anchors.horizontalCenter: delayLabel.horizontalCenter
     }
 
     Label {
         id: delayLabel
-        x: 206
-        y: 455
         text: qsTr("Delay (ms)")
-        anchors.verticalCenter: parent.verticalCenter
+        anchors.verticalCenter: linearBlendSwitch.verticalCenter
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         font.pointSize: 14
-        anchors.verticalCenterOffset: 85
-        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenterOffset: 50
+        anchors.horizontalCenter: linearBlendSwitch.horizontalCenter
     }
 
     Slider {
@@ -111,8 +112,36 @@ Page {
         y: 449
         width: text.width
         text: qsTr("Solid Palette")
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.verticalCenterOffset: -25
+        anchors.verticalCenter: paletteBox.verticalCenter
+        anchors.horizontalCenterOffset: 0
+        anchors.horizontalCenter: paletteBox.horizontalCenter
+        anchors.verticalCenterOffset: 50
+    }
+
+    Label {
+        id: stretchLabel
+        text: qsTr("Stretching")
+        anchors.verticalCenter: delayBox.verticalCenter
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+        anchors.verticalCenterOffset: 55
+        anchors.horizontalCenterOffset: 0
+        anchors.horizontalCenter: delayBox.horizontalCenter
+        font.pointSize: 14
+    }
+
+    SpinBox {
+        id: stretchBox
+        x: 132
+        y: 488
+        anchors.verticalCenter: stretchLabel.verticalCenter
+        anchors.horizontalCenterOffset: 0
+        anchors.horizontalCenter: stretchLabel.horizontalCenter
+        value: 3
+        stepSize: 1
+        anchors.verticalCenterOffset: 40
+        editable: true
+        to: 16
+        from: 1
     }
 }

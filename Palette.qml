@@ -14,6 +14,11 @@ PaletteForm {
         onBrightnessChanged: brightnessSlider.value = brightness
         onSolidPaletteChanged: solidPaletteSwitch.checked = solidPalette
         onLinearBlendingChanged: linearBlendSwitch.checked = linearBlending
+        onStretchingChanged: stretchBox.value = stretching
+    }
+
+    stretchBox {
+        onValueChanged: paletteBack.setStretching(stretchBox.value)
     }
 
     brightnessSlider {

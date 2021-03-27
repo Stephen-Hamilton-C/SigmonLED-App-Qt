@@ -45,6 +45,7 @@ public slots:
 	 * @brief Signalled when the brightness is set.
 	 */
 	void setBrightness(int brightness);
+    void setStretching(int stretching);
 	void testCustomPalette();
 
 private:
@@ -92,6 +93,8 @@ private:
 	 * @brief The delay in ms between each color progression, from 0 to 4095.
 	 */
 	int delay = 10;
+
+    int stretching = 3;
 	/**
 	 * @brief The palette char
 	 */
@@ -108,6 +111,7 @@ signals:
 	void brightnessChanged(int brightness);
 	void solidPaletteChanged(bool solidPalette);
 	void linearBlendingChanged(bool linearBlending);
+    void stretchingChanged(int stretching);
 
 };
 

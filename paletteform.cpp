@@ -4,9 +4,10 @@
 PaletteForm::PaletteForm(QObject *parent)
 {
 	linearBlending = settings.value("LinearBlending", true).toBool();
-	solidPalette = settings.value("SolidPalette", false).toBool();
+    solidPalette = settings.value("SolidPalette", false).toBool();
 	brightness = settings.value("Brightness", 255).toInt();
 	delay = settings.value("Delay", 10).toInt();
+    stretching = settings.value("Stretching", 3).toInt();
 
     palette = sigmonPalette[settings.value("Palette", "r").toString()];
 
@@ -15,6 +16,7 @@ PaletteForm::PaletteForm(QObject *parent)
 		emit solidPaletteChanged(solidPalette);
 		emit brightnessChanged(brightness);
 		emit delayChanged(delay);
+        emit stretchingChanged(stretching);
         emit paletteIndexChanged(sigmonIndex[palette]);
 		//emit paletteChanged(palette);
 	});
@@ -45,6 +47,8 @@ void PaletteForm::ApplyChanges()
 
 	//Set time between color updates.
 	dm->QueueWrite("d"+dm->ConvertNumToWritable(delay, true));
+
+    dm->QueueWrite("s"+QString(dm->intToHex(stretching)));
 }
 
 void PaletteForm::setPalette(QString palette)
@@ -80,7 +84,14 @@ void PaletteForm::setBrightness(int brightness)
 {
 	qDebug() << "Brightness:" << brightness;
 	this->brightness = brightness;
-	settings.setValue("Brightness", brightness);
+    settings.setValue("Brightness", brightness);
+}
+
+void PaletteForm::setStretching(int stretching)
+{
+    qDebug() << "Stretching:" << stretching;
+    this->stretching = stretching;
+    settings.setValue("Stretching", stretching);
 }
 
 void PaletteForm::testCustomPalette()
