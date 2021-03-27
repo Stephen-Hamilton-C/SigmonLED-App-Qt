@@ -56,6 +56,8 @@ public:
 	 */
 	void ConnectToDevice(const QBluetoothDeviceInfo &device);
 
+    static QChar intToHex(int num);
+
 //Variables:
 	/**
 	 * @brief Whether or not a device is currently connected.
@@ -166,8 +168,6 @@ private:
 	 * @brief Converts the discoveredDevices list into a list of QStrings that have the device name and then the MAC address
 	 */
 	QStringList EncodeDevicesList();
-
-	static QChar intToHex(int num);
 
 //BLE:
 	/**
