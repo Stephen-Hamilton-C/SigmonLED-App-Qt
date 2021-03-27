@@ -8,14 +8,14 @@ PaletteForm::PaletteForm(QObject *parent)
 	brightness = settings.value("Brightness", 255).toInt();
 	delay = settings.value("Delay", 10).toInt();
 
-	//Don't change palette until this is fixed (check TODO in changelog)
-	//palette = sigmonPalette[settings.value("Palette", "r").toString()];
+    palette = sigmonPalette[settings.value("Palette", "r").toString()];
 
 	QTimer::singleShot(100, this, [this]{
 		emit linearBlendingChanged(linearBlending);
 		emit solidPaletteChanged(solidPalette);
 		emit brightnessChanged(brightness);
 		emit delayChanged(delay);
+        emit paletteIndexChanged(sigmonIndex[palette]);
 		//emit paletteChanged(palette);
 	});
 

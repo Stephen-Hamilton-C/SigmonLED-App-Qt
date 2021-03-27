@@ -8,7 +8,8 @@ PaletteForm {
         id: paletteBack
 
         //TODO: fix text not updating. Not allowed to set currentText
-        onPaletteChanged: paletteBox.currentText = palette
+        //onPaletteChanged: paletteBox.currentText = palette
+        onPaletteIndexChanged: paletteBox.currentValue = paletteIndex
         onDelayChanged: delayBox.value = delay
         onBrightnessChanged: brightnessSlider.value = brightness
         onSolidPaletteChanged: solidPaletteSwitch.checked = solidPalette

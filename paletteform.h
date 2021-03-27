@@ -64,6 +64,17 @@ private:
 		{"Custom", "C"}
 	};
 
+    const QMap<QString, int> sigmonIndex {
+        {"r", 0},
+        {"R", 1},
+        {"c", 2},
+        {"p", 3},
+        {"o", 4},
+        {"l", 5},
+        {"f", 6},
+        {"C", 7}
+    };
+
 //Variables:
 	/**
 	 * @brief Send an l (true) or an n (false) for linear blending
@@ -91,6 +102,7 @@ private:
 	DeviceManager* dm;
 
 signals:
+    void paletteIndexChanged(int paletteIndex);
 	void paletteChanged(QString palette);
 	void delayChanged(int delay);
 	void brightnessChanged(int brightness);
