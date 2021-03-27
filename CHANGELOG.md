@@ -25,7 +25,7 @@ SigmonLED uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Palette mode taking forever to update if the delay was set to a very high number.
 
 ### Known Issues
-- #1 Android app has no icon.
+- (#1) Android app has no icon.
 
 ## [0.2.0] - 2021-02-22
 ### Added
