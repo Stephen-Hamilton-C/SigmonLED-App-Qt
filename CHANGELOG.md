@@ -11,6 +11,8 @@ SigmonLED uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Make palette mode screen go to custom after uploading a palette
 - Fix palette mode screen not updating palette box
 - Fix palette editor scaling issues and clipping when scrolling
+- Make palette instantly change values instead of waiting for apply
+    - Maybe do the same for static color? Add a delay?
 
 ### Added
 - Custom Palette Creation.
