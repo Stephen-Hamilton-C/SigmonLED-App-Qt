@@ -6,13 +6,10 @@ SigmonLED uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 [comment]: # (This is a comment, it will not be included)
 
-## [Unreleased] - 2021-03-25
+## [Unreleased] - 2021-04-05
 ### TODO
-- Make palette mode screen go to custom after uploading a palette
-- Fix palette mode screen not updating palette box
 - Fix palette editor scaling issues and clipping when scrolling
-- Make palette instantly change values instead of waiting for apply
-    - Maybe do the same for static color? Add a delay?
+- Changing stretching breaks everything (Arduino code? Locks up like it's waiting for another digit)
 
 ### Added
 - Custom Palette Creation.
@@ -22,9 +19,11 @@ SigmonLED uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Maximum palette delay from 9,999 to 4,095, a consequence of going hexadecimal.
 - Decreased transmission delay from 35 ms to 15 ms. Only stable with latest version of SigmonLED.
 - The app now sends the reset command state signal whenever it attempts to change the color.
+- Palette and Static Color settings now instantly apply
 
 ### Fixed
 - Palette mode taking forever to update if the delay was set to a very high number.
+- Last palette mode not saving
 
 ### Known Issues
 - (#1) Android app has no icon.
