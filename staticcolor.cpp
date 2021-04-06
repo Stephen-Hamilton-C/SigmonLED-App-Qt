@@ -3,11 +3,15 @@
 #include "devicemanager.h"
 
 #include <QDebug>
+#include <QTimer>
 
 StaticColor::StaticColor(QObject *parent) : QObject(parent)
 {
-
+    updateTimer = new QTimer(this);
+    connect(updateTimer, &QTimer::timeout, this, &StaticColor::update);
 }
+
+
 
 void StaticColor::apply(double h, double s, double v)
 {
@@ -23,5 +27,34 @@ void StaticColor::apply(double h, double s, double v)
 	//Set RGB
 	dm->QueueWrite("r"+dm->ConvertNumToWritable(color.r));
 	dm->QueueWrite("g"+dm->ConvertNumToWritable(color.g));
-	dm->QueueWrite("b"+dm->ConvertNumToWritable(color.b));
+    dm->QueueWrite("b"+dm->ConvertNumToWritable(color.b));
+
+    this->h = h;
+    this->s = s;
+    this->v = v;
 }
+
+void StaticColor::hueChanged(double hue)
+{
+    h = hue;
+    updateTimer->start(100);
+}
+
+void StaticColor::satChanged(double sat)
+{
+    s = sat;
+    updateTimer->start(100);
+}
+
+void StaticColor::valChanged(double val)
+{
+    v = val;
+    updateTimer->start(100);
+}
+
+void StaticColor::update()
+{
+    apply(h, s, v);
+    updateTimer->stop();
+}
+

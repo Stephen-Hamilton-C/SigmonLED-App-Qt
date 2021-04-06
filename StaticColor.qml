@@ -14,6 +14,18 @@ ColorPickerForm {
         applyButton.onClicked: {
             staticBack.apply(hueSlider.value, satSlider.value, valSlider.value)
         }
+
+        hueSlider.onValueChanged: {
+            staticBack.hueChanged(hueSlider.value)
+        }
+
+        satSlider.onValueChanged: {
+            staticBack.satChanged(satSlider.value)
+        }
+
+        valSlider.onValueChanged: {
+            staticBack.valChanged(valSlider.value)
+        }
     }
 
     Component.onCompleted: picker.pickerBack.setSettingName("StaticColor")
