@@ -9,7 +9,6 @@ SigmonLED uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased] - 2021-04-05
 ### TODO
 - Fix palette editor scaling issues and clipping when scrolling
-- Changing stretching breaks everything (Arduino code? Locks up like it's waiting for another digit)
 
 ### Added
 - Custom Palette Creation.
