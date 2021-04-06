@@ -1,6 +1,7 @@
 #include "palette.h"
 #include "devicemanager.h"
 #include "colorrgb.h"
+#include "paletteform.h"
 
 #include <QUuid>
 #include <QDebug>
@@ -51,6 +52,8 @@ int Palette::upload()
 	qDebug() << "Writing" << writeString;
 
 	dm->QueueWrite(writeString);
+
+    PaletteForm::getInstance()->customPaletteMode();
 
 	return writeString.length();
 }
