@@ -165,6 +165,7 @@ void DeviceManager::BLEServiceDetailDiscovered(QLowEnergyService::ServiceState n
 		shouldReconnect = false;
 
 		//Ensure the Arduino is not locked up by a previously dropped connection
+        writeBuffer.clear();
 		QueueWrite("x");
 
 		ready = true;
