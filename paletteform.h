@@ -6,6 +6,7 @@
 #include <QSettings>
 
 class DeviceManager;
+class QTimer;
 
 /**
  * @brief The backend interface for the palette UI.
@@ -16,6 +17,13 @@ class PaletteForm : public QObject
 
 public:
 	explicit PaletteForm(QObject *parent = nullptr);
+
+    //Singleton
+    static PaletteForm* getInstance(){
+        return ptrInstance;
+    }
+
+    void customPaletteMode();
 
 public slots:
 //Typically called from QML
@@ -48,7 +56,14 @@ public slots:
     void setStretching(int stretching);
 	void testCustomPalette();
 
+private slots:
+
+    void writeBrightness();
+
 private:
+
+//Singleton
+    static PaletteForm* ptrInstance;
 
 //Constants:
 	/**
@@ -103,6 +118,8 @@ private:
 	QSettings settings;
 
 	DeviceManager* dm;
+
+    QTimer* brightnessWriteTimer;
 
 signals:
     void paletteIndexChanged(int paletteIndex);
