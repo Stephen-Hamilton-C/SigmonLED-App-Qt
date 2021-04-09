@@ -2,12 +2,7 @@
 #include "palettemodel.h"
 #include "palette.h"
 
-PaletteList::PaletteList(QObject *parent) : QObject(parent)
-{
-	mItems.append({ "Murica", "{123456}", Palette::defaultColors });
-	mItems.append({ "Murica Again", "{123457}", Palette::defaultColors });
-	mItems.append({ "Murica Of Course", "{123458}", Palette::defaultColors });
-}
+PaletteList::PaletteList(QObject *parent) : QObject(parent) {}
 
 QVector<PaletteItem> PaletteList::items() const
 {
