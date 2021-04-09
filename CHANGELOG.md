@@ -12,6 +12,7 @@ SigmonLED uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 - Custom Palette Creation.
+- Palette stretching.
 
 ### Changed
 - Palette delay step from 10 to 5.
