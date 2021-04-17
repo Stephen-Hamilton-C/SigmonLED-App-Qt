@@ -5,7 +5,8 @@
 #include <QSettings>
 
 /**
- * @brief The backend interface for the static color UI.
+ * @brief The backend interface for the color picker UI
+ * @author Stephen Hamilton
  */
 class ColorPicker : public QObject
 {
@@ -33,12 +34,25 @@ private:
 	 */
     int value = 255;
 
-    QString settingName;
+    /**
+     * @brief The prefix of the QSettings that hold the hue, saturation, and brightness.
+     */
+    QString settingPrefix;
+    /**
+     * @brief QSettings interface with default scope
+     */
 	QSettings settings;
 
 public slots:
 
-    void setSettingName(QString name);
+    /**
+     * @brief Sets the settingPrefix and updates the HSV values with the values stored in that QSetting
+     * @param The prefix of the QSettings that hold the HSV values
+     */
+    void setSettingName(QString prefix);
+    /**
+     * @brief Sets the QSettings to current HSV values stored using the settingPrefix
+     */
     void saveSettings();
 
 signals:
