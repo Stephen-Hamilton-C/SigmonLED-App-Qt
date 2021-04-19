@@ -3,6 +3,8 @@
 
 #include <QString>
 
+class ColorHSV;
+
 /**
  * @brief Stores three ints for rgb color in a struct.
  */
@@ -10,52 +12,71 @@ class ColorRGB {
 
 public:
 
-	double r;
-	double g;
-	double b;
+    /**
+     * @brief The stored red channel.
+     */
+    int r;
+    /**
+     * @brief The stored green channel.
+     */
+    int g;
+    /**
+     * @brief The stored blue channel.
+     */
+    int b;
 
-	int getRInt() const {
-		return (int)(r+0.5);
+    /**
+     * @brief Creates a new RGB color.
+     * @param red Red channel (0 - 255)
+     * @param green Green channel (0 - 255)
+     * @param blue Blue channel (0 - 255)
+     */
+    ColorRGB(int red, int green, int blue){
+        r = red;
+        g = green;
+        b = blue;
 	}
 
-	int getGInt() const {
-		return (int)(g+0.5);
-	}
-
-	int getBInt() const {
-		return (int)(b+0.5);
-	}
-
-	ColorRGB(double r, double g, double b){
-		this->r = r;
-		this->g = g;
-		this->b = b;
-	}
-
+    /**
+     * @brief Creates a blank RGB color, which is black.
+     */
 	ColorRGB(){
 		r = 0; g = 0; b = 0;
 	}
 
 	/**
-	 * @brief Creates an RGB color from HSV.
+     * @brief Converts an HSV color to RGB.
 	 * @param H Hue (0 - 360)
 	 * @param S Saturation (0 - 1)
 	 * @param V Value (Brightness) (0 - 1)
 	 */
-	static ColorRGB fromHSV(float H, float S, float V);
-	static ColorRGB fromHSV(ColorRGB hsv);
-
-	static ColorRGB toHSV(float R, float G, float B);
-	static ColorRGB toHSV(ColorRGB rgb);
-
-	QString toString();
-
+    static ColorRGB fromHSV(double H, double S, double V);
+    /**
+     * @brief Converts an HSV color to RGB.
+     * @param hsv The HSV color to convert
+     * @return
+     */
+    static ColorRGB fromHSV(ColorHSV hsv);
+    /**
+     * @brief Converts a HEX string into RGB
+     * @param hexString The HEX string, without the # at the start.
+     */
 	static ColorRGB fromHEX(QString hexString);
+    /**
+     * @brief Converts a hexadecimal channel into an RGB channel.
+     * @param hexChannel Two hexadecimal digits
+     */
+    static int hexChannelToColor(QString hexChannel);
+
+    QString toString();
 
 private:
 
-	static int hexChannelToColor(QString hexChannel);
-	static int hexCharToInt(QChar hexChar);
+    /**
+     * @brief Converts a hexadecimal character into decimal
+     * @param hexChar a single hexadecimal digit
+     */
+    static int hexCharToInt(QChar hexChar);
 
 };
 
