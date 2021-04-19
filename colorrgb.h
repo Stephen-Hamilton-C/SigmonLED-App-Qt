@@ -6,7 +6,8 @@
 class ColorHSV;
 
 /**
- * @brief Stores three ints for rgb color in a struct.
+ * @brief Stores three ints for red, green, and blue.
+ * @author Stephen Hamilton
  */
 class ColorRGB {
 

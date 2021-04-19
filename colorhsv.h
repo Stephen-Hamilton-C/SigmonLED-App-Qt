@@ -4,6 +4,10 @@
 class ColorRGB;
 class QString;
 
+/**
+ * @brief Stores three doubles for hue, saturation, and value (brightness).
+ * @author Stephen Hamilton
+ */
 class ColorHSV
 {
 public:
