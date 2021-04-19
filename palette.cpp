@@ -1,6 +1,7 @@
 #include "palette.h"
 #include "devicemanager.h"
 #include "colorrgb.h"
+#include "colorhsv.h"
 #include "paletteform.h"
 
 #include <QUuid>
@@ -91,12 +92,11 @@ void Palette::save()
 	settings.setValue("CustomPalettes", palettes);
 
 	for(int i = 0; i < 16; i++){
-		ColorRGB rgb = ColorRGB::fromHEX(colors[i].toString());
-		ColorRGB hsv = ColorRGB::toHSV(rgb);
+        ColorHSV hsv = ColorHSV::fromHEX(colors[i].toString());
 
-		settings.setValue("CustomPalettes/"+id+"/Colors/"+QString::number(i)+"HSVHue", hsv.getRInt());
-		settings.setValue("CustomPalettes/"+id+"/Colors/"+QString::number(i)+"HSVSaturation", hsv.getGInt());
-		settings.setValue("CustomPalettes/"+id+"/Colors/"+QString::number(i)+"HSVValue", hsv.getBInt());
+        settings.setValue("CustomPalettes/"+id+"/Colors/"+QString::number(i)+"HSVHue", hsv.h);
+        settings.setValue("CustomPalettes/"+id+"/Colors/"+QString::number(i)+"HSVSaturation", hsv.s);
+        settings.setValue("CustomPalettes/"+id+"/Colors/"+QString::number(i)+"HSVValue", hsv.v);
 		qDebug() << "Saving HSV color:" << hsv.toString();
 	}
 }
@@ -108,11 +108,10 @@ void Palette::load(QString id)
 	colors.clear();
 	for(int i = 0; i < 16; i++){
 		QColor color;
-		ColorRGB hsvColor;
 
-		int h = settings.value("CustomPalettes/"+id+"/Colors/"+QString::number(i)+"HSVHue", 0).toInt();
-		int s = settings.value("CustomPalettes/"+id+"/Colors/"+QString::number(i)+"HSVSaturation", 0).toInt();
-		int v = settings.value("CustomPalettes/"+id+"/Colors/"+QString::number(i)+"HSVValue", 0).toInt();
+        double h = settings.value("CustomPalettes/"+id+"/Colors/"+QString::number(i)+"HSVHue", 0).toDouble();
+        double s = settings.value("CustomPalettes/"+id+"/Colors/"+QString::number(i)+"HSVSaturation", 0).toDouble();
+        double v = settings.value("CustomPalettes/"+id+"/Colors/"+QString::number(i)+"HSVValue", 0).toDouble();
 		color = QColor::fromHsv(h, s, v);
 
 		qDebug() << "Loaded HSV:" << h << "," << s << "," << v;

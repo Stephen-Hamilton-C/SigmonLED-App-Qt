@@ -1,6 +1,7 @@
 #include "custompalettesform.h"
 #include "devicemanager.h"
 #include "colorrgb.h"
+#include "colorhsv.h"
 
 #include <QDebug>
 
@@ -23,11 +24,11 @@ CustomPalettesForm::CustomPalettesForm(QObject *parent) : QObject(parent)
         settings.setValue("CustomPalettes/{MURICA}/name", "'Murica");
 
         for(int i = 0; i < 16; i++){
-            ColorRGB hsv = ColorRGB::toHSV(muricaColors[i].red(), muricaColors[i].green(), muricaColors[i].blue());
+            ColorHSV hsv = ColorHSV::fromRGB(muricaColors[i].red(), muricaColors[i].green(), muricaColors[i].blue());
 
-            settings.setValue("CustomPalettes/{MURICA}/Colors/"+QString::number(i)+"HSVHue", hsv.getRInt());
-            settings.setValue("CustomPalettes/{MURICA}/Colors/"+QString::number(i)+"HSVSaturation", hsv.getGInt());
-            settings.setValue("CustomPalettes/{MURICA}/Colors/"+QString::number(i)+"HSVValue", hsv.getBInt());
+            settings.setValue("CustomPalettes/{MURICA}/Colors/"+QString::number(i)+"HSVHue", hsv.h);
+            settings.setValue("CustomPalettes/{MURICA}/Colors/"+QString::number(i)+"HSVSaturation", hsv.s);
+            settings.setValue("CustomPalettes/{MURICA}/Colors/"+QString::number(i)+"HSVValue", hsv.v);
         }
 
         storedPalettes.append("{MURICA}");
