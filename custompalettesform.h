@@ -7,6 +7,10 @@
 #include <QObject>
 #include <QSettings>
 
+/**
+ * @brief The backend interface for the Custom Palette UI
+ * @author Stephen Hamilton
+ */
 class CustomPalettesForm : public QObject
 {
 	Q_OBJECT
