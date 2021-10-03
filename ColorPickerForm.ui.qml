@@ -31,8 +31,9 @@ Page {
         y: 159
         width: 30
         height: 300
-        anchors.verticalCenter: parent.verticalCenter
+        anchors.verticalCenter: satSlider.verticalCenter
         anchors.left: parent.left
+        anchors.verticalCenterOffset: 75
         to: 360
         snapMode: Slider.SnapAlways
         value: 0
@@ -95,10 +96,10 @@ Page {
         y: 159
         width: 30
         height: 300
-        anchors.verticalCenter: parent.verticalCenter
+        anchors.verticalCenter: satSlider.verticalCenter
         anchors.right: parent.right
         anchors.rightMargin: 75
-        anchors.verticalCenterOffset: 0
+        anchors.verticalCenterOffset: 75
         to: 255
         snapMode: Slider.SnapAlways
         value: 255
@@ -142,8 +143,8 @@ Page {
         color: Qt.hsva(hueSlider.value / 360, satSlider.value / 255, 1, 1)
         radius: 10
         border.width: 2
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 200
+        anchors.bottom: satSlider.top
+        anchors.bottomMargin: 72
         anchors.horizontalCenterOffset: 0
         anchors.horizontalCenter: parent.horizontalCenter
     }

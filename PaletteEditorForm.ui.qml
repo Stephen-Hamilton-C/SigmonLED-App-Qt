@@ -32,7 +32,7 @@ Page {
         anchors.top: nameField.bottom
         anchors.bottom: parent.bottom
         highlightRangeMode: GridView.NoHighlightRange
-        anchors.bottomMargin: 150
+        anchors.bottomMargin: 200
         anchors.rightMargin: 0
         anchors.leftMargin: 0
         anchors.topMargin: 0
