@@ -28,3 +28,8 @@ Needed and planned features will be placed into this file.
 ### QoL
 - [ ] Make prompt for location services if they are disabled (needed for BLE)
 - [ ] Fix layout for regular sized phones (use emulators)
+
+### Layout
+- [x] Fix layout for PaletteForm
+- [ ] Color view is hidden at top. Move it to bottom and move apply button
+- [ ] Make the content/footer design for all pages
