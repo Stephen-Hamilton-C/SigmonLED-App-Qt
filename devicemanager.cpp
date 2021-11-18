@@ -337,6 +337,6 @@ QChar DeviceManager::intToHex(int num)
 		case 13: return 'D';
 		case 14: return 'E';
 		case 15: return 'F';
-		default: return 0;
+        default: return '0';
 	}
 }

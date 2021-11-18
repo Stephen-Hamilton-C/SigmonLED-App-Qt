@@ -1,4 +1,4 @@
-#include "ColorRGB.h"
+#include "colorrgb.h"
 
 #include <QDebug>
 #include <math.h>

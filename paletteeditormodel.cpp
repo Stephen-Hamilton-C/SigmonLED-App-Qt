@@ -1,5 +1,5 @@
 #include "paletteeditormodel.h"
-#include "paletteeditorlist.h"
+//#include "paletteeditorlist.h"
 
 PaletteEditorModel::PaletteEditorModel(QObject *parent)
 	: QAbstractListModel(parent)
