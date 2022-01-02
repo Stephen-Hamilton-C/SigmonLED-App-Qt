@@ -31,14 +31,13 @@ Page {
         anchors.right: nameField.right
         anchors.top: nameField.bottom
         anchors.bottom: parent.bottom
+        cellHeight: 75
+        cellWidth: 75
         highlightRangeMode: GridView.NoHighlightRange
         anchors.bottomMargin: 200
         anchors.rightMargin: 0
         anchors.leftMargin: 0
         anchors.topMargin: 0
-
-        cellWidth: grid.width / 4
-        cellHeight: grid.height / 4
     }
 
     Button {
@@ -46,8 +45,17 @@ Page {
         x: 191
         text: qsTr("Save")
         anchors.top: gridView.bottom
+        anchors.bottom: parent.bottom
+        anchors.topMargin: 102
+        anchors.bottomMargin: 50
         anchors.horizontalCenterOffset: 0
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.topMargin: 0
     }
 }
+
+/*##^##
+Designer {
+    D{i:0;formeditorZoom:0.75}
+}
+##^##*/
+
