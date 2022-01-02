@@ -22,9 +22,9 @@ Needed and planned features will be placed into this file.
 	- (Backward compatibility is not necessary as SigmonLED is still in Beta)
 
 ### About Page
-- [ ] Paragraph
-- [ ] Version string
-- [ ] Arduino version
+- [x] Paragraph
+- [x] Version string
+- [x] Arduino version
 
 ### QoL
 - [ ] Make prompt for location services if they are disabled (needed for BLE)
