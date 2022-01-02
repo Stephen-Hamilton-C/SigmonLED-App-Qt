@@ -72,7 +72,7 @@ ApplicationWindow {
             ItemDelegate {
                 text: qsTr("Static Color")
                 width: parent.width
-                enabled: deviceMan.ready
+                //enabled: deviceMan.ready
                 onClicked: {
                     homePage.visible = false
                     colorPage.visible = true
@@ -86,7 +86,7 @@ ApplicationWindow {
             ItemDelegate {
                 text: qsTr("Palette")
                 width: parent.width
-                enabled: deviceMan.ready
+                //enabled: deviceMan.ready
                 onClicked: {
                     homePage.visible = false
                     colorPage.visible = false

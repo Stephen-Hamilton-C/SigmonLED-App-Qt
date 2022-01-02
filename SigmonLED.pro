@@ -58,6 +58,7 @@ RC_ICONS = icons/SigmonLED_Icon.ico
 
 DISTFILES += \
 	CHANGELOG.md \
-	README.md
+	README.md \
+	TODO.md
 
 #ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
