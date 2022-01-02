@@ -6,6 +6,10 @@ SigmonLED uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 [comment]: # (This is a comment, it will not be included)
 
+## 0.4.1 - 2022-01-02
+### Fixed
+- Layout issues with color picker and palette editor
+
 ## 0.4.0 - 2021-04-09
 
 **THIS VERSION WILL NOT WORK WITH ANY SIGMONLED ARDUINOS UNDER VERSION 0.3.0**

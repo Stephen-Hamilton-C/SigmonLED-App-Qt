@@ -16,12 +16,11 @@ Page {
     Button {
         id: applyButton
         x: 188
-        y: 689
         width: 100
         text: qsTr("Apply")
-        anchors.bottom: parent.bottom
+        anchors.top: satSlider.bottom
+        anchors.topMargin: 48
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottomMargin: 100
     }
 
     // Source: https://stackoverflow.com/questions/42707818/customizing-slider-in-qt-5-6-qml
@@ -31,8 +30,9 @@ Page {
         y: 159
         width: 30
         height: 300
-        anchors.verticalCenter: parent.verticalCenter
+        anchors.verticalCenter: satSlider.verticalCenter
         anchors.left: parent.left
+        anchors.verticalCenterOffset: 75
         to: 360
         snapMode: Slider.SnapAlways
         value: 0
@@ -64,7 +64,6 @@ Page {
         height: 300
         anchors.verticalCenter: parent.verticalCenter
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.verticalCenterOffset: -75
         to: 255
         snapMode: Slider.SnapAlways
         value: 0
@@ -95,10 +94,10 @@ Page {
         y: 159
         width: 30
         height: 300
-        anchors.verticalCenter: parent.verticalCenter
+        anchors.verticalCenter: satSlider.verticalCenter
         anchors.right: parent.right
         anchors.rightMargin: 75
-        anchors.verticalCenterOffset: 0
+        anchors.verticalCenterOffset: 75
         to: 255
         snapMode: Slider.SnapAlways
         value: 255
@@ -142,8 +141,8 @@ Page {
         color: Qt.hsva(hueSlider.value / 360, satSlider.value / 255, 1, 1)
         radius: 10
         border.width: 2
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 200
+        anchors.bottom: satLabel.top
+        anchors.bottomMargin: 12
         anchors.horizontalCenterOffset: 0
         anchors.horizontalCenter: parent.horizontalCenter
     }
@@ -190,7 +189,7 @@ Page {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.6600000262260437}
+    D{i:0;formeditorZoom:0.6600000262260437}D{i:1}D{i:11}
 }
 ##^##*/
 

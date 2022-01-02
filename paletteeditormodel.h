@@ -3,7 +3,9 @@
 
 #include <QAbstractListModel>
 
-class PaletteEditorList;
+#include "paletteeditorlist.h"
+
+//class PaletteEditorList;
 
 class PaletteEditorModel : public QAbstractListModel
 {

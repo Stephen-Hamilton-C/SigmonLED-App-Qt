@@ -2,8 +2,9 @@
 #define PALETTEMODEL_H
 
 #include <QAbstractListModel>
+#include "palettelist.h"
 
-class PaletteList;
+//class PaletteList;
 
 class PaletteModel : public QAbstractListModel
 {

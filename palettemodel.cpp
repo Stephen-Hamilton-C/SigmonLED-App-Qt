@@ -1,6 +1,6 @@
 #include "palettemodel.h"
 #include "palette.h"
-#include "palettelist.h"
+//#include "palettelist.h"
 
 PaletteModel::PaletteModel(QObject *parent)
 	: QAbstractListModel(parent)

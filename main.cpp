@@ -35,6 +35,7 @@ int main(int argc, char *argv[])
 //QCoreApplication Data
 	QCoreApplication::setOrganizationName("Stephen-Hamilton-C");
 	QCoreApplication::setApplicationName("SigmonLED");
+	QCoreApplication::setApplicationVersion("0.4.1-beta");
 
 //Qml Registrations:
 	qmlRegisterType<DeviceManager>("StephenHamilton.SigmonLED.DeviceManager", 1, 0, "DeviceManager");
