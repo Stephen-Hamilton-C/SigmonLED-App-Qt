@@ -7,9 +7,10 @@ Needed and planned features will be placed into this file.
 ### Qt6 [PRIORITY]
 - [ ] Make note of all errors
 
-### Palette Editor
+### Color Editing
 - [ ] Copy & paste function
 - [ ] Swatch color selector
+	- [ ] Recent colors
 - [ ] Repeating patterns, like have only 2 selections and the pattern sent is simply those 2 colors repeating
 	- [ ] Maybe integrate this into Arduino, if it's sent too few colors, then automatically repeat the pattern
 
@@ -31,5 +32,5 @@ Needed and planned features will be placed into this file.
 
 ### Layout
 - [x] Fix layout for PaletteForm
-- [ ] Color view is hidden at top. Move it to bottom and move apply button
+- [x] Color view is hidden at top. Move it to bottom and move apply button
 - [ ] Make the content/footer design for all pages
