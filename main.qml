@@ -11,6 +11,7 @@ ApplicationWindow {
     visible: true
     title: qsTr("SigmonLED")
 
+    property var pages: [homePage, colorPage, palettePage, settingsPage, customPalettesPage, aboutPage]
     property string currentPage: "Devices"
 
     Material.theme: settingsPage.darkMode ? "Dark" : "Light"
@@ -59,11 +60,11 @@ ApplicationWindow {
                 text: qsTr("Devices")
                 width: parent.width
                 onClicked: {
+                    pages.forEach((page) => {
+                        page.visible = false
+                    })
                     homePage.visible = true
-                    colorPage.visible = false
-                    palettePage.visible = false
-                    settingsPage.visible = false
-                    customPalettesPage.visible = false
+
                     currentPage = text
                     drawer.close()
                 }
@@ -74,11 +75,11 @@ ApplicationWindow {
                 width: parent.width
                 //enabled: deviceMan.ready
                 onClicked: {
-                    homePage.visible = false
+                    pages.forEach((page) => {
+                        page.visible = false
+                    })
                     colorPage.visible = true
-                    palettePage.visible = false
-                    settingsPage.visible = false
-                    customPalettesPage.visible = false
+
                     currentPage = text
                     drawer.close()
                 }
@@ -88,11 +89,11 @@ ApplicationWindow {
                 width: parent.width
                 //enabled: deviceMan.ready
                 onClicked: {
-                    homePage.visible = false
-                    colorPage.visible = false
+                    pages.forEach((page) => {
+                        page.visible = false
+                    })
                     palettePage.visible = true
-                    settingsPage.visible = false
-                    customPalettesPage.visible = false
+
                     currentPage = text
                     drawer.close()
                 }
@@ -101,11 +102,11 @@ ApplicationWindow {
                 text: qsTr("Custom Palettes")
                 width: parent.width
                 onClicked: {
-                    homePage.visible = false
-                    colorPage.visible = false
-                    palettePage.visible = false
-                    settingsPage.visible = false
+                    pages.forEach((page) => {
+                        page.visible = false
+                    })
                     customPalettesPage.visible = true
+
                     currentPage = text
                     drawer.close()
                 }
@@ -114,11 +115,24 @@ ApplicationWindow {
                 text: qsTr("Settings")
                 width: parent.width
                 onClicked: {
-                    homePage.visible = false
-                    colorPage.visible = false
-                    palettePage.visible = false
+                    pages.forEach((page) => {
+                        page.visible = false
+                    })
                     settingsPage.visible = true
-                    customPalettesPage.visible = false
+
+                    currentPage = text
+                    drawer.close()
+                }
+            }
+            ItemDelegate {
+                text: qsTr("About")
+                width: parent.width
+                onClicked: {
+                    pages.forEach((page) => {
+                        page.visible = false
+                    })
+                    aboutPage.visible = true
+
                     currentPage = text
                     drawer.close()
                 }
@@ -198,6 +212,12 @@ ApplicationWindow {
         visible: false
         anchors.fill: parent
         deviceReady: deviceMan.ready
+    }
+
+    About {
+        id: aboutPage
+        visible: false
+        anchors.fill: parent
     }
 
     //Fast buttons - simple on/off buttons that sit in the corner to easily turn LEDs on and off
