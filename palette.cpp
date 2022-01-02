@@ -1,14 +1,22 @@
 #include "palette.h"
 #include "devicemanager.h"
 #include "colorrgb.h"
+#include "paletteform.h"
 
 #include <QUuid>
 #include <QDebug>
 
+QVariantList Palette::defaultColors = QVariantList() << QColor(0,0,0) << QColor(0,0,0) << QColor(0,0,0) << QColor(0,0,0)
+                                                     << QColor(0,0,0) << QColor(0,0,0) << QColor(0,0,0) << QColor(0,0,0)
+                                                     << QColor(0,0,0) << QColor(0,0,0) << QColor(0,0,0) << QColor(0,0,0)
+                                                     << QColor(0,0,0) << QColor(0,0,0) << QColor(0,0,0) << QColor(0,0,0);
+
+/*
 QVariantList Palette::defaultColors = QVariantList() << QColor(255, 0, 0) << QColor(127, 127, 127) << QColor(0, 0, 255) << QColor(0, 0, 0)
 													 << QColor(255, 0, 0) << QColor(127, 127, 127) << QColor(0, 0, 255) << QColor(0, 0, 0)
 													 << QColor(255, 0, 0) << QColor(255, 0, 0) << QColor(127, 127, 127) << QColor(127, 127, 127)
 													 << QColor(0, 0, 255) << QColor(0, 0, 255) << QColor(0, 0, 0) << QColor(0, 0, 0);
+*/
 
 Palette::Palette(QObject *parent) : QObject(parent)
 {
@@ -51,6 +59,8 @@ int Palette::upload()
 	qDebug() << "Writing" << writeString;
 
 	dm->QueueWrite(writeString);
+
+    PaletteForm::getInstance()->customPaletteMode();
 
 	return writeString.length();
 }
