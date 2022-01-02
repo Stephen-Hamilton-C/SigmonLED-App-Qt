@@ -39,11 +39,25 @@ Item {
         }
 
         Label {
+            id: arduinoLabel
+            text: qsTr("Supports SigmonLED-Arduino 0.3 and above")
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: versionLabel.bottom
+            horizontalAlignment: Text.AlignHCenter
+            anchors.topMargin: 6
+            anchors.rightMargin: 18
+            anchors.leftMargin: 18
+            font.bold: false
+            font.pointSize: 12
+        }
+
+        Label {
             id: aboutLabel
             text: "SigmonLED allows you to control a SigmonLED powered Arduino with your Android device - no terminal commands necessary!<br><br>The Arduino code can be found <a href=\"https://github.com/Stephen-Hamilton-C/SigmonLED-Arduino\">on Github</a>.<br><br>SigmonLED is an open source project developed by a college student for his sister. The source code can be found <a href=\"https://github.com/Stephen-Hamilton-C/SigmonLED-App\">here.</a>\n\n<br><br>SigmonLED is licensed under the <a href=\"https://www.gnu.org/licenses/gpl-3.0.en.html\">GNU General Public License v3.0</a>."
             anchors.left: parent.left
             anchors.right: parent.right
-            anchors.top: versionLabel.bottom
+            anchors.top: arduinoLabel.bottom
             anchors.bottom: parent.bottom
             wrapMode: Text.WordWrap
             font.pointSize: 16
