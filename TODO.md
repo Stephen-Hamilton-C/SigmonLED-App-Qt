@@ -30,6 +30,9 @@ Here's what needs to happen before full release.
 - [ ] Make pair button so that location services may not be required
 - [ ] Maybe even make renaming functionality so user doesn't need serial adapter
 - [x] Fix layout for regular sized phones (use emulators)
+- [ ] Replace buttons in toolbar with icons
+- [ ] Add icon to about page
+- [ ] Make toolbar header respond to dark mode
 
 ### Layout
 - [x] Fix layout for PaletteForm
