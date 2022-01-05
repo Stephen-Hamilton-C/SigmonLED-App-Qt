@@ -60,6 +60,28 @@ DISTFILES += \
 	CHANGELOG.md \
 	README.md \
 	RELEASE-CHECKLIST.md \
-	TODO.md
+	TODO.md \
+	android/AndroidManifest.xml \
+	android/build.gradle \
+	android/gradle.properties \
+	android/gradle/wrapper/gradle-wrapper.jar \
+	android/gradle/wrapper/gradle-wrapper.properties \
+	android/gradlew \
+	android/gradlew.bat \
+	android/res/values/libs.xml
 
 #ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+
+contains(ANDROID_TARGET_ARCH,x86_64) {
+	ANDROID_PACKAGE_SOURCE_DIR = \
+		$$PWD/android
+}
+
+contains(ANDROID_TARGET_ARCH,arm64-v8a) {
+	ANDROID_PACKAGE_SOURCE_DIR = \
+		$$PWD/android
+}
+
+TARGET = SigmonLED
+ANDROID_VERSION_CODE = "1"
+ANDROID_VERSION_NAME = "0.5.0-beta"
