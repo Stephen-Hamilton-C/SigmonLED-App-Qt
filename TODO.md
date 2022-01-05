@@ -4,8 +4,7 @@ Needed and planned features will be placed into this file.
 
 ## [TODO]
 
-### Qt6 [PRIORITY]
-- [ ] Make note of all errors
+Here's what needs to happen before full release.
 
 ### Color Editing
 - [ ] Copy & paste function
@@ -28,7 +27,9 @@ Needed and planned features will be placed into this file.
 
 ### QoL
 - [ ] Make prompt for location services if they are disabled (needed for BLE)
-- [ ] Fix layout for regular sized phones (use emulators)
+- [ ] Make pair button so that location services may not be required
+- [ ] Maybe even make renaming functionality so user doesn't need serial adapter
+- [x] Fix layout for regular sized phones (use emulators)
 
 ### Layout
 - [x] Fix layout for PaletteForm
