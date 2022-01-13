@@ -6,9 +6,12 @@ Needed and planned features will be placed into this file.
 
 Here's what needs to happen before full release.
 
+### Static Palette
+- [ ] No movement on the LEDs, just stays still. Will need to add to Arduino code.
+
 ### Color Editing
 - [ ] Copy & paste function
-- [ ] Swatch color selector
+- [ ] Qt Color Dialog
 	- [ ] Recent colors
 - [ ] Repeating patterns, like have only 2 selections and the pattern sent is simply those 2 colors repeating
 	- [ ] Maybe integrate this into Arduino, if it's sent too few colors, then automatically repeat the pattern
