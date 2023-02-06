@@ -1,3 +1,7 @@
+# ARCHIVED
+This was built for both desktop and Android, but was very messy, and did not feel very good on desktop.
+See [SigmonLED-App](https://github.com/Stephen-Hamilton-C/SigmonLED-App) for a specifically made Android app and [SigmonLED-Desktop](https://github.com/Stephen-Hamilton-C/SigmonLED-Desktop) for a specifically made desktop application.
+
 # SigmonLED App
 This application allows your device to control a Bluetooth-powered SigmonLED Arduino. See [SigmonLED-Arduino](https://github.com/Stephen-Hamilton-C/SigmonLED-Arduino) for the Arduino code.
 
